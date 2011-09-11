@@ -1,0 +1,365 @@
+﻿Public Class perNR
+    Inherits AcessoBd
+
+#Region "Variáveis"
+    Private objProximoID As New ProximoID
+#End Region
+
+#Region "Propriedades"
+
+    ReadOnly Property sqlConsulta() As String
+        Get
+            Dim sSql As String
+            sSql = "SELECT IDNR, Descricao"
+            sSql &= " FROM NR"
+            sSql &= " ORDER BY IDNR"
+            Return sSql
+        End Get
+    End Property
+
+#End Region
+
+    Public Function Inserir_NR(ByVal iIDNR As Integer, _
+                               ByVal sDescricao As String) As Integer
+
+        Dim sSql As String
+
+        sSql = " INSERT INTO NR " & vbCrLf
+        sSql &= "  ( " & vbCrLf
+        sSql &= "       IDNR, " & vbCrLf
+        sSql &= "       Descricao " & vbCrLf
+        sSql &= "  ) " & vbCrLf
+        sSql &= " VALUES " & vbCrLf
+        sSql &= "  ( " & vbCrLf
+        sSql &= "       @IDNR, " & vbCrLf
+        sSql &= "       @Descricao" & vbCrLf
+        sSql &= "  ) "
+
+        With MyBase.SQLCmd.Parameters
+            .Clear()
+            .AddWithValue("@IDNR", iIDNR)
+            .AddWithValue("@Descricao", sDescricao)
+        End With
+
+        MyBase.executarAcao(sSql)
+
+        Return iIDNR
+
+    End Function
+
+    Public Sub Atualizar_NR(ByVal iIDNR As Integer, _
+                           ByVal sDescricao As String)
+
+        Dim sSql As String
+
+        sSql = "  UPDATE NR SET "
+        sSql &= "   Descricao = @Descricao "
+        sSql &= " WHERE "
+        sSql &= "   IDNR = @IDNR "
+
+        With MyBase.SQLCmd.Parameters
+            .Clear()
+            .AddWithValue("@Descricao", sDescricao.Trim)
+            .AddWithValue("@IDNR", iIDNR)
+        End With
+
+        MyBase.executarAcao(sSql)
+
+    End Sub
+
+    Public Sub Excluir_NR(ByVal iIDNR As Integer)
+
+        Dim sSql As String
+
+        sSql = "  DELETE FROM "
+        sSql &= "   NR "
+        sSql &= " WHERE "
+        sSql &= "   IDNR = @IDNR "
+
+        With MyBase.SQLCmd.Parameters
+            .Clear()
+            .AddWithValue("@IDNR", iIDNR)
+        End With
+
+        MyBase.executarAcao(sSql)
+
+    End Sub
+
+    Public Function selecionarCampo(ByVal iIDNR As Integer, _
+                                    ByVal sCampo As String) As Object
+
+        Dim sSql As String
+
+        sSql = "  SELECT " & sCampo
+        sSql &= "   FROM NR "
+        sSql &= " WHERE  "
+        sSql &= "   IDNR = @IDNR"
+
+        With MyBase.SQLCmd.Parameters
+            .Clear()
+            .AddWithValue("@IDNR", iIDNR)
+        End With
+
+        Return MyBase.executarConsultaCampo(sSql)
+
+    End Function
+
+    Public Function Validar_CodNR(ByVal iIDNR As Integer) As Boolean
+        Dim sSql As String
+        Dim dtbDados As New DataTable
+
+        sSql = ""
+        sSql &= "SELECT IDNR" & vbCrLf
+        sSql &= "  FROM NR" & vbCrLf
+        sSql &= " WHERE IDNR = @IDNR" & vbCrLf
+
+        With MyBase.SQLCmd.Parameters
+            .Clear()
+            .AddWithValue("@IDNR", iIDNR)
+        End With
+
+        dtbDados = MyBase.executarConsulta(sSql)
+
+        Return (dtbDados.Rows.Count = 0)
+
+    End Function
+
+    Public Function Validar_ExclusaoNR(ByVal iIDNR As Integer) As Boolean
+        Dim sSql As String
+        Dim dtbDados As New DataTable
+
+        sSql = ""
+        sSql &= "SELECT IDNR" & vbCrLf
+        sSql &= "  FROM CheckList" & vbCrLf
+        sSql &= " WHERE IDNR = @IDNR" & vbCrLf
+
+        With MyBase.SQLCmd.Parameters
+            .Clear()
+            .AddWithValue("@IDNR", iIDNR)
+        End With
+
+        dtbDados = MyBase.executarConsulta(sSql)
+
+        Return (dtbDados.Rows.Count = 0)
+
+    End Function
+
+    Public Function Retornar_NR_Empresa(ByVal iIDEmpresa As Integer) As DataTable
+        Dim sSql As String
+
+        sSql = "SELECT NR.IDNR, NR.Descricao, NRE.Validade, " & vbCrLf
+        sSql &= "      CASE WHEN NRE.IDNR IS NULL THEN 0 ELSE 1 END AS [Aplicavel]" & vbCrLf
+        sSql &= " FROM NR" & vbCrLf
+        sSql &= "      LEFT JOIN NR_Empresa NRE ON NR.IDNR = NRE.IDNR OR NRE.IDNR IS NULL " & vbCrLf
+        sSql &= "WHERE ISNULL(NRE.IDEmpresa, @IDEmpresa) = @IDEmpresa" & vbCrLf
+
+        With MyBase.SQLCmd.Parameters
+            .AddWithValue("@IDEmpresa", iIDEmpresa)
+        End With
+
+        Return MyBase.executarConsulta(sSql)
+
+    End Function
+
+    Public Sub Excluir_Associacao_NR_Empresa(ByVal iIDEmpresa As Integer)
+        Dim sSql As String
+
+        sSql = "DELETE NR_Empresa " & vbCrLf
+        sSql &= "WHERE IDEmpresa = @IDEmpresa" & vbCrLf
+
+        MyBase.SQLCmd.Parameters.Clear()
+        MyBase.SQLCmd.Parameters.AddWithValue("@IDEmpresa", iIDEmpresa)
+        MyBase.executarAcao(sSql)
+
+    End Sub
+
+    Public Sub Inserir_Associacao_NR_Empresa(ByVal iIDEmpresa As Integer, _
+                                             ByVal iIDNR As Integer, _
+                                             ByVal iValidade As Integer)
+        Dim sSql As String
+
+        sSql = " INSERT INTO NR_Empresa(IDEmpresa, IDNR, Validade)" & vbCrLf
+        sSql &= "                VALUES(@IDEmpresa, @IDNR, @Validade) "
+
+        With MyBase.SQLCmd.Parameters
+            .Clear()
+            .AddWithValue("@IDEmpresa", iIDEmpresa)
+            .AddWithValue("@IDNR", iIDNR)
+            .AddWithValue("@Validade", iValidade)
+        End With
+        MyBase.executarAcao(sSql)
+
+    End Sub
+
+    Public Function Retornar_CheckList(ByVal iIDEmpresa As Integer, ByVal iIDCheckList As Integer, _
+                                       ByVal iIDNR As Integer) As DataTable
+        Dim sSql As String
+
+        sSql = "SELECT NR.IDNR,A.CodArtigo + A.Letra as Artigo, A.Penalidade, " & vbCrLf
+        sSql &= "      Q.IDQuestao, Q.Questao, CI.StatusItem, CI.Justificativa, D.NomeArquivo, D.IDTipo as IDArquivo, " & vbCrLf
+        sSql &= "      D.Descricao as DescricaoArquivo, Ar.Arquivo, D.IDDocumento " & vbCrLf
+        sSql &= " FROM NR" & vbCrLf
+        sSql &= "      INNER JOIN NR_Empresa NRE ON NR.IDNR = NRE.IDNR " & vbCrLf
+        sSql &= "      INNER JOIN Artigo A On A.IDNR = NR.IDNR" & vbCrLf
+        sSql &= "      INNER JOIN Questao Q On A.IDArtigo = Q.IDARtigo" & vbCrLf
+        sSql &= "      LEFT JOIN CheckList_Itens CI On Q.IDQuestao = CI.IDQuestao " & vbCrLf
+        If (iIDCheckList > 0) Then
+            sSql &= "                                 AND CI.IDCheckList = @IDCheckList" & vbCrLf
+            sSql &= "      LEFT JOIN Documento D On D.IDTipo = CI.IDItem AND D.Tipo = @TipoDocumento " & vbCrLf
+            sSql &= "      LEFT JOIN Arquivo Ar On D.IDDocumento = Ar.IDDocumento " & vbCrLf
+        Else
+            sSql &= "                                 AND CI.IDCheckList IS NULL" & vbCrLf
+            sSql &= "      LEFT JOIN Documento D On D.IDTipo = CI.IDItem AND D.Tipo IS NULL " & vbCrLf
+            sSql &= "      LEFT JOIN Arquivo Ar On D.IDDocumento = Ar.IDDocumento " & vbCrLf
+        End If
+
+        sSql &= " WHERE ISNULL(NRE.IDEmpresa, @IDEmpresa) = @IDEmpresa" & vbCrLf
+
+        If (iIDNR > 0) Then
+            sSql &= "  AND NRE.IDNR = @IDNR" & vbCrLf
+        End If
+
+        With MyBase.SQLCmd.Parameters
+            .Clear()
+
+            If (iIDCheckList > 0) Then
+                .AddWithValue("@IDCheckList", iIDCheckList)
+            End If
+            .AddWithValue("@TipoDocumento", Persistencia.Globais.eTipoArquivo.Evidência)
+            .AddWithValue("@IDEmpresa", iIDEmpresa)
+            If (iIDNR > 0) Then
+                .AddWithValue("@IDNR", iIDNR)
+            End If
+        End With
+
+        Return MyBase.executarConsulta(sSql)
+
+    End Function
+
+    Public Function Retornar_Descricao_NR(ByVal iIDNR As Integer) As String
+        Dim sSql As String
+        Dim dtDados As New DataTable
+
+        sSql = "SELECT Descricao" & vbCrLf
+        sSql &= " FROM NR" & vbCrLf
+        sSql &= "WHERE IDNR = @IDNR" & vbCrLf
+
+        With MyBase.SQLCmd.Parameters
+            .Clear()
+            .AddWithValue("@IDNR", iIDNR)
+        End With
+
+        Return MyBase.executarConsultaCampo(sSql)
+
+    End Function
+
+    Public Function selecionarNRRelatorio(ByVal iIdEmpresa As Integer, _
+                                          ByVal sIdsEmpresasAcesso As String, _
+                                          ByVal dtData As Date) As DataSet
+
+        Dim sSql As String
+
+        Try
+
+            sSql = "  SELECT "
+            sSql &= "   IDNR, "
+            sSql &= "   SUM(Total) AS Total, "
+            sSql &= "   SUM(ISNULL(A,0))AS OK,"
+            sSql &= "   SUM(ISNULL(B,0))AS NOk, "
+            sSql &= "   IDEMPRESA "
+            sSql &= " FROM  "
+            sSql &= "   (SELECT NRE.IDNR,  NRE.IDEMPRESA, COUNT(CI.IDCheckList) AS Total,  "
+            sSql &= "       CASE WHEN StatusItem = 1 THEN COUNT(CI.IDCheckList) END AS A,  "
+            sSql &= "       CASE WHEN StatusItem = 2 THEN COUNT(CI.IDCheckList) END AS B "
+            sSql &= " FROM NR_Empresa NRE "
+            sSql &= "   LEFT JOIN CheckList C ON (C.IDNR = NRE.IDNR "
+            sSql &= "   AND (NOT C.Data IS NULL AND CONVERT(DATETIME, DATEADD(mm,NRE.Validade,C.Data),103)> @Data))  "
+            sSql &= "       OR C.IDNR IS NULL "
+            sSql &= "   LEFT JOIN CheckList_Itens CI ON C.IDCheckList = CI.IDCheckList "
+            sSql &= " WHERE 1=1"
+
+            If iIdEmpresa > 0 Then
+                sSql &= " AND (NRE.IDEmpresa = @IDEmpresa) "
+            ElseIf sIdsEmpresasAcesso <> String.Empty Then
+                sSql &= " AND (NRE.IDEmpresa IN ( " & sIdsEmpresasAcesso & " )) "
+            End If
+
+            sSql &= " GROUP BY CI.StatusItem,NRE.IDNR,NRE.IDEMPRESA) AS Tabela"
+            sSql &= " GROUP BY IDNR, IDEMPRESA "
+
+            With MyBase.SQLCmd.Parameters
+
+                .Clear()
+
+                If iIdEmpresa > 0 Then
+                    .AddWithValue("@IDEmpresa", iIdEmpresa)
+                End If
+
+                .AddWithValue("@Data", dtData)
+
+            End With
+
+            Return MyBase.executarConsulta(sSql, "Empresa")
+
+        Catch ex As Exception
+            Throw New Exception("Ocorreu um erro ao tentar selecionar os dados da Empresa." & Environment.NewLine & ex.Message)
+        End Try
+
+    End Function
+
+    Public Function selecionarNRAuditoriaRelatorio(ByVal iIdEmpresa As Integer, _
+                                                   ByVal sIdsEmpresasAcesso As String, _
+                                                   ByVal dtData As Date) As DataSet
+
+        Dim sSql As String
+
+        Try
+
+            sSql = "  SELECT "
+            sSql &= "   IDNR, "
+            sSql &= "   SUM(Total) AS Total, "
+            sSql &= "   SUM(ISNULL(A,0))AS OK,"
+            sSql &= "   SUM(ISNULL(B,0))AS NOk, "
+            sSql &= "   IDEMPRESA "
+            sSql &= " FROM  "
+            sSql &= "   (SELECT NRE.IDNR,  NRE.IDEMPRESA, COUNT(AI.IDCheckList) AS Total,  "
+            sSql &= "       CASE WHEN Status_Item = 1 THEN COUNT(AI.IDCheckList) END AS A,  "
+            sSql &= "       CASE WHEN Status_Item = 2 THEN COUNT(AI.IDCheckList) END AS B "
+            sSql &= " FROM NR_Empresa NRE "
+            sSql &= "   LEFT JOIN CheckList C ON C.IDNR = NRE.IDNR "
+            sSql &= "    LEFT JOIN Auditoria A ON (A.IDCheckList = C.IDCheckList "
+            sSql &= "   AND (NOT A.Data IS NULL AND CONVERT(DATETIME, DATEADD(mm,NRE.Validade,A.Data),103)> @Data))  "
+            sSql &= "       OR C.IDNR IS NULL "
+            sSql &= "   LEFT JOIN Auditoria_Itens AI ON A.IDAuditoria = AI.IDAuditoria "
+            sSql &= " WHERE 1=1"
+
+            If iIdEmpresa > 0 Then
+                sSql &= " AND (NRE.IDEmpresa = @IDEmpresa) "
+            ElseIf sIdsEmpresasAcesso <> String.Empty Then
+                sSql &= " AND (NRE.IDEmpresa IN ( " & sIdsEmpresasAcesso & " )) "
+            End If
+
+            sSql &= " GROUP BY AI.Status_Item,NRE.IDNR,NRE.IDEMPRESA) AS Tabela"
+            sSql &= " GROUP BY IDNR, IDEMPRESA "
+
+            With MyBase.SQLCmd.Parameters
+
+                .Clear()
+
+                If iIdEmpresa > 0 Then
+                    .AddWithValue("@IDEmpresa", iIdEmpresa)
+                End If
+
+                .AddWithValue("@Data", dtData)
+
+            End With
+
+            Return MyBase.executarConsulta(sSql, "Empresa")
+
+        Catch ex As Exception
+            Throw New Exception("Ocorreu um erro ao tentar selecionar os dados da Empresa." & Environment.NewLine & ex.Message)
+        End Try
+
+    End Function
+
+End Class
