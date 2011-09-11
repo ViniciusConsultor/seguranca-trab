@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsNR" targetNamespace="http://tempuri.org/dsNR.xsd" xmlns:mstns="http://tempuri.org/dsNR.xsd" xmlns="http://tempuri.org/dsNR.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsNR" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="dsNR" msprop:Generator_DataSetName="dsNR" msprop:EnableTableAdapterManager="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="NR" msprop:Generator_UserTableName="NR" msprop:Generator_RowDeletedName="NRRowDeleted" msprop:Generator_RowChangedName="NRRowChanged" msprop:Generator_RowClassName="NRRow" msprop:Generator_RowChangingName="NRRowChanging" msprop:Generator_RowEvArgName="NRRowChangeEvent" msprop:Generator_RowEvHandlerName="NRRowChangeEventHandler" msprop:Generator_TableClassName="NRDataTable" msprop:Generator_TableVarName="tableNR" msprop:Generator_RowDeletingName="NRRowDeleting" msprop:Generator_TablePropName="NR">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IDEmpresa" msprop:Generator_UserColumnName="IDEmpresa" msprop:Generator_ColumnPropNameInRow="IDEmpresa" msprop:Generator_ColumnVarNameInTable="columnIDEmpresa" msprop:Generator_ColumnPropNameInTable="IDEmpresaColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="Empresa" msprop:Generator_UserColumnName="Empresa" msprop:Generator_ColumnPropNameInRow="Empresa" msprop:Generator_ColumnVarNameInTable="columnEmpresa" msprop:Generator_ColumnPropNameInTable="EmpresaColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="IDNR" msprop:Generator_UserColumnName="IDNR" msprop:Generator_ColumnPropNameInRow="IDNR" msprop:Generator_ColumnVarNameInTable="columnIDNR" msprop:Generator_ColumnPropNameInTable="IDNRColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="NR" msprop:Generator_UserColumnName="NR" msprop:Generator_ColumnPropNameInRow="NR" msprop:Generator_ColumnVarNameInTable="columnNR" msprop:Generator_ColumnPropNameInTable="NRColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="NConcluido" msprop:Generator_UserColumnName="NConcluido" msprop:Generator_ColumnPropNameInRow="NConcluido" msprop:Generator_ColumnVarNameInTable="columnNConcluido" msprop:Generator_ColumnPropNameInTable="NConcluidoColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="OK" msprop:Generator_UserColumnName="OK" msprop:Generator_ColumnVarNameInTable="columnOK" msprop:Generator_ColumnPropNameInRow="OK" msprop:Generator_ColumnPropNameInTable="OKColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="NOK" msprop:Generator_UserColumnName="NOK" msprop:Generator_ColumnVarNameInTable="columnNOK" msprop:Generator_ColumnPropNameInRow="NOK" msprop:Generator_ColumnPropNameInTable="NOKColumn" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

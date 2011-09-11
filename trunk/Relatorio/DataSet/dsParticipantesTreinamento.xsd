@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsParticipantesTreinamento" targetNamespace="http://tempuri.org/dsParticipantesTreinamento.xsd" xmlns:mstns="http://tempuri.org/dsParticipantesTreinamento.xsd" xmlns="http://tempuri.org/dsParticipantesTreinamento.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsParticipantesTreinamento" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="dsParticipantesTreinamento" msprop:Generator_DataSetName="dsParticipantesTreinamento" msprop:EnableTableAdapterManager="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Treinamento" msprop:Generator_UserTableName="Treinamento" msprop:Generator_RowDeletedName="TreinamentoRowDeleted" msprop:Generator_RowChangedName="TreinamentoRowChanged" msprop:Generator_RowClassName="TreinamentoRow" msprop:Generator_RowChangingName="TreinamentoRowChanging" msprop:Generator_RowEvArgName="TreinamentoRowChangeEvent" msprop:Generator_RowEvHandlerName="TreinamentoRowChangeEventHandler" msprop:Generator_TableClassName="TreinamentoDataTable" msprop:Generator_TableVarName="tableTreinamento" msprop:Generator_RowDeletingName="TreinamentoRowDeleting" msprop:Generator_TablePropName="Treinamento">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TipoTreinamento" msprop:Generator_UserColumnName="TipoTreinamento" msprop:Generator_ColumnPropNameInRow="TipoTreinamento" msprop:Generator_ColumnVarNameInTable="columnTipoTreinamento" msprop:Generator_ColumnPropNameInTable="TipoTreinamentoColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Ministrante" msprop:Generator_UserColumnName="Ministrante" msprop:Generator_ColumnPropNameInRow="Ministrante" msprop:Generator_ColumnVarNameInTable="columnMinistrante" msprop:Generator_ColumnPropNameInTable="MinistranteColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Data" msprop:Generator_UserColumnName="Data" msprop:Generator_ColumnPropNameInRow="Data" msprop:Generator_ColumnVarNameInTable="columnData" msprop:Generator_ColumnPropNameInTable="DataColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Empresa" msprop:Generator_UserColumnName="Empresa" msprop:Generator_ColumnPropNameInRow="Empresa" msprop:Generator_ColumnVarNameInTable="columnEmpresa" msprop:Generator_ColumnPropNameInTable="EmpresaColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="IDTipoTreinamento" msprop:Generator_UserColumnName="IDTipoTreinamento" msprop:Generator_ColumnPropNameInRow="IDTipoTreinamento" msprop:Generator_ColumnVarNameInTable="columnIDTipoTreinamento" msprop:Generator_ColumnPropNameInTable="IDTipoTreinamentoColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="IDAgendamento" msprop:Generator_UserColumnName="IDAgendamento" msprop:Generator_ColumnPropNameInRow="IDAgendamento" msprop:Generator_ColumnVarNameInTable="columnIDAgendamento" msprop:Generator_ColumnPropNameInTable="IDAgendamentoColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="IDEmpresa" msprop:Generator_UserColumnName="IDEmpresa" msprop:Generator_ColumnPropNameInRow="IDEmpresa" msprop:Generator_ColumnVarNameInTable="columnIDEmpresa" msprop:Generator_ColumnPropNameInTable="IDEmpresaColumn" type="xs:int" minOccurs="0" />
+              <xs:element name="Funcionario" msprop:Generator_UserColumnName="Funcionario" msprop:Generator_ColumnPropNameInRow="Funcionario" msprop:Generator_ColumnVarNameInTable="columnFuncionario" msprop:Generator_ColumnPropNameInTable="FuncionarioColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Treinamento" msprop:Generator_UserColumnName="Treinamento" msprop:Generator_ColumnPropNameInRow="Treinamento" msprop:Generator_ColumnVarNameInTable="columnTreinamento" msprop:Generator_ColumnPropNameInTable="TreinamentoColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Logomarca" msprop:Generator_UserColumnName="Logomarca" msprop:Generator_ColumnPropNameInRow="Logomarca" msprop:Generator_ColumnVarNameInTable="columnLogomarca" msprop:Generator_ColumnPropNameInTable="LogomarcaColumn" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="CpfFuncionario" msprop:Generator_UserColumnName="CpfFuncionario" msprop:Generator_ColumnPropNameInRow="CpfFuncionario" msprop:Generator_ColumnVarNameInTable="columnCpfFuncionario" msprop:Generator_ColumnPropNameInTable="CpfFuncionarioColumn" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
