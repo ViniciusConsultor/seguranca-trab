@@ -14,7 +14,7 @@
 
 #Region " Propriedades/Métodos Públicos "
 
-    Public Overloads Function processa(ByVal bDiretoImpressora As Boolean, _
+    Public Overloads Function processa(ByVal bDiretoImpressora As Boolean,
                                        ByVal dsRPT As Object, ByVal crRPT As Object) As Boolean
         Return processa(IIf(bDiretoImpressora, eTipo.impressora, eTipo.windows), Nothing, dsRPT, crRPT)
     End Function

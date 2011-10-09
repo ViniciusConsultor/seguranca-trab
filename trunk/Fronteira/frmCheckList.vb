@@ -98,7 +98,7 @@ Public Class frmCheckList
                     .Visible = False
                     .ValueType = System.Type.GetType("System.Int32")
                     .DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
-
+                    .DefaultCellStyle.NullValue = 0
                 End With
                 .Columns.Add(Col_IDQuestao)
 
@@ -116,13 +116,13 @@ Public Class frmCheckList
                 Dim Col_Situacao As New DataGridViewComboBoxColumn()
                 With Col_Situacao
                     .HeaderText = "Situação"
-                    .Items.Add("")
+                    .Items.Add("Não Verificado")
                     .Items.Add("Ok")
                     .Items.Add("Não Ok")
-                    .Width = 60
+                    .Width = 90
                     .Frozen = False
                     .ReadOnly = False
-                    .FillWeight = 60
+                    .FillWeight = 90
                     .Visible = True
                     .ValueType = System.Type.GetType("System.String")
                 End With
@@ -230,8 +230,8 @@ Public Class frmCheckList
 
     End Sub
 
-    Private Sub exportarDocumentos(ByVal Arquivo As Byte(), _
-                               ByVal sNomeArquivo As String)
+    Private Sub exportarDocumentos(ByVal Arquivo As Byte(),
+                                   ByVal sNomeArquivo As String)
         Dim fs As FileStream
         Dim sCaminhoSelecionado As String
         Dim bits As Byte() = {0}
@@ -279,7 +279,7 @@ Public Class frmCheckList
                             .Item(eColunasGrid.IDNR, iLinha).Value = Conversao.nuloParaZero(drDados.Item("IDNR"))
                             .Item(eColunasGrid.Artigo, iLinha).Value = Conversao.nuloParaVazio(drDados.Item("Artigo"))
                             .Item(eColunasGrid.Penalidade, iLinha).Value = Conversao.nuloParaVazio(drDados.Item("Penalidade"))
-                            .Item(eColunasGrid.IDQuestao, iLinha).Value = Conversao.nuloParaVazio(drDados.Item("IDQuestao"))
+                            .Item(eColunasGrid.IDQuestao, iLinha).Value = Conversao.ToInt32(drDados.Item("IDQuestao"))
                             .Item(eColunasGrid.Questao, iLinha).Value = Conversao.nuloParaVazio(drDados.Item("Questao"))
 
                             'Itens editáveis
@@ -287,7 +287,7 @@ Public Class frmCheckList
 
                             Select Case btStatus
                                 Case Persistencia.perCheckList.eSituacaoItem.SemResposta
-                                    .Item(eColunasGrid.Situacao, iLinha).Value = ""
+                                    .Item(eColunasGrid.Situacao, iLinha).Value = "Não Verificado"
                                 Case Persistencia.perCheckList.eSituacaoItem.Ok
                                     .Item(eColunasGrid.Situacao, iLinha).Value = "Ok"
                                 Case Persistencia.perCheckList.eSituacaoItem.NaoOk
@@ -327,7 +327,7 @@ Public Class frmCheckList
 
             With dgvCheckList
 
-                If (.Item(eColunasGrid.Situacao, cont).Value = "") Then
+                If (.Item(eColunasGrid.Situacao, cont).Value = "Não Verificado") Then
                     bResultado = False
                 End If
 
@@ -386,7 +386,7 @@ Public Class frmCheckList
                         txtDescricao.Text = Conversao.nuloParaVazio(.Item("DescricaoNr"))
                         txtDtInicio.Text = Conversao.nuloParaData(.Item("data"))
 
-                        iPrvStatusCheck = Conversao.nuloParaZero(.Item("StatusCheckList"))
+                        Me.iPrvStatusCheck = Conversao.nuloParaZero(.Item("StatusCheckList"))
 
                         Select Case iPrvStatusCheck
                             Case Persistencia.perCheckList.eStatusCheckList.Cadastrado
@@ -411,11 +411,22 @@ Public Class frmCheckList
 
     Private Sub frmCheckList_excluir(ByRef bCancel As Boolean) Handles Me.excluir
 
+        Dim sMensagem As String = String.Empty
+
         Try
             bCancel = True
             If MsgBox("Deseja excluir o registro atual?", MsgBoxStyle.YesNo, Me.Text) = MsgBoxResult.Yes Then
-                If Not Me.objCheckList.Excluir_CheckList(Me.iPrvIDCheckList, iPrvStatusCheck) Then
+
+                If Not Me.objCheckList.Excluir_CheckList(Me.iPrvIDCheckList,
+                                                         iPrvStatusCheck) Then
                     MyBase.Mensagens = objCheckList.retornaMensagensValidacao
+
+                    For iContadorMensagens = 0 To MyBase.Mensagens(DSFronteiraPadrao.frmPadrao.eMensagem.Codigo).Count - 1
+                        sMensagem &= MyBase.Mensagens(DSFronteiraPadrao.frmPadrao.eMensagem.Mensagem).item(iContadorMensagens) & Environment.NewLine
+                    Next
+
+                    MessageBox.Show(sMensagem, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+
                 Else
                     bCancel = False
                     MyBase.chave = 0
@@ -465,8 +476,7 @@ Public Class frmCheckList
     Private Sub frmCheckList_inserir(ByRef bCancel As Boolean) Handles Me.inserir
         iPrvIDCheckList = 0
         iPrvStatusCheck = 0
-
-        Call Preencher_CheckList()
+        Me.Preencher_CheckList()
     End Sub
 
     Private Sub frmCheckList_limpaCampo() Handles Me.limpaCampo
@@ -538,7 +548,7 @@ Public Class frmCheckList
                     Me.txtDescricao.Text = objNR.Retornar_Descricao_NR(iPrvIDNR)
                 End If
 
-                Call Preencher_CheckList()
+                Me.Preencher_CheckList()
             Else
                 MsgBox("Registro não encontrado", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub

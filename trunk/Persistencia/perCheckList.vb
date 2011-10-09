@@ -153,7 +153,7 @@
             .Clear()
             .AddWithValue("@IDItem", iIDItem)
             .AddWithValue("@IDCheckList", iIDCheckList)
-            .AddWithValue("@IDQuestao", iIDQuestao)
+            .AddWithValue("@IDQuestao", Conversao.zeroParaNulo(iIDQuestao))
             .AddWithValue("@StatusItem", iSituacao)
             .AddWithValue("@Justificativa", sJustificativa)
         End With
@@ -271,8 +271,24 @@
     End Function
 
     Public Function Validar_Exclusao_CheckList(ByVal iIDCheckList As Integer) As Boolean
-        Dim sSql As String = ""
 
+        Dim bRetorno As Boolean = True
+        Dim sSql As String
+        Dim dtbDados As New DataTable
+
+        sSql = "SELECT IDCheckList" & vbCrLf
+        sSql &= " FROM Auditoria" & vbCrLf
+        sSql &= "WHERE " & vbCrLf
+        sSql &= "  IDCheckList = @IDCheckList" & vbCrLf
+
+        With MyBase.SQLCmd.Parameters
+            .Clear()
+            .AddWithValue("@IDCheckList", iIDCheckList)
+        End With
+
+        dtbDados = MyBase.executarConsulta(sSql)
+
+        Return (dtbDados.Rows.Count = 1)
 
     End Function
 

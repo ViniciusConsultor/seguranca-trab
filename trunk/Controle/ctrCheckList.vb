@@ -8,6 +8,7 @@ Public Class ctrCheckList
         PERIODO_INVÁLIDO = 0
         ITENS_EM_FALTA = 1
         STATUS_IMPEDITIVO = 2
+        VINCULADO_AUDITORIA = 3
     End Enum
 
 #End Region
@@ -17,7 +18,8 @@ Public Class ctrCheckList
 
     Private sMensagens() As String = {"Período informado conflita com outro check-list. Verifique.", _
                                       "NR sem itens a serem checados.", _
-                                      "O status definido para o check-list não permite exclusão."}
+                                      "- O status definido para o check-list não permite exclusão.",
+                                      "- Check-list vinculado a uma auditoria."}
 
     Private objCheckList As New perCheckList
     Private objDocumento As New Persistencia.perDocumento
@@ -68,12 +70,19 @@ Public Class ctrCheckList
 
     End Function
 
-    Private Function Validar_Exclusao(ByVal iStatus As Integer) As Boolean
+    Private Function Validar_Exclusao(ByVal iStatus As Integer,
+                                      ByVal iIdCheckList As Integer) As Boolean
         Dim bResultado As Boolean = True
 
         If (iStatus <> perCheckList.eStatusCheckList.Cadastrado) Then
             MyBase.adicionarMensagensValidacao(eMensagens.STATUS_IMPEDITIVO, _
                                             Me.sMensagens(eMensagens.STATUS_IMPEDITIVO))
+            bResultado = False
+        End If
+
+        If Me.objCheckList.Validar_Exclusao_CheckList(iIdCheckList) Then
+            MyBase.adicionarMensagensValidacao(eMensagens.VINCULADO_AUDITORIA,
+                                               Me.sMensagens(eMensagens.VINCULADO_AUDITORIA))
             bResultado = False
         End If
 
@@ -86,7 +95,10 @@ Public Class ctrCheckList
 
         Try
 
-            If (Validar_Exclusao(iIDStatus)) Then
+            MyBase.limparMensagensValidacao()
+
+            If (Validar_Exclusao(iIDStatus,
+                                 iIDCheckList)) Then
                 objCheckList.Excluir_Item_CheckList(iIDCheckList)
                 objCheckList.Excluir_CheckList(iIDCheckList)
             Else
@@ -131,7 +143,7 @@ Public Class ctrCheckList
 
                     For Each drDados As DataRow In dsCheckList.Tables(0).Rows
                         Select Case drDados.Item("Situação").ToString.ToUpper.Trim
-                            Case ""
+                            Case "NÃO VERIFICADO"
                                 iSituacao = perCheckList.eSituacaoItem.SemResposta
                             Case "OK"
                                 iSituacao = perCheckList.eSituacaoItem.Ok
@@ -141,23 +153,25 @@ Public Class ctrCheckList
 
                         End Select
 
-                        If (iSituacao = perCheckList.eSituacaoItem.Ok Or iSituacao = perCheckList.eSituacaoItem.NaoOk) Then
+                        If (iSituacao = perCheckList.eSituacaoItem.Ok OrElse iSituacao = perCheckList.eSituacaoItem.NaoOk) Then
+
                             iIDQuestao = Conversao.nuloParaZero(drDados.Item("IDQuestao"))
                             sJustificativa = Conversao.nuloParaVazio(drDados.Item("Justificativa"))
+
                             iItemCheckList = objCheckList.Inserir_Item_CheckList(iPrvIDCheckList, iIDQuestao, iSituacao, sJustificativa)
 
                             If Conversao.ToInt32(drDados.Item("IDArquivo")) > 0 Then
 
                                 If Not String.IsNullOrEmpty(Conversao.ToString(drDados.Item("Evidência"))) Then
 
-                                    Me.objDocumento.atualizarDocumento(drDados.Item("IDDocumento"), _
-                                                                       Globais.iIDEmpresa, _
-                                                                       drDados.Item("DescricaoDocumento"), _
-                                                                       drDados.Item("Evidência"), _
-                                                                       Globais.eTipoArquivo.Evidência, _
+                                    Me.objDocumento.atualizarDocumento(drDados.Item("IDDocumento"),
+                                                                       Globais.iIDEmpresa,
+                                                                       drDados.Item("DescricaoDocumento"),
+                                                                       drDados.Item("Evidência"),
+                                                                       Globais.eTipoArquivo.Evidência,
                                                                        iItemCheckList)
 
-                                    Me.objArquivo.atualizarArquivo(drDados.Item("IDDocumento"), _
+                                    Me.objArquivo.atualizarArquivo(drDados.Item("IDDocumento"),
                                                                    drDados.Item("Arquivo"))
 
                                 Else
@@ -167,16 +181,16 @@ Public Class ctrCheckList
 
                             Else
                                 If Not String.IsNullOrEmpty(Conversao.ToString(drDados.Item("Evidência"))) Then
-                                    iIdDocumento = Me.objDocumento.inserirDocumento(Globais.iIDEmpresa, _
-                                                                                drDados.Item("DescricaoDocumento"), _
-                                                                                drDados.Item("Evidência"), _
-                                                                                Globais.eTipoArquivo.Evidência, _
+                                    iIdDocumento = Me.objDocumento.inserirDocumento(Globais.iIDEmpresa,
+                                                                                drDados.Item("DescricaoDocumento"),
+                                                                                drDados.Item("Evidência"),
+                                                                                Globais.eTipoArquivo.Evidência,
                                                                                 iItemCheckList)
                                     Me.objArquivo.inserirArquivo(iIdDocumento, _
                                                                  drDados.Item("Arquivo"))
 
                                 End If
-                                
+
                             End If
 
                         End If

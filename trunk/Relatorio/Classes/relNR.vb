@@ -7,6 +7,7 @@ Public Class relNR
     Private objEmpresa As New Persistencia.perEmpresa
     Private objNR As New Persistencia.perNR
     Private iIdEmpresa As Integer
+    Private iIDNR As Integer
     Private sIdsEmpresa As String
     Private dtData As Date
     Public Event Acompanhamento()
@@ -24,6 +25,15 @@ Public Class relNR
 #End Region
 
 #Region "Propriedades"
+
+    Public Property IDNR As Integer
+        Get
+            Return Me.iIDNR
+        End Get
+        Set(ByVal value As Integer)
+            Me.iIDNR = value
+        End Set
+    End Property
 
     Public Property TipoRelatorio() As eTipoRelatorioNR
         Get
@@ -83,13 +93,15 @@ Public Class relNR
 
             If Me.TipoRelatorio = eTipoRelatorioNR.eCheckList Then
 
-                dsDadosNR = Me.objNR.selecionarNRRelatorio(Me.IDEmpresa, _
-                                                           Me.IdsEmpresaAcesso, _
-                                                           Me.Data)
+                dsDadosNR = Me.objNR.selecionarNRRelatorio(Me.IDEmpresa,
+                                                           Me.IdsEmpresaAcesso,
+                                                           Me.Data,
+                                                           Me.IDNR)
             Else
-                dsDadosNR = Me.objNR.selecionarNRAuditoriaRelatorio(Me.IDEmpresa, _
-                                                                    Me.IdsEmpresaAcesso, _
-                                                                    Me.Data)
+                dsDadosNR = Me.objNR.selecionarNRAuditoriaRelatorio(Me.IDEmpresa,
+                                                                    Me.IdsEmpresaAcesso,
+                                                                    Me.Data,
+                                                                    Me.IDNR)
             End If
 
 

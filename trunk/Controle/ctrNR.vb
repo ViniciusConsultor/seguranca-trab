@@ -7,10 +7,34 @@ Public Class ctrNR
     Public Enum eMensagens As Byte
         DESCRICAO_OBRIGATORIO = 0
         NR_OBRIGATORIO = 1
+        NR_CADASTRADA = 2
     End Enum
 
     Public Enum eMensagensAssociacao As Byte
         VALIDADE_OBRIGATORIO = 0
+    End Enum
+
+    Public Enum eColunasArtigos
+        ArtigoCompleto = 0
+        Artigo = 1
+        Letra = 2
+        Texto = 3
+        Penalidade = 4
+        IDArtigo = 5
+    End Enum
+
+    Public Enum eColunasQuestoes
+        IDQuestao = 0
+        IDArtigo = 1
+        Questao = 2
+        Acao = 3
+        Documento = 4
+        ExcluirDocumento = 5
+        Evidencia = 6
+        IDItemCheckList = 7
+        DescricaoDocumento = 8
+        Arquivo = 9
+        IDDocumento = 10
     End Enum
 
 #End Region
@@ -24,8 +48,10 @@ Public Class ctrNR
     Private objNR As New Persistencia.perNR
     Private objQuestao As New Persistencia.perQuestao
 
-    Private sMensagens() As String = {"Descrição obrigatória.", _
-                                      "Número da NR obrigatório. "}
+    Private sMensagens() As String = {"Descrição obrigatória.",
+                                      "Número da NR obrigatório.",
+                                      "NR já cadastrada."}
+
     Private sMensagensAssociacao() As String = {"A validade da NR não pode ser zero. Insira um valor em meses."}
 
     Private iPrvIDNR As Integer
@@ -64,19 +90,27 @@ Public Class ctrNR
 
 #Region "Métodos"
 
-    Private Function seBemFormado(ByVal iIDNr As Integer, ByVal sDescricao As String) As Boolean
+    Private Function seBemFormado(ByVal iIDNr As Integer,
+                                  ByVal sDescricao As String,
+                                  ByVal iIDNRAntigo As Integer) As Boolean
 
         Dim bBemFormado As Boolean = True
 
         If (sDescricao = String.Empty) Then
-            MyBase.adicionarMensagensValidacao(eMensagens.DESCRICAO_OBRIGATORIO, _
+            MyBase.adicionarMensagensValidacao(eMensagens.DESCRICAO_OBRIGATORIO,
                                             Me.sMensagens(eMensagens.DESCRICAO_OBRIGATORIO))
             bBemFormado = False
         End If
 
         If (iIDNr = 0) Then
-            MyBase.adicionarMensagensValidacao(eMensagens.NR_OBRIGATORIO, _
+            MyBase.adicionarMensagensValidacao(eMensagens.NR_OBRIGATORIO,
                                             Me.sMensagens(eMensagens.NR_OBRIGATORIO))
+            bBemFormado = False
+        End If
+
+        If iIDNr <> iIDNRAntigo AndAlso Me.objNR.Validar_CodNR(iIDNr) Then
+            MyBase.adicionarMensagensValidacao(eMensagens.NR_CADASTRADA,
+                                               Me.sMensagens(eMensagens.NR_CADASTRADA))
             bBemFormado = False
         End If
 
@@ -119,10 +153,15 @@ Public Class ctrNR
 
     End Function
 
+    Public Function sePermiteExcluirArtigo(ByRef iIDArtigo As Integer) As Boolean
+        Return Me.objNR.sePermiteExcluirArtigo(iIDArtigo)
+    End Function
+
     Public Function Salvar(ByVal iIdNR As Integer, _
                            ByVal sDescricao As String, _
                            ByVal dsArtigos As DataSet, _
-                           ByVal dsPerguntas As DataSet) As Boolean
+                           ByVal dsPerguntas As DataSet,
+                           ByVal iIdNRAntigo As Integer) As Boolean
 
         Dim iIDArtigo As Integer = 0
         Dim iIDQuestao As Integer = 0
@@ -135,12 +174,15 @@ Public Class ctrNR
         Dim drQuestoes As DataRow
         Dim sQuestao As String = ""
         Dim sAcao As String = ""
+        Dim datArtigosBD As New DataTable
 
         Try
 
             Me.bResultado = True
 
-            If seBemFormado(Val(iIdNR), sDescricao.Trim) Then
+            If seBemFormado(iIdNR,
+                            sDescricao.Trim,
+                            iIdNRAntigo) Then
 
                 'MyBase.limparMensagensValidacao()
                 'MyBase.iniciarControleTransacional()
@@ -151,7 +193,7 @@ Public Class ctrNR
                 'Me.objDocumento.TransacaoOrigem = MyBase.ControleTransacional
                 'Me.objArquivo.TransacaoOrigem = MyBase.ControleTransacional
 
-                If (objNR.Validar_CodNR(iIdNR)) Then
+                If (Me.objNR.Validar_CodNR(iIdNR)) Then
                     Me.iPrvIDNR = objNR.Inserir_NR(iIdNR, sDescricao)
                 Else
                     Me.objNR.Atualizar_NR(iIdNR, sDescricao)
@@ -159,77 +201,96 @@ Public Class ctrNR
                 End If
 
                 If (Me.iPrvIDNR > 0) Then
-                    'Artigos NR
-                    'Exclui todos as questões e artigos daquela NR 
-                    'para inserí-los novamente
-                    Me.objQuestao.Excluir_Questao_Por_NR(iPrvIDNR)
-                    Me.objArtigo.Excluir_Artigos_NR(iIdNR)
 
                     If (dsArtigos.Tables(0).Rows.Count > 0) Then
 
+                        Me.objQuestao.Excluir_Questao_Por_NR(Me.iPrvIDNR)
+
                         For Each drArtigos In dsArtigos.Tables(0).Rows
-                            sCodArtigo = drArtigos.Item(1).ToString
-                            sLetra = drArtigos.Item(2).ToString
-                            sTexto = drArtigos.Item(3).ToString
-                            sPenalidade = drArtigos.Item(4).ToString
 
+                            sCodArtigo = drArtigos.Item(eColunasArtigos.Artigo)
+                            sLetra = drArtigos.Item(eColunasArtigos.Letra)
+                            sTexto = drArtigos.Item(eColunasArtigos.Texto)
+                            sPenalidade = drArtigos.Item(eColunasArtigos.Penalidade)
 
-                            iIDArtigo = objArtigo.Inserir_Artigo(Me.iPrvIDNR, _
-                                                                 sCodArtigo, _
-                                                                 sLetra, _
-                                                                 sTexto, _
-                                                                 sPenalidade)
+                            If drArtigos.Item(eColunasArtigos.IDArtigo) > 0 Then
 
-                            If (iIDArtigo > 0) Then
+                                iIDArtigo = drArtigos.Item(eColunasArtigos.IDArtigo)
 
-                                For Each drQuestoes In dsPerguntas.Tables(0).Rows
+                                Me.objArtigo.atualizarArtigo(Me.iPrvIDNR,
+                                                             sCodArtigo,
+                                                             sLetra,
+                                                             sTexto,
+                                                             sPenalidade,
+                                                             iIDArtigo)
+                            Else
 
-                                    If (sCodArtigo = drQuestoes.Item(1)) Then
-                                        sQuestao = drQuestoes.Item(2)
-                                        sAcao = drQuestoes.Item(3)
+                                iIDArtigo = objArtigo.Inserir_Artigo(Me.iPrvIDNR,
+                                                                     sCodArtigo,
+                                                                     sLetra,
+                                                                     sTexto,
+                                                                     sPenalidade)
 
-                                        iIDQuestao = objQuestao.Inserir_Questoes(iIDArtigo, sQuestao, sAcao)
+                            End If
 
-                                        If Conversao.ToInt32(drQuestoes.Item("IDArquivo")) > 0 Then
+                            For Each drQuestoes In dsPerguntas.Tables(0).Rows
 
-                                            If Not String.IsNullOrEmpty(Conversao.ToString(drQuestoes.Item("Evidência"))) Then
+                                If (sCodArtigo = drQuestoes.Item(eColunasQuestoes.IDArtigo)) Then
+                                    sQuestao = drQuestoes.Item(eColunasQuestoes.Questao)
+                                    sAcao = drQuestoes.Item(eColunasQuestoes.Acao)
 
-                                                Me.objDocumento.atualizarDocumento(drQuestoes.Item("IDDocumento"), _
-                                                                                   Globais.iIDEmpresa, _
-                                                                                   drQuestoes.Item("DescricaoDocumento"), _
-                                                                                   drQuestoes.Item("Evidência"), _
-                                                                                   Globais.eTipoArquivo.NRQuestao, _
-                                                                                   iIDQuestao)
+                                    iIDQuestao = objQuestao.Inserir_Questoes(iIDArtigo, sQuestao, sAcao)
 
-                                                Me.objArquivo.atualizarArquivo(drQuestoes.Item("IDDocumento"), _
-                                                                               drQuestoes.Item("Arquivo"))
+                                    If Conversao.ToInt32(drQuestoes.Item("IDArquivo")) > 0 Then
 
-                                            Else
-                                                Me.objArquivo.excluirArquivo(drQuestoes.Item("IDDocumento"))
-                                                Me.objDocumento.excluirDocumento(drQuestoes.Item("IDDocumento"))
-                                            End If
+                                        If Not String.IsNullOrEmpty(Conversao.ToString(drQuestoes.Item("Evidência"))) Then
+
+                                            Me.objDocumento.atualizarDocumento(drQuestoes.Item("IDDocumento"), _
+                                                                               Globais.iIDEmpresa, _
+                                                                               drQuestoes.Item("DescricaoDocumento"), _
+                                                                               drQuestoes.Item("Evidência"), _
+                                                                               Globais.eTipoArquivo.NRQuestao, _
+                                                                               iIDQuestao)
+
+                                            Me.objArquivo.atualizarArquivo(drQuestoes.Item("IDDocumento"), _
+                                                                           drQuestoes.Item("Arquivo"))
 
                                         Else
-                                            If Not String.IsNullOrEmpty(Conversao.ToString(drQuestoes.Item("Evidência"))) Then
-                                                iIdDocumento = Me.objDocumento.inserirDocumento(Globais.iIDEmpresa, _
-                                                                                            drQuestoes.Item("DescricaoDocumento"), _
-                                                                                            drQuestoes.Item("Evidência"), _
-                                                                                            Globais.eTipoArquivo.NRQuestao, _
-                                                                                            iIDQuestao)
-                                                Me.objArquivo.inserirArquivo(iIdDocumento, _
-                                                                             drQuestoes.Item("Arquivo"))
+                                            Me.objArquivo.excluirArquivo(drQuestoes.Item("IDDocumento"))
+                                            Me.objDocumento.excluirDocumento(drQuestoes.Item("IDDocumento"))
+                                        End If
 
-                                            End If
+                                    Else
+                                        If Not String.IsNullOrEmpty(Conversao.ToString(drQuestoes.Item("Evidência"))) Then
+                                            iIdDocumento = Me.objDocumento.inserirDocumento(Globais.iIDEmpresa, _
+                                                                                        drQuestoes.Item("DescricaoDocumento"), _
+                                                                                        drQuestoes.Item("Evidência"), _
+                                                                                        Globais.eTipoArquivo.NRQuestao, _
+                                                                                        iIDQuestao)
+                                            Me.objArquivo.inserirArquivo(iIdDocumento, _
+                                                                         drQuestoes.Item("Arquivo"))
 
                                         End If
 
                                     End If
-                                Next
 
-                            End If
+                                End If
+                            Next
 
                         Next
 
+                        'Verifica quais artigos não estão no dataset do formulário e estão no banco de dados
+                        'para que possam ser excluidos
+                        datArtigosBD = Me.objArtigo.Selecionar_Artigos_NR(Me.iPrvIDNR)
+                        For Each drDados As DataRow In datArtigosBD.Rows
+                            If dsArtigos.Tables(0).Select("IDArtigo = " & drDados.Item("IDArtigo")).Length = 0 Then
+                                Me.objArtigo.Excluir_Artigos(drDados.Item("IDArtigo"))
+                            End If
+                        Next
+
+                    Else
+                        Me.objArtigo.Excluir_Artigos_NR(Me.iPrvIDNR)
+                        Me.objQuestao.Excluir_Questao_Por_NR(Me.iPrvIDNR)
                     End If
 
                 End If
@@ -303,6 +364,18 @@ Public Class ctrNR
 
     End Function
 
+    Public Function selecionarAssociacaoArtigosNREmpresa() As DataSet
+
+        Try
+
+            Return Me.objNR.selecionarAssociacaoArtigosNREmpresa()
+
+        Catch ex As Exception
+            Throw New Exception("Ocorreu um erro ao selecionar as questões relacionadas a NR. " & Environment.NewLine & ex.Message)
+        End Try
+
+    End Function
+
     Public Function Selecionar_Questoes_NR(ByVal iIDNR As Integer) As DataTable
 
         Try
@@ -326,8 +399,9 @@ Public Class ctrNR
 
     End Function
 
-    Public Function Salvar_NR_Empresa(ByVal iIDEmpresa As Integer, _
-                                      ByVal dsAssociacao As DataSet) As Boolean
+    Public Function Salvar_NR_Empresa(ByVal iIDEmpresa As Integer,
+                                      ByVal dsAssociacao As DataSet,
+                                      ByVal dtsArtigosAplicaveis As DataSet) As Boolean
 
         Dim drAssoc As DataRow
         Dim bMarcado As Boolean
@@ -341,7 +415,9 @@ Public Class ctrNR
 
                 If seBemFormadoAssociacao(dsAssociacao) Then
                     'Exclui todos as associações para inserí-las novamente
+
                     Me.objNR.Excluir_Associacao_NR_Empresa(iIDEmpresa)
+                    Me.objNR.excluirAssociacaoArtigosNREmpresa(iIDEmpresa)
 
                     If (dsAssociacao.Tables(0).Rows.Count > 0) Then
 
@@ -358,7 +434,15 @@ Public Class ctrNR
 
                         Next
 
+                        For Each drDados As DataRow In dtsArtigosAplicaveis.Tables(0).Rows
+
+                            Me.objNR.inserirAssociacaoArtigosNREmpresa(drDados.Item("IDEmpresa"),
+                                                                       drDados.Item("IDNR"),
+                                                                       drDados.Item("IDArtigo"))
+                        Next
+
                     End If
+
                     bResultado = True
                 End If
 

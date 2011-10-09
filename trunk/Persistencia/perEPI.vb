@@ -209,7 +209,7 @@
             sSql &= "   AND(FF.DataFim >@DataEntrega OR FF.DataFim IS NULL) " & vbCrLf
             sSql &= "   AND(E.IDEPI Not In(SELECT IDEPI" & vbCrLf
             sSql &= "                        FROM Funcionario_EPI" & vbCrLf
-            sSql &= "                       WHERE Funcionario_EPI.IDFuncionario = FF.IDFuncionario))" & vbCrLf
+            sSql &= "                       WHERE Funcionario_EPI.IDFuncionario = FF.IDFuncionario AND Devolucao IS NULL))" & vbCrLf
             If (btFiltro = 0) Then
                 sSql &= "UNION ALL" & vbCrLf & vbCrLf
             End If
@@ -229,6 +229,7 @@
             sSql &= "       INNER JOIN Funcionario_EPI FE ON FE.IDEPI = EPI.IDEPI" & vbCrLf
             sSql &= "                                    AND FE.IDFuncionario = @IDFuncionario" & vbCrLf
             sSql &= " GROUP BY EPI.IDEPI, EPI.DESCRICAO,Epi.CA, Epi.Fornecedor, EPI.VALIDADE" & vbCrLf
+
 
             If (btFiltro = 2 Or btFiltro = 0) Then
                 sSql &= "HAVING DATEADD(mm,EPI.VALIDADE,Max(FE.DataEntrega)) < Convert(datetime,@DataEntrega) "
@@ -371,25 +372,23 @@
         Dim sSql As String
         Dim dtbDados As New DataTable
 
-        sSql = "SELECT FE.IDEpi, E.Descricao, E.CA, " & vbCrLf
-        sSql &= "      FE.DataEntrega, FE.Quantidade,"
-        sSql &= "      FE.Devolucao, FE.Inativo"
-        sSql &= " FROM Funcionario_EPI FE" & vbCrLf
-        sSql &= "      INNER JOIN EPI E ON E.IDEpi = FE.IDEpi" & vbCrLf
-        sSql &= "WHERE 1=1"
-        'sSql &= "  AND ISNULL(Inativo, 0) = 0" & vbCrLf
-        'sSql &= "  AND Devolucao IS NULL" & vbCrLf
+        sSql = "SELECT FE.IDEpi, E.Descricao, E.CA, "
+        sSql &= "      FE.DataEntrega, FE.Quantidade, "
+        sSql &= "      FE.Devolucao, FE.Inativo "
+        sSql &= " FROM Funcionario_EPI FE "
+        sSql &= "      INNER JOIN EPI E ON E.IDEpi = FE.IDEpi "
+        sSql &= "WHERE 1=1 "
 
         If (iIDFuncionario > 0) Then
-            sSql &= "  AND IDFuncionario = @IDFuncionario" & vbCrLf
+            sSql &= "  AND IDFuncionario = @IDFuncionario "
         End If
 
         If (dtDataEntrega <> Date.MinValue) Then
-            sSql &= "  AND DataEntrega = '" & dtDataEntrega.ToString("dd/MM/yyyy") & "'" & vbCrLf
+            sSql &= "  AND DataEntrega = '" & dtDataEntrega.ToString("dd/MM/yyyy") & "'"
         End If
 
         If (iIDEpi > 0) Then
-            sSql &= "  AND IDEpi = @IDEpi" & vbCrLf
+            sSql &= "  AND IDEpi = @IDEpi "
         End If
 
         sSql &= "ORDER BY DataEntrega Desc"

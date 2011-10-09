@@ -22,24 +22,24 @@ Partial Class frmAuditoria
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Me.cmdSair = New System.Windows.Forms.Button
-        Me.fraFiltro2 = New System.Windows.Forms.GroupBox
-        Me.txtDataAuditoria = New System.Windows.Forms.DateTimePicker
-        Me.lblDtAuditoria = New System.Windows.Forms.Label
-        Me.fraCheckList = New System.Windows.Forms.GroupBox
-        Me.lblDataCheck = New System.Windows.Forms.Label
-        Me.cmdPesquisaCheckList = New System.Windows.Forms.Button
-        Me.txtDescNR = New System.Windows.Forms.TextBox
-        Me.lblNR = New System.Windows.Forms.Label
-        Me.txtNR = New System.Windows.Forms.TextBox
-        Me.lblStCheckList = New System.Windows.Forms.Label
-        Me.lblAuditoria = New System.Windows.Forms.Label
-        Me.txtIDAuditoria = New System.Windows.Forms.TextBox
-        Me.lblStatusCheckList = New System.Windows.Forms.Label
-        Me.lblStatus = New System.Windows.Forms.Label
-        Me.cmdPesquisaAuditoria = New System.Windows.Forms.Button
-        Me.dgvAuditoria = New System.Windows.Forms.DataGridView
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.cmdSair = New System.Windows.Forms.Button()
+        Me.fraFiltro2 = New System.Windows.Forms.GroupBox()
+        Me.txtDataAuditoria = New System.Windows.Forms.DateTimePicker()
+        Me.lblDtAuditoria = New System.Windows.Forms.Label()
+        Me.fraCheckList = New System.Windows.Forms.GroupBox()
+        Me.lblDataCheck = New System.Windows.Forms.Label()
+        Me.cmdPesquisaCheckList = New System.Windows.Forms.Button()
+        Me.txtDescNR = New System.Windows.Forms.TextBox()
+        Me.lblNR = New System.Windows.Forms.Label()
+        Me.txtNR = New System.Windows.Forms.TextBox()
+        Me.lblStCheckList = New System.Windows.Forms.Label()
+        Me.lblAuditoria = New System.Windows.Forms.Label()
+        Me.txtIDAuditoria = New System.Windows.Forms.TextBox()
+        Me.lblStatusCheckList = New System.Windows.Forms.Label()
+        Me.lblStatus = New System.Windows.Forms.Label()
+        Me.cmdPesquisaAuditoria = New System.Windows.Forms.Button()
+        Me.dgvAuditoria = New System.Windows.Forms.DataGridView()
         Me.fraGeral.SuspendLayout()
         CType(Me.epPadrao, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.fraFiltro2.SuspendLayout()
@@ -219,17 +219,19 @@ Partial Class frmAuditoria
         '
         'dgvAuditoria
         '
+        Me.dgvAuditoria.AllowUserToAddRows = False
+        Me.dgvAuditoria.AllowUserToDeleteRows = False
         Me.dgvAuditoria.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells
         Me.dgvAuditoria.BackgroundColor = System.Drawing.Color.White
         Me.dgvAuditoria.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvAuditoria.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvAuditoria.DefaultCellStyle = DataGridViewCellStyle1
         Me.dgvAuditoria.Location = New System.Drawing.Point(6, 131)
         Me.dgvAuditoria.Name = "dgvAuditoria"
         Me.dgvAuditoria.RowHeadersVisible = False

@@ -6,8 +6,10 @@ Public Class frmRelNR
     Private WithEvents objRelNR As New Relatorio.relNR
     Private objEmpresa As New Controle.ctrEmpresa
     Private objEmpresaUsuario As New Controle.ctrUsuarioEmpresa
+    Private objNR As New Controle.ctrNR
     Private iIdEmpresa As Integer = 0
     Private iTipoRelatorio As Relatorio.relNR.eTipoRelatorioNR
+    Private iIdNR As Integer = 0
     Private sIdsEmpresaAcesso As String = String.Empty
     Private sNomeRelatorio As String = String.Empty
 #End Region
@@ -57,6 +59,13 @@ Public Class frmRelNR
             Me.epPadrao.SetError(Me.chkTodasEmpresas, "")
         End If
 
+        If Not Me.chkTodasNR.Checked AndAlso Me.iIdNR = 0 Then
+            Me.epPadrao.SetError(Me.chkTodasNR, "Informe a NR")
+            bRetorno = False
+        Else
+            Me.epPadrao.SetError(Me.chkTodasNR, "Informe a NR")
+        End If
+
         Return bRetorno
 
     End Function
@@ -69,6 +78,8 @@ Public Class frmRelNR
 
             If Me.validaFormulario Then
 
+                Me.epPadrao.Clear()
+
                 With Me.objRelNR
 
                     If iIdEmpresa = 0 Then
@@ -78,6 +89,8 @@ Public Class frmRelNR
                         .IDEmpresa = Me.iIdEmpresa
                         .IdsEmpresaAcesso = String.Empty
                     End If
+
+                    .IDNR = Me.iIdNR
 
                     .Data = Me.dtpData.Value.Date
                     .TipoRelatorio = Me.TipoRelatorio
@@ -162,12 +175,6 @@ Public Class frmRelNR
 
     End Sub
 
-    Private Sub cmdSair_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSair.Click
-        Me.Close()
-    End Sub
-
-#End Region
-
     Private Sub chkTodasEmpresas_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chkTodasEmpresas.CheckedChanged
         If sender.checked Then
             Me.txtEmpresa.Enabled = False
@@ -180,4 +187,59 @@ Public Class frmRelNR
         End If
 
     End Sub
+
+    Private Sub cmdNR_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdNR.Click
+
+        Dim sSql As String
+        Dim frmDialogo As New frmPesquisa
+
+        sSql = Me.objNR.sqlConsulta()
+
+        With frmDialogo
+            .Sql = sSql
+            .Titulo = "Pesquisa NR"
+            .CarregaTela()
+            If .DS.Tables(0).Rows.Count > 0 Then
+                .ShowDialog()
+                If (.DialogResult = Windows.Forms.DialogResult.OK) Then
+                    Me.iIdNR = .ID
+                    Me.preencheDescricaoNR()
+                End If
+            Else
+                MsgBox("Registro não encontrado", MsgBoxStyle.Exclamation, Me.Text)
+                Exit Sub
+            End If
+        End With
+
+    End Sub
+
+    Private Sub preencheDescricaoNR()
+
+        If Me.iIdNR > 0 Then
+            Me.txtNR.Text = Conversao.ToString(Me.objNR.selecionarCampo(Me.iIdNR, "Descricao"))
+        Else
+            Me.txtNR.Text = String.Empty
+        End If
+
+    End Sub
+
+    Private Sub chkTodasNR_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chkTodasNR.CheckedChanged
+        If sender.checked Then
+            Me.txtNR.Enabled = False
+            Me.cmdNR.Enabled = False
+            Me.iIdNR = 0
+            Me.txtNR.Text = String.Empty
+        Else
+            Me.txtNR.Enabled = True
+            Me.cmdNR.Enabled = True
+        End If
+    End Sub
+
+    Private Sub cmdSair_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSair.Click
+        Me.Close()
+    End Sub
+
+#End Region
+
+    
 End Class

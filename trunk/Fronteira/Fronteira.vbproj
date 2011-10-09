@@ -144,6 +144,12 @@
     <Compile Include="frmArtigo.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmAssocNRArtigo.Designer.vb">
+      <DependentUpon>frmAssocNRArtigo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAssocNRArtigo.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmAtualiza.Designer.vb">
       <DependentUpon>frmAtualiza.vb</DependentUpon>
     </Compile>
@@ -343,6 +349,9 @@
     <Compile Include="Uteis\Uteis.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmAssocNRArtigo.resx">
+      <DependentUpon>frmAssocNRArtigo.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>PublicVbMyResourcesResXFileCodeGenerator</Generator>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
@@ -536,6 +545,7 @@
     </EmbeddedResource>
     <None Include="Icones\AlertaAlarm.png" />
     <None Include="Icones\accept.png" />
+    <EmbeddedResource Include="Icones\configurar.ico" />
     <Content Include="Icones\excluir_chave.png" />
     <Content Include="Icones\impressora.png" />
     <Content Include="Icones\loading.gif" />

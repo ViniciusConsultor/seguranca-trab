@@ -127,6 +127,10 @@ Public Class frmArtigo
                 sPrvArtigoNovo &= ".0"
             End If
 
+            If Me.sPrvPenalidade.Replace(",", "").Replace("/", "").Replace("-", "").Trim = String.Empty Then
+                Me.Penalidade = String.Empty
+            End If
+
             Me.DialogResult = Windows.Forms.DialogResult.OK
             Me.Close()
 
