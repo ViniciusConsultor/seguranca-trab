@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmAssocNR
+Partial Class frmAssocNRArtigo
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,12 +22,15 @@ Partial Class frmAssocNR
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.fraComando = New System.Windows.Forms.GroupBox()
         Me.cmdGravar = New System.Windows.Forms.Button()
         Me.cmdSair = New System.Windows.Forms.Button()
-        Me.dgvNR = New System.Windows.Forms.DataGridView()
+        Me.grpGrid = New System.Windows.Forms.GroupBox()
+        Me.dgvArtigos = New System.Windows.Forms.DataGridView()
         Me.fraComando.SuspendLayout()
-        CType(Me.dgvNR, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.grpGrid.SuspendLayout()
+        CType(Me.dgvArtigos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'fraComando
@@ -35,10 +38,10 @@ Partial Class frmAssocNR
         Me.fraComando.Controls.Add(Me.cmdGravar)
         Me.fraComando.Controls.Add(Me.cmdSair)
         Me.fraComando.Dock = System.Windows.Forms.DockStyle.Right
-        Me.fraComando.Location = New System.Drawing.Point(594, 0)
+        Me.fraComando.Location = New System.Drawing.Point(621, 0)
         Me.fraComando.Name = "fraComando"
         Me.fraComando.Size = New System.Drawing.Size(92, 398)
-        Me.fraComando.TabIndex = 2
+        Me.fraComando.TabIndex = 45
         Me.fraComando.TabStop = False
         '
         'cmdGravar
@@ -61,35 +64,55 @@ Partial Class frmAssocNR
         Me.cmdSair.Text = "Sair"
         Me.cmdSair.UseVisualStyleBackColor = True
         '
-        'dgvNR
+        'grpGrid
         '
-        Me.dgvNR.AllowUserToResizeRows = False
-        Me.dgvNR.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.dgvNR.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvNR.Location = New System.Drawing.Point(1, 5)
-        Me.dgvNR.Name = "dgvNR"
-        Me.dgvNR.Size = New System.Drawing.Size(587, 390)
-        Me.dgvNR.TabIndex = 44
+        Me.grpGrid.Controls.Add(Me.dgvArtigos)
+        Me.grpGrid.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.grpGrid.Location = New System.Drawing.Point(0, 0)
+        Me.grpGrid.Name = "grpGrid"
+        Me.grpGrid.Size = New System.Drawing.Size(621, 398)
+        Me.grpGrid.TabIndex = 46
+        Me.grpGrid.TabStop = False
         '
-        'frmAssocNR
+        'dgvArtigos
+        '
+        Me.dgvArtigos.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
+        Me.dgvArtigos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvArtigos.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvArtigos.Location = New System.Drawing.Point(3, 16)
+        Me.dgvArtigos.Name = "dgvArtigos"
+        Me.dgvArtigos.RowHeadersWidth = 20
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dgvArtigos.RowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvArtigos.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvArtigos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvArtigos.Size = New System.Drawing.Size(615, 379)
+        Me.dgvArtigos.TabIndex = 1
+        '
+        'frmAssocNRArtigo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(686, 398)
+        Me.ClientSize = New System.Drawing.Size(713, 398)
         Me.ControlBox = False
-        Me.Controls.Add(Me.dgvNR)
+        Me.Controls.Add(Me.grpGrid)
         Me.Controls.Add(Me.fraComando)
-        Me.Name = "frmAssocNR"
+        Me.MaximizeBox = False
+        Me.MinimizeBox = False
+        Me.Name = "frmAssocNRArtigo"
+        Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Configuração NR por Empresa"
+        Me.Text = "Associar artigos à NR"
         Me.fraComando.ResumeLayout(False)
-        CType(Me.dgvNR, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.grpGrid.ResumeLayout(False)
+        CType(Me.dgvArtigos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents fraComando As System.Windows.Forms.GroupBox
     Friend WithEvents cmdGravar As System.Windows.Forms.Button
     Friend WithEvents cmdSair As System.Windows.Forms.Button
-    Friend WithEvents dgvNR As System.Windows.Forms.DataGridView
+    Friend WithEvents grpGrid As System.Windows.Forms.GroupBox
+    Friend WithEvents dgvArtigos As System.Windows.Forms.DataGridView
 End Class

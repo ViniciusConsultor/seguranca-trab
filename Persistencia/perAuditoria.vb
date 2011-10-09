@@ -37,31 +37,39 @@
 #End Region
 
 
-    Public Function Retorna_Itens_Auditoria(ByVal iIDCheckList As Integer, ByVal iIDAuditoria As Integer) As DataTable
+    Public Function Retorna_Itens_Auditoria(ByVal iIDCheckList As Integer,
+                                            ByVal iIDAuditoria As Integer) As DataTable
+
         Dim sSql As String
 
-        sSql = "SELECT A.CodArtigo + A.Letra as Artigo," & vbCrLf
-        sSql &= "      Q.Questao, CI.StatusItem," & vbCrLf
-        sSql &= "      CI.Justificativa, D.NomeArquivo," & vbCrLf
-        sSql &= "      AUI.Status_Item, AUI.Justificativa as Auditoria, CI.IDItem" & vbCrLf
-        sSql &= " FROM CheckList_Itens CI" & vbCrLf
-        sSql &= "      INNER JOIN Questao Q On CI.IDQuestao = Q.IDQuestao" & vbCrLf
-        sSql &= "      INNER JOIN Artigo A On Q.IDArtigo = A.IDArtigo" & vbCrLf
-        sSql &= "      LEFT JOIN Documento D On D.IDTipo = CI.IDItem AND D.Tipo = @Tipo" & vbCrLf
-        sSql &= "      LEFT JOIN Auditoria_Itens  AUI ON AUI.idItem = CI.iditem" & vbCrLf
-        sSql &= "WHERE CI.IDCheckList = @IDCheckList" & vbCrLf
+        sSql = "SELECT A.CodArtigo + A.Letra as Artigo,"
+        sSql &= "      Q.Questao, CI.StatusItem,"
+        sSql &= "      CI.Justificativa,  "
+        sSql &= "      AUI.Status_Item, AUI.Justificativa as Auditoria, CI.IDItem, "
+        sSql &= "      D.NomeArquivo, D.IDTipo as IDArquivo, "
+        sSql &= "      D.Descricao as DescricaoArquivo, Ar.Arquivo, D.IDDocumento "
+        sSql &= " FROM CheckList_Itens CI"
+        sSql &= "      INNER JOIN Questao Q On CI.IDQuestao = Q.IDQuestao"
+        sSql &= "      INNER JOIN Artigo A On Q.IDArtigo = A.IDArtigo"
+        sSql &= "      LEFT JOIN Auditoria_Itens AUI ON AUI.IDItem = CI.IDItem "
 
         If (iIDAuditoria > 0) Then
-            sSql &= "  AND AUI.IDAuditoria = @IDAuditoria" & vbCrLf
+            sSql &= "               AND AUI.IDAuditoria = @IDAuditoria "
+            sSql &= "      LEFT JOIN Documento D On D.IDTipo = AUI.IDItem AND D.Tipo = @TipoDocumento "
+            sSql &= "      LEFT JOIN Arquivo Ar On D.IDDocumento = Ar.IDDocumento "
+        Else
+            sSql &= "               AND AUI.IDAuditoria IS NULL"
+            sSql &= "      LEFT JOIN Documento D On D.IDTipo = AUI.IDItem AND D.Tipo IS NULL "
+            sSql &= "      LEFT JOIN Arquivo Ar On D.IDDocumento = Ar.IDDocumento "
         End If
+
+        sSql &= "WHERE CI.IDCheckList = @IDCheckList"
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@Tipo", Globais.eTipoArquivo.Evidência)
+            .AddWithValue("@IDAuditoria", iIDAuditoria)
+            .AddWithValue("@TipoDocumento", Globais.eTipoArquivo.Auditoria)
             .AddWithValue("@IDCheckList", iIDCheckList)
-            If (iIDAuditoria > 0) Then
-                .AddWithValue("@IDAuditoria", iIDAuditoria)
-            End If
         End With
 
         Return MyBase.executarConsulta(sSql)
@@ -148,9 +156,9 @@
 
     End Function
 
-    Public Sub Inserir_Item_Auditoria(ByVal iIDAuditoria As Integer, ByVal iIDCheckList As Integer, _
+    Public Function Inserir_Item_Auditoria(ByVal iIDAuditoria As Integer, ByVal iIDCheckList As Integer, _
                                            ByVal iIDItem As Integer, ByVal iSituacao As Integer, _
-                                           ByVal sJustificativa As String)
+                                           ByVal sJustificativa As String) As Integer
         Dim sSql As String
 
         sSql = "INSERT INTO Auditoria_Itens(" & vbCrLf
@@ -179,7 +187,7 @@
 
         MyBase.executarAcao(sSql)
 
-    End Sub
+    End Function
 
     Public Function Retornar_Dados_Auditoria(ByVal iIDAuditoria As Integer) As DataTable
         Dim sSql As String = ""

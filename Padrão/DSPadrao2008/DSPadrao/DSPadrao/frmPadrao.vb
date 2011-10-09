@@ -209,10 +209,11 @@
         Me.modoAtual = eModo.eAlterando
         Me.alteraModopadrao(Me.modoAtual)
 
-        RaiseEvent alteraModo(Me.modoAtual)
         RaiseEvent limpaProvedorDeErros()
         RaiseEvent limpaCampo()
         RaiseEvent inserir(bCancel)
+        RaiseEvent alteraModo(Me.modoAtual)
+
 
         If bCancel Then
 

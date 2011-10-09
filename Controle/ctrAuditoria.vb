@@ -14,7 +14,8 @@ Public Class ctrAuditoria
     Private bResultado As Boolean = False
 
     Private objAuditoria As New perAuditoria
-
+    Private objDocumento As New Persistencia.perDocumento
+    Private objArquivo As New Persistencia.perArquivo
     Private sMensagens() As String = {"Data da auditoria inferior a data do check-list."}
 
 #End Region
@@ -103,6 +104,7 @@ Public Class ctrAuditoria
         Dim iIDItem As Integer
         Dim sJustificativa As String
         Dim iSituacao As Integer
+        Dim iIdDocumento As Integer = 0
 
         Try
 
@@ -112,7 +114,7 @@ Public Class ctrAuditoria
 
                 If (iIDAuditoria = 0) Then
 
-                    Me.iPrvIDAuditoria = objAuditoria.Inserir_Auditoria(Persistencia.Globais.iIDEmpresa, _
+                    Me.iPrvIDAuditoria = objAuditoria.Inserir_Auditoria(Persistencia.Globais.iIDEmpresa,
                                                                         iIDCheckList, dtDataAuditoria, iStatus)
                 Else
                     Me.iPrvIDAuditoria = iIDAuditoria
@@ -129,8 +131,9 @@ Public Class ctrAuditoria
 
                             iIDItem = drItens.Item("IDItem")
                             sJustificativa = drItens.Item("Argumento")
+
                             Select Case drItens.Item("Auditoria").ToString.ToUpper.Trim
-                                Case ""
+                                Case "NÃO VERIFICADO"
                                     iSituacao = perAuditoria.eSituacaoItem.SemResposta
                                 Case "OK"
                                     iSituacao = perAuditoria.eSituacaoItem.Ok
@@ -138,8 +141,44 @@ Public Class ctrAuditoria
                                     iSituacao = perAuditoria.eSituacaoItem.NaoOk
                             End Select
 
-                            objAuditoria.Inserir_Item_Auditoria(iPrvIDAuditoria, iIDCheckList, _
-                                                                iIDItem, iSituacao, sJustificativa)
+                            objAuditoria.Inserir_Item_Auditoria(iPrvIDAuditoria,
+                                                                iIDCheckList,
+                                                                iIDItem,
+                                                                iSituacao,
+                                                                sJustificativa)
+
+                            If Conversao.ToInt32(drItens.Item("IDArquivo")) > 0 Then
+
+                                If Not String.IsNullOrEmpty(Conversao.ToString(drItens.Item("Evidência"))) Then
+
+                                    Me.objDocumento.atualizarDocumento(drItens.Item("IDDocumento"),
+                                                                       Globais.iIDEmpresa,
+                                                                       drItens.Item("DescricaoDocumento"),
+                                                                       drItens.Item("Evidência"),
+                                                                       Globais.eTipoArquivo.Auditoria,
+                                                                       iIDItem)
+
+                                    Me.objArquivo.atualizarArquivo(drItens.Item("IDDocumento"),
+                                                                   drItens.Item("Arquivo"))
+
+                                Else
+                                    Me.objArquivo.excluirArquivo(drItens.Item("IDDocumento"))
+                                    Me.objDocumento.excluirDocumento(drItens.Item("IDDocumento"))
+                                End If
+
+                            Else
+                                If Not String.IsNullOrEmpty(Conversao.ToString(drItens.Item("Evidência"))) Then
+                                    iIdDocumento = Me.objDocumento.inserirDocumento(Globais.iIDEmpresa,
+                                                                                    drItens.Item("DescricaoDocumento"),
+                                                                                    drItens.Item("Evidência"),
+                                                                                    Globais.eTipoArquivo.Auditoria,
+                                                                                    iIDItem)
+                                    Me.objArquivo.inserirArquivo(iIdDocumento,
+                                                                 drItens.Item("Arquivo"))
+
+                                End If
+
+                            End If
 
                         Next
 

@@ -79,7 +79,7 @@
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@Tipo", Globais.eTipoArquivo.NRQuestao)
+            .AddWithValue("@Tipo", Globais.eTipoArquivo.NRQuestao.GetHashCode)
             .AddWithValue("@IDNR", iIDNR)
         End With
 

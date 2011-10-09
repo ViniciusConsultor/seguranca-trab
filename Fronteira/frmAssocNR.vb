@@ -9,7 +9,7 @@ Public Class frmAssocNR
         Descricao = 1
         Aplicavel = 2
         Validade = 3
-
+        ConfigArt = 4
     End Enum
 
 #End Region
@@ -19,6 +19,8 @@ Public Class frmAssocNR
 
     Private objEmpresa As New ctrEmpresa
     Private objNR As New ctrNR
+    Private dtsArtigosAplicaveis As DataSet
+
 #End Region
 
     Private Sub Configurar_Grid()
@@ -27,7 +29,7 @@ Public Class frmAssocNR
 
             With Me.dgvNR
                 .DataSource = Nothing
-                .SelectionMode = DataGridViewSelectionMode.FullRowSelect
+                .SelectionMode = DataGridViewSelectionMode.CellSelect
                 .AutoGenerateColumns = False
                 .AllowUserToAddRows = False
                 .AllowUserToResizeColumns = False
@@ -70,7 +72,7 @@ Public Class frmAssocNR
                     .SortMode = DataGridViewColumnSortMode.NotSortable
                     .Visible = True
                     .CellTemplate.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
-                    .ValueType = System.Type.GetType("System.boolean")
+                    .ValueType = System.Type.GetType("System.Boolean")
                 End With
                 .Columns.Add(Col_Aplicavel)
 
@@ -85,9 +87,26 @@ Public Class frmAssocNR
                     .SortMode = DataGridViewColumnSortMode.NotSortable
                     .Visible = True
                     .CellTemplate.Style.Alignment = DataGridViewContentAlignment.MiddleCenter
-                    .ValueType = System.Type.GetType("System.integer")
+                    .ValueType = System.Type.GetType("System.Int32")
                 End With
                 .Columns.Add(Col_ValidadeCheck)
+
+                Dim treeIcon As New Icon(Me.GetType(), "configurar.ico")
+                Dim ColConfig As New DataGridViewImageColumn
+                With ColConfig
+                    .HeaderText = "Config. Artigos"
+                    .Width = 50
+                    .ReadOnly = True
+                    .FillWeight = 100
+                    .AutoSizeMode = DataGridViewAutoSizeColumnMode.NotSet
+                    .SortMode = DataGridViewColumnSortMode.NotSortable
+                    .ImageLayout = DataGridViewImageCellLayout.NotSet
+                    .Visible = True
+                    .ValuesAreIcons = True
+                    .Image = treeIcon.ToBitmap
+                    .Icon = treeIcon
+                End With
+                .Columns.Add(ColConfig)
 
                 .Refresh()
 
@@ -109,6 +128,7 @@ Public Class frmAssocNR
             If (dtbNR_Empresa.Rows.Count > 0) Then
                 With Me.dgvNR
                     .RowCount = dtbNR_Empresa.Rows.Count
+
                     For Each drDados As DataRow In dtbNR_Empresa.Rows
                         .Item(eColunasGrid.CodNR, iLinha).Value = Conversao.nuloParaZero(drDados.Item("IDNR"))
                         .Item(eColunasGrid.Descricao, iLinha).Value = Conversao.nuloParaVazio(drDados.Item("Descricao"))
@@ -117,9 +137,9 @@ Public Class frmAssocNR
                         .Item(eColunasGrid.Aplicavel, iLinha).ReadOnly = bPrvSomenteLeitura
                         .Item(eColunasGrid.Validade, iLinha).ReadOnly = bPrvSomenteLeitura And Not bAplicavel
                         .Item(eColunasGrid.Validade, iLinha).Value = Conversao.nuloParaZero(drDados.Item("Validade"))
-
                         iLinha += 1
                     Next
+
                 End With
 
             End If
@@ -145,12 +165,16 @@ Public Class frmAssocNR
     End Sub
 
     Public Sub Salvar()
+
         Dim dsAssociacao As New DataSet
         Dim sMensagem As String
 
         Try
-            dsAssociacao = Persistencia.Conversao.converteGridParaDataset(dgvNR)
-            If (objNR.Salvar_NR_Empresa(Persistencia.Globais.iIDEmpresa, dsAssociacao)) Then
+            dsAssociacao = Conversao.converteGridParaDataset(Me.dgvNR)
+
+            If (Me.objNR.Salvar_NR_Empresa(Globais.iIDEmpresa,
+                                           dsAssociacao,
+                                           Me.dtsArtigosAplicaveis)) Then
                 Me.Close()
             Else
 
@@ -169,17 +193,31 @@ Public Class frmAssocNR
     End Sub
 
     Private Sub cmdGravar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdGravar.Click
-        Call Salvar()
+        Me.Salvar()
     End Sub
 
     Private Sub dgvNR_CellClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvNR.CellClick
-        With dgvNR
-            If (e.RowIndex >= 0) Then
-                If (e.ColumnIndex = eColunasGrid.Aplicavel) Then
-                    .Item(eColunasGrid.Validade, e.RowIndex).ReadOnly = .Item(eColunasGrid.Aplicavel, e.RowIndex).Value
-                End If
+
+        If (e.RowIndex >= 0) Then
+            If (e.ColumnIndex = eColunasGrid.Aplicavel) Then
+                Me.dgvNR.Item(eColunasGrid.Validade, e.RowIndex).ReadOnly = Me.dgvNR.Item(eColunasGrid.Aplicavel, e.RowIndex).Value
             End If
-        End With
+
+            If e.ColumnIndex = eColunasGrid.ConfigArt AndAlso Conversao.ToBoolean(Me.dgvNR.Item(eColunasGrid.Aplicavel, e.RowIndex).Value) Then
+
+                Dim frm As New frmAssocNRArtigo
+                frm.IDNR = Me.dgvNR.Item(eColunasGrid.CodNR, e.RowIndex).Value
+                frm.DadosArtigoNR = Me.dtsArtigosAplicaveis
+                frm.ShowDialog()
+                Me.dtsArtigosAplicaveis = frm.DadosArtigoNR
+
+            End If
+
+        End If
+    End Sub
+
+    Private Sub frmAssocNR_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        Me.dtsArtigosAplicaveis = Me.objNR.selecionarAssociacaoArtigosNREmpresa
     End Sub
 
 End Class

@@ -1,38 +1,13 @@
 ﻿Imports Controle
 Imports System.IO
 Imports Persistencia
+Imports Controle.ctrNR
 Public Class frmCadNR
-
-#Region "Enumerações"
-
-    Private Enum eColunasArtigos
-        ArtigoCompleto = 0
-        Artigo = 1
-        Letra = 2
-        Texto = 3
-        Penalidade = 4
-    End Enum
-
-    Private Enum eColunasQuestoes
-        IDQuestao = 0
-        IDArtigo = 1
-        Questao = 2
-        Acao = 3
-        Documento = 4
-        ExcluirDocumento = 5
-        Evidencia = 6
-        IDItemCheckList = 7
-        DescricaoDocumento = 8
-        Arquivo = 9
-        IDDocumento = 10
-    End Enum
-
-#End Region
 
 #Region "Variáveis"
     Private iPrvIDNr As Integer
     Private objNR As New ctrNR
-
+    Private iIDNRAntigo As Integer
 #End Region
 
 #Region "Métodos"
@@ -108,6 +83,17 @@ Public Class frmCadNR
                 Col4.Visible = True
                 Col4.ValueType = System.Type.GetType("System.String")
                 .Columns.Add(Col4)
+
+                Dim Col5 As New DataGridViewTextBoxColumn()
+                Col5.HeaderText = "IDArtigo"
+                Col5.DataPropertyName = "IDArtigo"
+                Col5.Width = 110
+                Col5.Frozen = False
+                Col5.ReadOnly = True
+                Col5.FillWeight = 105
+                Col5.Visible = False
+                Col5.ValueType = System.Type.GetType("System.Int32")
+                .Columns.Add(Col5)
 
                 .Refresh()
 
@@ -297,7 +283,7 @@ Public Class frmCadNR
                 Selecionadas = dgvArtigos.SelectedRows
 
                 If Selecionadas.Count = 1 Then
-                    sArtigo = Selecionadas.Item(0).Cells(eColunasArtigos.ArtigoCompleto).Value
+                    sArtigo = Selecionadas.Item(0).Cells(eColunasArtigos.Artigo).Value
                 End If
 
                 If (sArtigo <> String.Empty) Then
@@ -493,8 +479,9 @@ Public Class frmCadNR
 
             If (Me.iPrvIDNr > 0) Then
 
-                txtNR.Text = Me.iPrvIDNr
-                txtDescricao.Text = Persistencia.Conversao.nuloParaVazio(objNR.selecionarCampo(Me.iPrvIDNr, "descricao"))
+                Me.iIDNRAntigo = Me.iPrvIDNr
+                Me.txtNR.Text = Me.iPrvIDNr
+                Me.txtDescricao.Text = Persistencia.Conversao.nuloParaVazio(objNR.selecionarCampo(Me.iPrvIDNr, "descricao"))
 
                 dtbArtigos = objNR.Selecionar_Artigos_NR(Me.iPrvIDNr)
                 dtbQuestoes = objNR.Selecionar_Questoes_NR(Me.iPrvIDNr)
@@ -512,6 +499,7 @@ Public Class frmCadNR
                             .Item(eColunasArtigos.ArtigoCompleto, cont).Value = Retornar_Artigo_Completo(sArtigo, sLetra)
                             .Item(eColunasArtigos.Texto, cont).Value = drDados.Item("Texto").ToString
                             .Item(eColunasArtigos.Penalidade, cont).Value = drDados.Item("Penalidade").ToString
+                            .Item(eColunasArtigos.IDArtigo, cont).Value = drDados.Item("IDArtigo").ToString
                             cont += 1
                         Next
 
@@ -592,11 +580,11 @@ Public Class frmCadNR
 
             'End If
 
-
-            bRetorno = Me.objNR.Salvar(Val(txtNR.Text), _
-                                       txtDescricao.Text.Trim, _
-                                       dsArtigos, _
-                                       dsQuestoes)
+            bRetorno = Me.objNR.Salvar(Conversao.ToInt32(Me.txtNR.Text),
+                                       Me.txtDescricao.Text.Trim,
+                                       dsArtigos,
+                                       dsQuestoes,
+                                       Me.iIDNRAntigo)
 
             If (bRetorno) Then
                 bCancel = False
@@ -612,30 +600,33 @@ Public Class frmCadNR
 
     End Sub
 
+    Private Sub frmCadNR_inserir(ByRef bCancel As Boolean) Handles Me.inserir
+        Me.iIDNRAntigo = 0
+    End Sub
+
     Private Sub frmCadNR_limpaCampo() Handles Me.limpaCampo
 
-        txtNR.Text = String.Empty
-        txtDescricao.Text = String.Empty
+        Me.txtNR.Text = String.Empty
+        Me.txtDescricao.Text = String.Empty
 
-        dgvArtigos.DataSource = Nothing
-        dgvQuestoes.DataSource = Nothing
+        Me.dgvArtigos.DataSource = Nothing
+        Me.dgvQuestoes.DataSource = Nothing
 
-        dgvArtigos.Rows.Clear()
-        dgvQuestoes.Rows.Clear()
+        Me.dgvArtigos.Rows.Clear()
+        Me.dgvQuestoes.Rows.Clear()
 
     End Sub
 
     Private Sub frmCadNR_limpaProvedorDeErros() Handles Me.limpaProvedorDeErros
-        epPadrao.Clear()
+        Me.epPadrao.Clear()
     End Sub
 
     Private Sub frmCadNR_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
-        Configurar_Grid()
-
+        Me.Configurar_Grid()
     End Sub
 
     Private Sub cmdAdicionarArtigo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAdicionarArtigo.Click
+
         Dim sArtigo As String = ""
         Dim sTexto As String = ""
         Dim sPenalidade As String = ""
@@ -654,6 +645,7 @@ Public Class frmCadNR
                         .Item(eColunasArtigos.Letra, .Rows.Count - 1).Value = sLetra
                         .Item(eColunasArtigos.Texto, .Rows.Count - 1).Value = sTexto
                         .Item(eColunasArtigos.Penalidade, .Rows.Count - 1).Value = sPenalidade
+                        .Item(eColunasArtigos.IDArtigo, .Rows.Count - 1).Value = 0
                         .Sort(.Columns(0), System.ComponentModel.ListSortDirection.Ascending)
                     End With
                 End If
@@ -760,18 +752,31 @@ Public Class frmCadNR
     End Sub
 
     Private Sub cmdExcluirArtigo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdExcluirArtigo.Click
-        Dim iLinha As Integer
+
+        Dim iLinha As Integer = 0
+        Dim iIdArtigo As Integer = 0
+        Dim bPermiteExcluirArtigo As Boolean = False
 
         Try
-            With dgvArtigos
-                If (.Rows.Count > 0) Then
-                    iLinha = .CurrentRow.Index
-                    If (iLinha >= 0) Then
-                        .Rows.Remove(.Rows(iLinha))
-                    End If
-                    .Sort(.Columns(0), System.ComponentModel.ListSortDirection.Ascending)
+
+            If Me.dgvArtigos.Rows.Count > 0 Then
+
+                iLinha = Me.dgvArtigos.CurrentRow.Index
+                iIdArtigo = Conversao.ToInt32(Me.dgvArtigos.CurrentRow.Cells(eColunasArtigos.IDArtigo).Value)
+                bPermiteExcluirArtigo = Me.objNR.sePermiteExcluirArtigo(iIdArtigo)
+
+                If bPermiteExcluirArtigo AndAlso iLinha >= 0 Then
+
+                    Me.dgvArtigos.Rows.Remove(Me.dgvArtigos.Rows(iLinha))
+
+                    Me.dgvArtigos.Sort(Me.dgvArtigos.Columns(eColunasArtigos.ArtigoCompleto),
+                                       System.ComponentModel.ListSortDirection.Ascending)
+
+                ElseIf Not bPermiteExcluirArtigo Then
+                    MessageBox.Show("Exclusão não permitida. Artigo vinculado à empresa.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End If
-            End With
+
+            End If
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, Me.Text)
@@ -809,7 +814,7 @@ Public Class frmCadNR
                             If (sQuestao <> String.Empty) Then
                                 With dgvQuestoes
                                     .Rows.Add()
-                                    .Item(eColunasQuestoes.IDArtigo, .Rows.Count - 1).Value = Retornar_Artigo_Completo(sArtigo, sLetra)
+                                    .Item(eColunasQuestoes.IDArtigo, .Rows.Count - 1).Value = sArtigo
                                     .Item(eColunasQuestoes.Questao, .Rows.Count - 1).Value = sQuestao
                                     .Item(eColunasQuestoes.Acao, .Rows.Count - 1).Value = sAcao
                                 End With
@@ -1011,6 +1016,8 @@ Public Class frmCadNR
                     Me.epPadrao.SetError(Me.txtDescricao, sMensagem)
                 Case ctrNR.eMensagens.NR_OBRIGATORIO
                     Me.epPadrao.SetError(Me.cmdSelecionarNR, sMensagem)
+                Case ctrNR.eMensagens.NR_CADASTRADA
+                    Me.epPadrao.SetError(Me.txtNR, sMensagem)
             End Select
 
         Next

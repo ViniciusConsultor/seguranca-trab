@@ -191,7 +191,71 @@
 
     End Sub
 
-    Public Function Retornar_CheckList(ByVal iIDEmpresa As Integer, ByVal iIDCheckList As Integer, _
+    Public Sub excluirAssociacaoArtigosNREmpresa(ByVal iIDEmpresa As Integer)
+        Dim sSql As String
+
+        sSql = "DELETE FROM " &
+                "   NR_Artigo_Empresa " &
+               "WHERE " &
+               "    IDEmpresa = @IDEmpresa"
+
+        With MyBase.SQLCmd.Parameters
+            .Clear()
+            .AddWithValue("@IDEmpresa", iIDEmpresa)
+        End With
+
+        MyBase.executarAcao(sSql)
+
+    End Sub
+
+    Public Sub inserirAssociacaoArtigosNREmpresa(ByVal iIDEmpresa As Integer,
+                                                 ByVal iIDNR As Integer,
+                                                 ByVal iIDArtigo As Integer)
+        Dim sSql As String
+
+        sSql = " INSERT INTO " &
+               "   NR_Artigo_Empresa( " &
+               "     IDEmpresa, " &
+               "     IDNR, " &
+               "     IDArtigo ) " &
+               " VALUES ( " &
+               "     @IDEmpresa, " &
+               "     @IDNR, " &
+               "     @IDArtigo ) "
+
+        With MyBase.SQLCmd.Parameters
+            .Clear()
+            .AddWithValue("@IDEmpresa", iIDEmpresa)
+            .AddWithValue("@IDNR", iIDNR)
+            .AddWithValue("@IDArtigo", iIDArtigo)
+        End With
+
+        MyBase.executarAcao(sSql)
+
+    End Sub
+
+    Public Function selecionarAssociacaoArtigosNREmpresa() As DataSet
+
+        Dim sSql As String
+
+        sSql = " SELECT " &
+               "   NR_Artigo_Empresa.* " &
+               " FROM " &
+               "   NR_Artigo_Empresa " &
+               " WHERE " &
+               "   IDEmpresa =  @IDEmpresa "
+
+        With MyBase.SQLCmd.Parameters
+            .Clear()
+            .AddWithValue("@IDEmpresa", Globais.iIDEmpresa)
+        End With
+
+        Return MyBase.executarConsulta(sSql, "NR_Artigo_Empresa")
+
+    End Function
+
+    Public Function Retornar_CheckList(ByVal iIDEmpresa As Integer,
+                                       ByVal iIDCheckList As Integer,
                                        ByVal iIDNR As Integer) As DataTable
         Dim sSql As String
 
@@ -201,7 +265,7 @@
         sSql &= " FROM NR" & vbCrLf
         sSql &= "      INNER JOIN NR_Empresa NRE ON NR.IDNR = NRE.IDNR " & vbCrLf
         sSql &= "      INNER JOIN Artigo A On A.IDNR = NR.IDNR" & vbCrLf
-        sSql &= "      INNER JOIN Questao Q On A.IDArtigo = Q.IDARtigo" & vbCrLf
+        sSql &= "      LEFT JOIN Questao Q On A.IDArtigo = Q.IDARtigo" & vbCrLf
         sSql &= "      LEFT JOIN CheckList_Itens CI On Q.IDQuestao = CI.IDQuestao " & vbCrLf
         If (iIDCheckList > 0) Then
             sSql &= "                                 AND CI.IDCheckList = @IDCheckList" & vbCrLf
@@ -253,9 +317,10 @@
 
     End Function
 
-    Public Function selecionarNRRelatorio(ByVal iIdEmpresa As Integer, _
-                                          ByVal sIdsEmpresasAcesso As String, _
-                                          ByVal dtData As Date) As DataSet
+    Public Function selecionarNRRelatorio(ByVal iIdEmpresa As Integer,
+                                          ByVal sIdsEmpresasAcesso As String,
+                                          ByVal dtData As Date,
+                                          ByVal iIdNR As Integer) As DataSet
 
         Dim sSql As String
 
@@ -284,6 +349,10 @@
                 sSql &= " AND (NRE.IDEmpresa IN ( " & sIdsEmpresasAcesso & " )) "
             End If
 
+            If iIdNR > 0 Then
+                sSql &= " AND NRE.IDNR = @IDNR"
+            End If
+
             sSql &= " GROUP BY CI.StatusItem,NRE.IDNR,NRE.IDEMPRESA) AS Tabela"
             sSql &= " GROUP BY IDNR, IDEMPRESA "
 
@@ -291,11 +360,15 @@
 
                 .Clear()
 
+                .AddWithValue("@Data", dtData)
+
                 If iIdEmpresa > 0 Then
                     .AddWithValue("@IDEmpresa", iIdEmpresa)
                 End If
 
-                .AddWithValue("@Data", dtData)
+                If iIdNR > 0 Then
+                    .AddWithValue("@IDNR", iIdNR)
+                End If
 
             End With
 
@@ -307,9 +380,10 @@
 
     End Function
 
-    Public Function selecionarNRAuditoriaRelatorio(ByVal iIdEmpresa As Integer, _
-                                                   ByVal sIdsEmpresasAcesso As String, _
-                                                   ByVal dtData As Date) As DataSet
+    Public Function selecionarNRAuditoriaRelatorio(ByVal iIdEmpresa As Integer,
+                                                   ByVal sIdsEmpresasAcesso As String,
+                                                   ByVal dtData As Date,
+                                                   ByVal iIdNR As Integer) As DataSet
 
         Dim sSql As String
 
@@ -339,6 +413,10 @@
                 sSql &= " AND (NRE.IDEmpresa IN ( " & sIdsEmpresasAcesso & " )) "
             End If
 
+            If iIdNR > 0 Then
+                sSql &= " AND NRE.IDNR = @IDNR"
+            End If
+
             sSql &= " GROUP BY AI.Status_Item,NRE.IDNR,NRE.IDEMPRESA) AS Tabela"
             sSql &= " GROUP BY IDNR, IDEMPRESA "
 
@@ -346,11 +424,15 @@
 
                 .Clear()
 
+                .AddWithValue("@Data", dtData)
+
                 If iIdEmpresa > 0 Then
                     .AddWithValue("@IDEmpresa", iIdEmpresa)
                 End If
 
-                .AddWithValue("@Data", dtData)
+                If iIdNR > 0 Then
+                    .AddWithValue("@IDNR", iIdNR)
+                End If
 
             End With
 
@@ -359,6 +441,25 @@
         Catch ex As Exception
             Throw New Exception("Ocorreu um erro ao tentar selecionar os dados da Empresa." & Environment.NewLine & ex.Message)
         End Try
+
+    End Function
+
+    Public Function sePermiteExcluirArtigo(ByVal iIdArtigo As Integer) As Boolean
+        Dim sSql As String
+        Dim dtbDados As New DataTable
+
+        sSql = "SELECT IDArtigo" & vbCrLf
+        sSql &= "  FROM NR_Artigo_Empresa" & vbCrLf
+        sSql &= " WHERE IDArtigo = @IDArtigo"
+
+        With MyBase.SQLCmd.Parameters
+            .Clear()
+            .AddWithValue("@IDArtigo", iIdArtigo)
+        End With
+
+        dtbDados = MyBase.executarConsulta(sSql)
+
+        Return (dtbDados.Rows.Count = 0)
 
     End Function
 

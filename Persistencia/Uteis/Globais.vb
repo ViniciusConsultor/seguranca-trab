@@ -3,13 +3,14 @@ Public Class Globais
 
 #Region "Enumerações"
 
-    Public Enum eTipoArquivo As Byte
+    Public Enum eTipoArquivo As Integer
         Empresa = 0
         Funcionário = 1
         Treinamento = 2
         EPI = 3
         Evidência = 4
         NRQuestao = 5
+        Auditoria = 6
     End Enum
 
     Public Enum eDispositivoSaida As Byte

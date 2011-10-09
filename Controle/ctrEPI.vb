@@ -220,8 +220,8 @@
 
     End Function
 
-    Public Function Incluir_EPI_Funcionario(ByVal iIDFuncionario As Integer, _
-                                            ByVal dtgEpi As Windows.Forms.DataGridView, _
+    Public Function Incluir_EPI_Funcionario(ByVal iIDFuncionario As Integer,
+                                            ByVal dtgEpi As Windows.Forms.DataGridView,
                                             ByVal dtDataEntrega As Date) As Boolean
         Dim dtbEPi As New DataTable
         Dim iIDEpi As Integer
@@ -230,7 +230,7 @@
         Dim bMarcado As Boolean = False
         Dim drEquipamentos As DataRow()
         Try
-            dtbEPi = Me.objEPI.Selecionar_Epi_Entregue(iIDFuncionario, Date.MinValue, 0)
+            dtbEPi = Me.objEPI.Selecionar_Epi_Entregue(iIDFuncionario, dtDataEntrega, 0)
 
             sEpiInvalidas = ""
 

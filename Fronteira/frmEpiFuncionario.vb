@@ -306,6 +306,7 @@ Public Class frmEpiFuncionario
 
                 If (MsgBox(sMsg, MsgBoxStyle.YesNo, "Atenção") = MsgBoxResult.Yes) Then
                     frmDevolucaoEPI.ShowDialog()
+                    frmDevolucaoEPI.DataEntrega = Me.dtPrvEntrega
                     If (frmDevolucaoEPI.DialogResult = Windows.Forms.DialogResult.OK) Then
                         dtDevolucao = frmDevolucaoEPI.Datadevolucao
                         objEpi.Devolver_EPI(iPrvIDFuncionario, iPrvIDEpi, dtPrvEntrega, dtDevolucao)

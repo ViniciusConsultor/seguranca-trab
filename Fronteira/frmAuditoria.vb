@@ -1,5 +1,6 @@
 ﻿Imports Controle
 Imports Persistencia
+Imports System.IO
 Public Class frmAuditoria
 
 #Region "Enumerações"
@@ -10,9 +11,15 @@ Public Class frmAuditoria
         Questao = 2
         Situacao = 3
         Justificativa = 4
-        Documento = 5
-        Auditoria = 6
-        Argumento = 7
+        Auditoria = 5
+        Argumento = 6
+        Documento = 7
+        ExcluirDocumento = 8
+        Evidencia = 9
+        IDItemCheckList = 10
+        DescricaoDocumento = 11
+        Arquivo = 12
+        IDDocumento = 13
     End Enum
 
 #End Region
@@ -73,7 +80,7 @@ Public Class frmAuditoria
                 Dim Col_Questao As New DataGridViewTextBoxColumn()
                 With Col_Questao
                     .HeaderText = "Questão"
-                    .Width = 200
+                    .Width = 180
                     .ReadOnly = True
                     .Visible = True
                     .ValueType = System.Type.GetType("System.String")
@@ -95,7 +102,7 @@ Public Class frmAuditoria
                 Dim Col_Justificativa As New DataGridViewTextBoxColumn()
                 With Col_Justificativa
                     .HeaderText = "Justificativa"
-                    .Width = 190
+                    .Width = 150
                     .Frozen = False
                     .ReadOnly = True
                     .Visible = True
@@ -104,24 +111,13 @@ Public Class frmAuditoria
                 End With
                 .Columns.Add(Col_Justificativa)
 
-                Dim Col_Evidencia As New DataGridViewTextBoxColumn()
-                With Col_Evidencia
-                    .HeaderText = "Evidência"
-                    .Width = 150
-                    .ReadOnly = True
-                    .Visible = True
-                    .ValueType = System.Type.GetType("System.String")
-                    .DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
-                End With
-                .Columns.Add(Col_Evidencia)
-
                 Dim Col_Auditoria As New DataGridViewComboBoxColumn()
                 With Col_Auditoria
                     .HeaderText = "Auditoria"
-                    .Items.Add("")
+                    .Items.Add("Não Verificado")
                     .Items.Add("Ok")
                     .Items.Add("Não Ok")
-                    .Width = 55
+                    .Width = 95
                     .Frozen = False
                     .ReadOnly = False
                     .Visible = True
@@ -131,7 +127,7 @@ Public Class frmAuditoria
                 Dim Col_Argumento As New DataGridViewTextBoxColumn()
                 With Col_Argumento
                     .HeaderText = "Argumento"
-                    .Width = 195
+                    .Width = 165
                     .Frozen = False
                     .ReadOnly = True
                     .Visible = True
@@ -139,6 +135,89 @@ Public Class frmAuditoria
                     .DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
                 End With
                 .Columns.Add(Col_Argumento)
+
+                Dim icoAdicionar As New Icon(Me.GetType(), "Adicionar.ico")
+                Dim Col_Documento As New DataGridViewImageColumn()
+                With Col_Documento
+                    .HeaderText = ""
+                    .Width = 20
+                    .Frozen = False
+                    .ReadOnly = False
+                    .FillWeight = 20
+                    .Visible = True
+                    .Icon = icoAdicionar
+                    .ValueType = Nothing
+                    .ValuesAreIcons = True
+                End With
+                .Columns.Add(Col_Documento)
+
+                Dim icoExcluir As New Icon(Me.GetType(), "Excluir2.ico")
+                Dim Col_ExcluirDocumento As New DataGridViewImageColumn
+                With Col_ExcluirDocumento
+                    .HeaderText = ""
+                    .Width = 20
+                    .Frozen = False
+                    .ReadOnly = False
+                    .FillWeight = 20
+                    .Visible = True
+                    .Icon = icoExcluir
+                    .ValueType = Nothing
+                    .ValuesAreIcons = True
+                End With
+                .Columns.Add(Col_ExcluirDocumento)
+
+                Dim Col_Evidencia As New DataGridViewLinkColumn
+                With Col_Evidencia
+                    .HeaderText = "Evidência"
+                    .Width = 140
+                    .ReadOnly = True
+                    .Visible = True
+                    .ValueType = System.Type.GetType("System.String")
+                    .DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
+                End With
+                .Columns.Add(Col_Evidencia)
+
+                Dim Col_IDItemCheckList As New DataGridViewTextBoxColumn()
+                With Col_IDItemCheckList
+                    .HeaderText = "IDArquivo"
+                    .ReadOnly = True
+                    .Visible = False
+                    .ValueType = System.Type.GetType("System.Int32")
+                    .DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                End With
+                .Columns.Add(Col_IDItemCheckList)
+
+                Dim Col_DescricaoDocumento As New DataGridViewTextBoxColumn()
+                With Col_DescricaoDocumento
+                    .HeaderText = "DescricaoDocumento"
+                    .ReadOnly = True
+                    .Visible = False
+                    .ValueType = System.Type.GetType("System.String")
+                    .DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                End With
+                .Columns.Add(Col_DescricaoDocumento)
+
+                Dim Col_Arquivo As New DataGridViewTextBoxColumn
+                With Col_Arquivo
+                    .HeaderText = "Arquivo"
+                    .ReadOnly = True
+                    .Visible = False
+                    .ValueType = System.Type.GetType("System.Byte[]")
+                    .DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                End With
+                .Columns.Add(Col_Arquivo)
+                .Refresh()
+
+                Dim Col_IDDocumento As New DataGridViewTextBoxColumn()
+                With Col_IDDocumento
+                    .HeaderText = "IDDocumento"
+                    .ReadOnly = True
+                    .Visible = False
+                    .ValueType = System.Type.GetType("System.Int32")
+                    .DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                End With
+                .Columns.Add(Col_IDDocumento)
+
 
                 .Refresh()
 
@@ -162,18 +241,19 @@ Public Class frmAuditoria
                 .Rows.Clear()
                 If (dtbDados.Rows.Count > 0) Then
                     .RowCount = dtbDados.Rows.Count
+
                     For Each drDados As DataRow In dtbDados.Rows
+
                         .Item(eColunasGrid.Artigo, iLinha).Value = Conversao.nuloParaVazio(drDados.Item("Artigo"))
                         .Item(eColunasGrid.IDItem, iLinha).Value = Conversao.nuloParaZero(drDados.Item("IDItem"))
                         .Item(eColunasGrid.Questao, iLinha).Value = Conversao.nuloParaVazio(drDados.Item("Questao"))
                         .Item(eColunasGrid.Justificativa, iLinha).Value = Conversao.nuloParaVazio(drDados.Item("Justificativa"))
-                        .Item(eColunasGrid.Documento, iLinha).Value = Conversao.nuloParaVazio(drDados.Item("NomeArquivo"))
 
                         btStatus = Conversao.nuloParaZero(drDados.Item("StatusItem"))
 
                         Select Case btStatus
                             Case Persistencia.perCheckList.eSituacaoItem.SemResposta
-                                .Item(eColunasGrid.Situacao, iLinha).Value = ""
+                                .Item(eColunasGrid.Situacao, iLinha).Value = "Não Verificado"
                             Case Persistencia.perCheckList.eSituacaoItem.Ok
                                 .Item(eColunasGrid.Situacao, iLinha).Value = "Ok"
                             Case Persistencia.perCheckList.eSituacaoItem.NaoOk
@@ -184,14 +264,27 @@ Public Class frmAuditoria
                         btStatus = Conversao.nuloParaZero(drDados.Item("Status_Item"))
                         Select Case btStatus
                             Case Persistencia.perAuditoria.eSituacaoItem.SemResposta
-                                .Item(eColunasGrid.Auditoria, iLinha).Value = ""
+                                .Item(eColunasGrid.Auditoria, iLinha).Value = "Não Verificado"
                             Case Persistencia.perAuditoria.eSituacaoItem.Ok
                                 .Item(eColunasGrid.Auditoria, iLinha).Value = "Ok"
                             Case Persistencia.perAuditoria.eSituacaoItem.NaoOk
                                 .Item(eColunasGrid.Auditoria, iLinha).Value = "Não Ok"
                         End Select
+
                         .Item(eColunasGrid.Argumento, iLinha).Value = Conversao.nuloParaVazio(drDados.Item("Auditoria"))
                         .Item(eColunasGrid.Argumento, iLinha).ReadOnly = (btStatus = 0)
+
+                        .Item(eColunasGrid.Documento, iLinha).ReadOnly = (btStatus = 0)
+
+                        .Item(eColunasGrid.Evidencia, iLinha).Value = Conversao.nuloParaVazio(drDados.Item("NomeArquivo"))
+                        .Item(eColunasGrid.IDItemCheckList, iLinha).Value = Conversao.ToInt32(drDados.Item("IDArquivo"))
+                        .Item(eColunasGrid.DescricaoDocumento, iLinha).Value = Conversao.nuloParaVazio(drDados.Item("DescricaoArquivo"))
+
+                        If Not drDados.Item("Arquivo") Is DBNull.Value Then
+                            .Item(eColunasGrid.Arquivo, iLinha).Value = drDados.Item("Arquivo")
+                        End If
+
+                        .Item(eColunasGrid.IDDocumento, iLinha).Value = Conversao.ToInt32(drDados.Item("IDDocumento"))
 
                         iLinha += 1
                     Next
@@ -211,7 +304,7 @@ Public Class frmAuditoria
 
             With dgvAuditoria
 
-                If (.Item(eColunasGrid.Auditoria, cont).Value = "") Then
+                If (.Item(eColunasGrid.Auditoria, cont).Value = "Não Verificado") Then
                     bResultado = False
                 End If
 
@@ -255,8 +348,11 @@ Public Class frmAuditoria
     End Sub
 
     Private Sub frmAuditoria_carregaDados(ByVal iChave As Integer) Handles Me.carregaDados
+
         Dim dtbAuditoria As New DataTable
+
         Try
+
             If (Me.iPrvIDAuditoria > 0) Then
 
                 dtbAuditoria = objAuditoria.Retornar_Dados_Auditoria(iPrvIDAuditoria)
@@ -351,46 +447,85 @@ Public Class frmAuditoria
     Private Sub frmAuditoria_inserir(ByRef bCancel As Boolean) Handles Me.inserir
         iPrvIDCheckList = 0
         iPrvIDAuditoria = 0
-
+        Me.iPrvIDAuditoria = 0
     End Sub
 
     Private Sub frmAuditoria_limpaCampo() Handles Me.limpaCampo
-
         txtNR.Text = ""
         txtDescNR.Text = ""
         txtIDAuditoria.Text = ""
         txtDataAuditoria.Text = objAcesso.Data_Servidor
         lblDataCheck.Text = "__/__/____"
         dgvAuditoria.Rows.Clear()
-
     End Sub
 
     Private Sub frmAuditoria_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Configurar_Grid()
     End Sub
 
-    Private Sub dgvAuditoria_CellValueChanged(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvAuditoria.CellValueChanged
-        Dim iStatus As Integer
+    Private Sub dgvAuditoria_CellClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvAuditoria.CellClick
 
         Try
-            If (e.ColumnIndex = eColunasGrid.Auditoria) Then
-                With dgvAuditoria
-                    If (.Item(eColunasGrid.Auditoria, e.RowIndex).Value Is Nothing) Then
-                        iStatus = 0
-                        .Item(eColunasGrid.Argumento, e.RowIndex).Value = Nothing
-                    Else
-                        iStatus = 1
+            Select Case e.ColumnIndex
+
+                Case eColunasGrid.Documento
+
+                    Dim frm As New frmDocumento
+
+                    frm.FormCheckList = True
+
+                    frm.DescricaoArquivo = Me.dgvAuditoria.Item(eColunasGrid.DescricaoDocumento, e.RowIndex).Value
+                    frm.NomeArquivo = Me.dgvAuditoria.Item(eColunasGrid.Evidencia, e.RowIndex).Value
+
+                    frm.ShowDialog()
+
+                    If frm.OK Then
+                        Me.dgvAuditoria.Item(eColunasGrid.Evidencia, e.RowIndex).Value = frm.NomeArquivo
+                        Me.dgvAuditoria.Item(eColunasGrid.DescricaoDocumento, e.RowIndex).Value = frm.DescricaoArquivo
+                        Me.dgvAuditoria.Item(eColunasGrid.Arquivo, e.RowIndex).Value = frm.Arquivo
                     End If
 
-                    .Item(eColunasGrid.Argumento, e.RowIndex).ReadOnly = (iStatus = 0)
+                Case eColunasGrid.Evidencia
 
-                End With
+                    If Not String.IsNullOrEmpty(Me.dgvAuditoria.Item(eColunasGrid.Evidencia, e.RowIndex).Value) Then
+                        Me.exportarDocumentos(Me.dgvAuditoria.Item(eColunasGrid.Arquivo, e.RowIndex).Value, _
+                                              Me.dgvAuditoria.Item(eColunasGrid.Evidencia, e.RowIndex).Value)
 
-            End If
+                    End If
+
+                Case eColunasGrid.ExcluirDocumento
+
+                    Me.dgvAuditoria.Item(eColunasGrid.Evidencia, e.RowIndex).Value = String.Empty
+                    Me.dgvAuditoria.Item(eColunasGrid.DescricaoDocumento, e.RowIndex).Value = String.Empty
+
+            End Select
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, Me.Text)
         End Try
+
+
+    End Sub
+
+    Private Sub dgvAuditoria_CellValueChanged(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvAuditoria.CellValueChanged
+
+        Dim iStatus As Integer
+
+        If e.ColumnIndex = eColunasGrid.Auditoria Then
+
+            With dgvAuditoria
+                If (.Item(eColunasGrid.Auditoria, e.RowIndex).Value Is Nothing) Then
+                    iStatus = 0
+                    .Item(eColunasGrid.Argumento, e.RowIndex).Value = Nothing
+                Else
+                    iStatus = 1
+                End If
+
+                .Item(eColunasGrid.Argumento, e.RowIndex).ReadOnly = (iStatus = 0)
+
+            End With
+        End If
+
     End Sub
 
     Private Sub cmdPesquisaCheckList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdPesquisaCheckList.Click
@@ -419,7 +554,7 @@ Public Class frmAuditoria
                                 txtNR.Text = Persistencia.Conversao.nuloParaZero(.Item("IDNR"))
                                 txtDescNR.Text = Persistencia.Conversao.nuloParaVazio(.Item("DescricaoNR"))
 
-                                Call Preencher_Auditoria()
+                                Preencher_Auditoria()
                             End With
 
                         End If
@@ -493,4 +628,37 @@ Public Class frmAuditoria
 
         End Try
     End Sub
+
+    Private Sub exportarDocumentos(ByVal Arquivo As Byte(),
+                                   ByVal sNomeArquivo As String)
+        Dim fs As FileStream
+        Dim sCaminhoSelecionado As String
+        Dim bits As Byte() = {0}
+        Dim memorybits As MemoryStream
+
+        Try
+            Dim openDlg As FolderBrowserDialog = New FolderBrowserDialog
+            openDlg.ShowNewFolderButton = True
+
+            If (openDlg.ShowDialog() = Windows.Forms.DialogResult.OK) Then
+
+                sCaminhoSelecionado = openDlg.SelectedPath
+
+                bits = CType(Arquivo, Byte())
+                sNomeArquivo = sNomeArquivo
+                memorybits = New MemoryStream(bits)
+
+                fs = New FileStream(sCaminhoSelecionado & "\" & sNomeArquivo, FileMode.Create, FileAccess.Write)
+                fs.Write(bits, 0, bits.Length)
+                fs.Close()
+
+                MsgBox("O documento foi exportado com sucesso.", MsgBoxStyle.Information, Me.Text)
+
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, Me.Text)
+        End Try
+
+    End Sub
+
 End Class
