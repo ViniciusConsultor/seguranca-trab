@@ -494,6 +494,9 @@
     <EmbeddedResource Include="Icones\Seguranca.png" />
     <EmbeddedResource Include="Icones\setrab.png" />
     <EmbeddedResource Include="Icones\setrabico.ico" />
+    <EmbeddedResource Include="Relatorios\frmRelEntregaEPIAnalitico.resx">
+      <DependentUpon>frmRelEntregaEPIAnalitico.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Relatorios\frmRelEPI.resx">
       <DependentUpon>frmRelEPI.vb</DependentUpon>
       <SubType>Designer</SubType>

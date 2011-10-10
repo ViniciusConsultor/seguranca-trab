@@ -567,4 +567,23 @@ Public Class frmPrincipal
     Private Sub AlertasToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AlertasToolStripMenuItem.Click
         frmAlerta.ShowDialog()
     End Sub
+
+    Private Sub EntregaEPIAnalíticoToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EntregaEPIAnalíticoToolStripMenuItem.Click
+        Dim frm As New frmRelEntregaEPIAnalitico
+        frm.MdiParent = Me
+        frm.Show()
+    End Sub
+
+    Private Sub TreinamentosAnalíticoToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TreinamentosAnalíticoToolStripMenuItem.Click
+        Dim frm As New frmRelTreinamentoAnalitico
+        frm.MdiParent = Me
+        frm.Show()
+    End Sub
+
+    Private Sub FuncionáriosToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FuncionáriosToolStripMenuItem.Click
+        Dim frm As New frmRelFuncionario
+        frm.MdiParent = Me
+        frm.Show()
+    End Sub
+
 End Class

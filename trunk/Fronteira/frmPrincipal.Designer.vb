@@ -22,76 +22,79 @@ Partial Class frmPrincipal
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPrincipal))
-        Me.MenuPrincipal = New System.Windows.Forms.MenuStrip
-        Me.SistemaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.AcessoBDToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripSeparator8 = New System.Windows.Forms.ToolStripSeparator
-        Me.UsuáriosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.GrupoDeAcessoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripSeparator7 = New System.Windows.Forms.ToolStripSeparator
-        Me.RegistrarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripSeparator11 = New System.Windows.Forms.ToolStripSeparator
-        Me.LogToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.SairToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.EmpresaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.CadastroEmpresaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.FuncionárioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.CadastroFuncionarioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ImportaçãoFuncionarioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripSeparator9 = New System.Windows.Forms.ToolStripSeparator
-        Me.FunçãoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.TreinamentoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.CadastroTreinamentoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.AgendaTreinamentoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.EPIToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.CadastroEPIToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ControleEPIToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.NRToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
-        Me.CadastroNRToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.CheckListNRToolStripMenuIte = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripSeparator10 = New System.Windows.Forms.ToolStripSeparator
-        Me.AuditoriaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.RelatóriosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.RelTreinamentosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.RelEntregaEPIToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.NRToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem
-        Me.NRAuditoriaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ConfiguraçõesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator
-        Me.NRToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator
-        Me.GrupoAcessoMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.GruposToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.UsuáriosToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
-        Me.CadastroToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem
-        Me.ImportarToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator
-        Me.FunçõesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ConfiguraçõesToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
-        Me.AgendaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator
-        Me.ConsultaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.CadastroToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ControleToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator
-        Me.ConsultaToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
-        Me.TrToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.EPIsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator
-        Me.TiposDeDocumentosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.CadastroToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
-        Me.CheckLisToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.fraEmpresa = New System.Windows.Forms.Panel
-        Me.cmdCadEmpresa = New System.Windows.Forms.Button
-        Me.cmdSelecionarEmpresa = New System.Windows.Forms.Button
-        Me.txtEmpresaSelecionada = New System.Windows.Forms.TextBox
-        Me.lblEmpresa = New System.Windows.Forms.Label
+        Me.MenuPrincipal = New System.Windows.Forms.MenuStrip()
+        Me.SistemaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AcessoBDToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator8 = New System.Windows.Forms.ToolStripSeparator()
+        Me.UsuáriosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GrupoDeAcessoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator7 = New System.Windows.Forms.ToolStripSeparator()
+        Me.RegistrarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator11 = New System.Windows.Forms.ToolStripSeparator()
+        Me.LogToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SairToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EmpresaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CadastroEmpresaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AlertasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FuncionárioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CadastroFuncionarioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ImportaçãoFuncionarioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator9 = New System.Windows.Forms.ToolStripSeparator()
+        Me.FunçãoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TreinamentoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CadastroTreinamentoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AgendaTreinamentoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EPIToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CadastroEPIToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ControleEPIToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.NRToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CadastroNRToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CheckListNRToolStripMenuIte = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator10 = New System.Windows.Forms.ToolStripSeparator()
+        Me.AuditoriaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RelatóriosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RelTreinamentosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RelEntregaEPIToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.NRToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.NRAuditoriaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ConfiguraçõesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.NRToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.GrupoAcessoMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GruposToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.UsuáriosToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CadastroToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ImportarToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
+        Me.FunçõesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ConfiguraçõesToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AgendaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ConsultaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CadastroToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ControleToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ConsultaToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TrToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EPIsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.TiposDeDocumentosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CadastroToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CheckLisToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.fraEmpresa = New System.Windows.Forms.Panel()
+        Me.cmdCadEmpresa = New System.Windows.Forms.Button()
+        Me.cmdSelecionarEmpresa = New System.Windows.Forms.Button()
+        Me.txtEmpresaSelecionada = New System.Windows.Forms.TextBox()
+        Me.lblEmpresa = New System.Windows.Forms.Label()
         Me.ttPrincipal = New System.Windows.Forms.ToolTip(Me.components)
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.lblAlerta = New System.Windows.Forms.ToolStripStatusLabel
-        Me.AlertasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.lblAlerta = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.EntregaEPIAnalíticoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TreinamentosAnalíticoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FuncionáriosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuPrincipal.SuspendLayout()
         Me.fraEmpresa.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -176,8 +179,14 @@ Partial Class frmPrincipal
         'CadastroEmpresaToolStripMenuItem
         '
         Me.CadastroEmpresaToolStripMenuItem.Name = "CadastroEmpresaToolStripMenuItem"
-        Me.CadastroEmpresaToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.CadastroEmpresaToolStripMenuItem.Size = New System.Drawing.Size(121, 22)
         Me.CadastroEmpresaToolStripMenuItem.Text = "Cadastro"
+        '
+        'AlertasToolStripMenuItem
+        '
+        Me.AlertasToolStripMenuItem.Name = "AlertasToolStripMenuItem"
+        Me.AlertasToolStripMenuItem.Size = New System.Drawing.Size(121, 22)
+        Me.AlertasToolStripMenuItem.Text = "Alertas"
         '
         'FuncionárioToolStripMenuItem
         '
@@ -279,7 +288,7 @@ Partial Class frmPrincipal
         '
         'RelatóriosToolStripMenuItem
         '
-        Me.RelatóriosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RelTreinamentosToolStripMenuItem, Me.RelEntregaEPIToolStripMenuItem, Me.NRToolStripMenuItem2, Me.NRAuditoriaToolStripMenuItem})
+        Me.RelatóriosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RelEntregaEPIToolStripMenuItem, Me.EntregaEPIAnalíticoToolStripMenuItem, Me.NRAuditoriaToolStripMenuItem, Me.NRToolStripMenuItem2, Me.RelTreinamentosToolStripMenuItem, Me.TreinamentosAnalíticoToolStripMenuItem, Me.FuncionáriosToolStripMenuItem})
         Me.RelatóriosToolStripMenuItem.Name = "RelatóriosToolStripMenuItem"
         Me.RelatóriosToolStripMenuItem.Size = New System.Drawing.Size(71, 20)
         Me.RelatóriosToolStripMenuItem.Text = "Relatórios"
@@ -287,25 +296,25 @@ Partial Class frmPrincipal
         'RelTreinamentosToolStripMenuItem
         '
         Me.RelTreinamentosToolStripMenuItem.Name = "RelTreinamentosToolStripMenuItem"
-        Me.RelTreinamentosToolStripMenuItem.Size = New System.Drawing.Size(147, 22)
+        Me.RelTreinamentosToolStripMenuItem.Size = New System.Drawing.Size(197, 22)
         Me.RelTreinamentosToolStripMenuItem.Text = "Treinamentos"
         '
         'RelEntregaEPIToolStripMenuItem
         '
         Me.RelEntregaEPIToolStripMenuItem.Name = "RelEntregaEPIToolStripMenuItem"
-        Me.RelEntregaEPIToolStripMenuItem.Size = New System.Drawing.Size(147, 22)
+        Me.RelEntregaEPIToolStripMenuItem.Size = New System.Drawing.Size(197, 22)
         Me.RelEntregaEPIToolStripMenuItem.Text = "Entrega EPI"
         '
         'NRToolStripMenuItem2
         '
         Me.NRToolStripMenuItem2.Name = "NRToolStripMenuItem2"
-        Me.NRToolStripMenuItem2.Size = New System.Drawing.Size(147, 22)
+        Me.NRToolStripMenuItem2.Size = New System.Drawing.Size(197, 22)
         Me.NRToolStripMenuItem2.Text = "NR CheckList"
         '
         'NRAuditoriaToolStripMenuItem
         '
         Me.NRAuditoriaToolStripMenuItem.Name = "NRAuditoriaToolStripMenuItem"
-        Me.NRAuditoriaToolStripMenuItem.Size = New System.Drawing.Size(147, 22)
+        Me.NRAuditoriaToolStripMenuItem.Size = New System.Drawing.Size(197, 22)
         Me.NRAuditoriaToolStripMenuItem.Text = "NR Auditoria"
         '
         'ConfiguraçõesToolStripMenuItem
@@ -524,11 +533,23 @@ Partial Class frmPrincipal
         Me.lblAlerta.Size = New System.Drawing.Size(58, 17)
         Me.lblAlerta.Text = "Alerta"
         '
-        'AlertasToolStripMenuItem
+        'EntregaEPIAnalíticoToolStripMenuItem
         '
-        Me.AlertasToolStripMenuItem.Name = "AlertasToolStripMenuItem"
-        Me.AlertasToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.AlertasToolStripMenuItem.Text = "Alertas"
+        Me.EntregaEPIAnalíticoToolStripMenuItem.Name = "EntregaEPIAnalíticoToolStripMenuItem"
+        Me.EntregaEPIAnalíticoToolStripMenuItem.Size = New System.Drawing.Size(197, 22)
+        Me.EntregaEPIAnalíticoToolStripMenuItem.Text = "Entrega EPI Analítico"
+        '
+        'TreinamentosAnalíticoToolStripMenuItem
+        '
+        Me.TreinamentosAnalíticoToolStripMenuItem.Name = "TreinamentosAnalíticoToolStripMenuItem"
+        Me.TreinamentosAnalíticoToolStripMenuItem.Size = New System.Drawing.Size(197, 22)
+        Me.TreinamentosAnalíticoToolStripMenuItem.Text = "Treinamentos Analítico"
+        '
+        'FuncionáriosToolStripMenuItem
+        '
+        Me.FuncionáriosToolStripMenuItem.Name = "FuncionáriosToolStripMenuItem"
+        Me.FuncionáriosToolStripMenuItem.Size = New System.Drawing.Size(197, 22)
+        Me.FuncionáriosToolStripMenuItem.Text = "Funcionários"
         '
         'frmPrincipal
         '
@@ -622,4 +643,7 @@ Partial Class frmPrincipal
     Friend WithEvents lblAlerta As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents NRAuditoriaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents AlertasToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents EntregaEPIAnalíticoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents TreinamentosAnalíticoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents FuncionáriosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class
