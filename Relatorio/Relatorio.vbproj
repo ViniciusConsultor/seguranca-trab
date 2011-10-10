@@ -92,9 +92,12 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\relEntregaEPIAnalitico.vb" />
     <Compile Include="Classes\relEPI.vb" />
+    <Compile Include="Classes\relFuncionario.vb" />
     <Compile Include="Classes\relNR.vb" />
     <Compile Include="Classes\relTreinamento.vb" />
+    <Compile Include="Classes\relTreinamentoAnalitico.vb" />
     <Compile Include="DataSet\dsEntregaEPI.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -102,6 +105,16 @@
     </Compile>
     <Compile Include="DataSet\dsEntregaEPI.vb">
       <DependentUpon>dsEntregaEPI.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSet\dsEntregaEPIAnalitico.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsEntregaEPIAnalitico.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSet\dsFuncionario.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsFuncionario.xsd</DependentUpon>
     </Compile>
     <Compile Include="DataSet\dsNR.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -115,6 +128,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsParticipantesTreinamento.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSet\dsTreinamentoAnalitico.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsTreinamentoAnalitico.xsd</DependentUpon>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -130,6 +148,18 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Rpt\rptEntregaEPIAnalitico.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptEntregaEPIAnalitico.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Rpt\rptFuncionario.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptFuncionario.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Rpt\rptNR.vb">
       <AutoGen>True</AutoGen>
@@ -155,6 +185,12 @@
       <DependentUpon>rptTreinamento.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Rpt\rptTreinamentoAnalitico.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptTreinamentoAnalitico.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -162,6 +198,14 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Rpt\rptEntregaEPIAnalitico.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptEntregaEPIAnalitico.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Rpt\rptFuncionario.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptFuncionario.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Rpt\rptNR.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -179,6 +223,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptTreinamento.vb</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Rpt\rptTreinamentoAnalitico.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptTreinamentoAnalitico.vb</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -192,6 +240,28 @@
     </None>
     <None Include="DataSet\dsEntregaEPI.xss">
       <DependentUpon>dsEntregaEPI.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\dsEntregaEPIAnalitico.xsc">
+      <DependentUpon>dsEntregaEPIAnalitico.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\dsEntregaEPIAnalitico.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsEntregaEPIAnalitico.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DataSet\dsEntregaEPIAnalitico.xss">
+      <DependentUpon>dsEntregaEPIAnalitico.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\dsFuncionario.xsc">
+      <DependentUpon>dsFuncionario.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\dsFuncionario.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsFuncionario.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DataSet\dsFuncionario.xss">
+      <DependentUpon>dsFuncionario.xsd</DependentUpon>
     </None>
     <None Include="DataSet\dsNR.xsc">
       <DependentUpon>dsNR.xsd</DependentUpon>
@@ -214,6 +284,17 @@
     </None>
     <None Include="DataSet\dsParticipantesTreinamento.xss">
       <DependentUpon>dsParticipantesTreinamento.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\dsTreinamentoAnalitico.xsc">
+      <DependentUpon>dsTreinamentoAnalitico.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\dsTreinamentoAnalitico.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsTreinamentoAnalitico.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="DataSet\dsTreinamentoAnalitico.xss">
+      <DependentUpon>dsTreinamentoAnalitico.xsd</DependentUpon>
     </None>
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
