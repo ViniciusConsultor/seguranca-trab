@@ -299,10 +299,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Relatorios\frmRelEntregaEPIAnalitico.Designer.vb">
+      <DependentUpon>frmRelEntregaEPIAnalitico.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Relatorios\frmRelEntregaEPIAnalitico.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Relatorios\frmRelEPI.designer.vb">
       <DependentUpon>frmRelEPI.vb</DependentUpon>
     </Compile>
     <Compile Include="Relatorios\frmRelEPI.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Relatorios\frmRelFuncionario.Designer.vb">
+      <DependentUpon>frmRelFuncionario.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Relatorios\frmRelFuncionario.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Relatorios\frmRelNR.Designer.vb">
@@ -315,6 +327,12 @@
       <DependentUpon>frmRelTreinamento.vb</DependentUpon>
     </Compile>
     <Compile Include="Relatorios\frmRelTreinamento.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Relatorios\frmRelTreinamentoAnalitico.Designer.vb">
+      <DependentUpon>frmRelTreinamentoAnalitico.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Relatorios\frmRelTreinamentoAnalitico.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Uteis\AtualizaBD.vb" />
