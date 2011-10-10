@@ -111,6 +111,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dsEntregaEPIAnalitico.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DataSet\dsEntregaEPIAnalitico.vb">
+      <DependentUpon>dsEntregaEPIAnalitico.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DataSet\dsFuncionario.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
