@@ -1,30 +1,30 @@
 ﻿Public Class perUsuario
     Inherits AcessoBd
 
-#Region "Variáveis"
+#Region "Variáveis "
     Private objProximoID As New ProximoID
 #End Region
 
-#Region "Propriedades"
+#Region "Propriedades "
 
     ReadOnly Property sqlConsulta(ByVal iIdUsuario As Integer) As String
         Get
             Dim sSql As String
-            sSql = "SELECT IDUsuario, Nome "
-            sSql &= " FROM Usuario"
+            sSql = "SELECT IDUsuario, Nome  "
+            sSql &= " FROM Usuario "
 
             If iIdUsuario > 0 Then
-                sSql &= " WHERE IDUsuario = " & iIdUsuario
+                sSql &= " WHERE IDUsuario =  " & iIdUsuario
             End If
 
-            sSql &= " ORDER BY Nome"
+            sSql &= " ORDER BY Nome "
             Return sSql
         End Get
     End Property
 
 #End Region
 
-#Region "Métodos públicos"
+#Region "Métodos públicos "
 
     Public Function inserirUsuario(ByVal sNome As String, _
                                    ByVal sLogin As String, _
@@ -35,32 +35,32 @@
         Dim iIdUsuario As Integer
 
 
-        sSql = " INSERT INTO Usuario "
-        sSql &= "  ( "
-        sSql &= "       IDUsuario, "
-        sSql &= "       Nome, "
-        sSql &= "       Login, "
-        sSql &= "       Senha, "
-        sSql &= "       IDGrupoAcesso "
-        sSql &= "  ) "
-        sSql &= " VALUES "
-        sSql &= "  ( "
-        sSql &= "       @IDUsuario, "
-        sSql &= "       @Nome, "
-        sSql &= "       @Login, "
-        sSql &= "       @Senha, "
-        sSql &= "       @IDGrupoAcesso "
-        sSql &= "  ) "
+        sSql = " INSERT INTO Usuario  "
+        sSql &= "  (  "
+        sSql &= "       IDUsuario,  "
+        sSql &= "       Nome,  "
+        sSql &= "       Login,  "
+        sSql &= "       Senha,  "
+        sSql &= "       IDGrupoAcesso  "
+        sSql &= "  )  "
+        sSql &= " VALUES  "
+        sSql &= "  (  "
+        sSql &= "       @IDUsuario,  "
+        sSql &= "       @Nome,  "
+        sSql &= "       @Login,  "
+        sSql &= "       @Senha,  "
+        sSql &= "       @IDGrupoAcesso  "
+        sSql &= "  )  "
 
-        iIdUsuario = objProximoID.BuscaID("IDUsuario", "Usuario")
+        iIdUsuario = objProximoID.BuscaID("IDUsuario ", "Usuario ")
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@IDUsuario", iIdUsuario)
-            .AddWithValue("@Nome", sNome)
-            .AddWithValue("@Login", sLogin)
-            .AddWithValue("@Senha", sSenha)
-            .AddWithValue("@IDGrupoAcesso", Conversao.zeroParaNulo(iIDGrupoAcesso))
+            .AddWithValue("@IDUsuario ", iIdUsuario)
+            .AddWithValue("@Nome ", sNome)
+            .AddWithValue("@Login ", sLogin)
+            .AddWithValue("@Senha ", sSenha)
+            .AddWithValue("@IDGrupoAcesso ", Conversao.zeroParaNulo(iIDGrupoAcesso))
         End With
 
         MyBase.executarAcao(sSql)
@@ -78,21 +78,21 @@
         Dim sSql As String
 
 
-        sSql = "  UPDATE Usuario SET "
-        sSql &= "   Nome = @Nome, "
-        sSql &= "   Login = @Login, "
-        sSql &= "   Senha = @Senha, "
-        sSql &= "   IDGrupoAcesso = @IDGrupoAcesso "
-        sSql &= " WHERE "
-        sSql &= "   IDUsuario = @IDUsuario "
+        sSql = "  UPDATE Usuario SET  "
+        sSql &= "   Nome = @Nome,  "
+        sSql &= "   Login = @Login,  "
+        sSql &= "   Senha = @Senha,  "
+        sSql &= "   IDGrupoAcesso = @IDGrupoAcesso  "
+        sSql &= " WHERE  "
+        sSql &= "   IDUsuario = @IDUsuario  "
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@Nome", sNome)
-            .AddWithValue("@Login", sLogin)
-            .AddWithValue("@Senha", sSenha)
-            .AddWithValue("@IDGrupoAcesso", Conversao.zeroParaNulo(iIDGrupoAcesso))
-            .AddWithValue("@IDUsuario", iIdUsuario)
+            .AddWithValue("@Nome ", sNome)
+            .AddWithValue("@Login ", sLogin)
+            .AddWithValue("@Senha ", sSenha)
+            .AddWithValue("@IDGrupoAcesso ", Conversao.zeroParaNulo(iIDGrupoAcesso))
+            .AddWithValue("@IDUsuario ", iIdUsuario)
         End With
 
         MyBase.executarAcao(sSql)
@@ -103,14 +103,14 @@
 
         Dim sSql As String
 
-        sSql = "  DELETE FROM "
-        sSql &= "   Usuario "
-        sSql &= " WHERE "
-        sSql &= "   IDUsuario = @IDUsuario "
+        sSql = "  DELETE FROM  "
+        sSql &= "   Usuario  "
+        sSql &= " WHERE  "
+        sSql &= "   IDUsuario = @IDUsuario  "
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@IDUsuario", iIdUsuario)
+            .AddWithValue("@IDUsuario ", iIdUsuario)
         End With
 
         MyBase.executarAcao(sSql)
@@ -124,21 +124,21 @@
 
 
 
-        sSql = "  SELECT  " & vbCrLf
-        sSql &= "   Usuario.*, " & vbCrLf
-        sSql &= "   GrupoAcesso.Descricao AS GrupoAcesso " & vbCrLf
-        sSql &= " FROM " & vbCrLf
-        sSql &= "   Usuario " & vbCrLf
-        sSql &= " LEFT JOIN GrupoAcesso ON Usuario.IDGrupoAcesso = GrupoAcesso.IDGrupoAcesso " & vbCrLf
-        sSql &= " WHERE  " & vbCrLf
-        sSql &= "   IDUsuario = @IDUsuario " & vbCrLf
+        sSql = "  SELECT   "
+        sSql &= "   Usuario.*,  "
+        sSql &= "   GrupoAcesso.Descricao AS GrupoAcesso  "
+        sSql &= " FROM  "
+        sSql &= "   Usuario  "
+        sSql &= " LEFT JOIN GrupoAcesso ON Usuario.IDGrupoAcesso = GrupoAcesso.IDGrupoAcesso  "
+        sSql &= " WHERE   "
+        sSql &= "   IDUsuario = @IDUsuario  "
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@IDUsuario", iIdUsuario)
+            .AddWithValue("@IDUsuario ", iIdUsuario)
         End With
 
-        dsDados = MyBase.executarConsulta(sSql, "Usuario")
+        dsDados = MyBase.executarConsulta(sSql, "Usuario ")
 
         Return dsDados
 
@@ -149,14 +149,14 @@
         Dim sSql As String
         Dim dsDados As New DataSet
 
-        sSql = "  SELECT * FROM "
-        sSql &= "   Usuario "
+        sSql = "  SELECT * FROM  "
+        sSql &= "   Usuario  "
 
         With MyBase.SQLCmd.Parameters
             .Clear()
         End With
 
-        dsDados = MyBase.executarConsulta(sSql, "Usuario")
+        dsDados = MyBase.executarConsulta(sSql, "Usuario ")
 
         Return dsDados
 
@@ -167,19 +167,19 @@
 
         Dim sSql As String
 
-        sSql = "  SELECT Login FROM "
-        sSql &= "   Usuario "
-        sSql &= " WHERE  "
-        sSql &= "   Login = @Login "
+        sSql = "  SELECT Login FROM  "
+        sSql &= "   Usuario  "
+        sSql &= " WHERE   "
+        sSql &= "   Login = @Login  "
         If iIdUsuario > 0 Then
-            sSql &= " AND IDUsuario <> @IDUsuario "
+            sSql &= " AND IDUsuario <> @IDUsuario  "
         End If
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@Login", sLogin)
+            .AddWithValue("@Login ", sLogin)
             If iIdUsuario > 0 Then
-                .AddWithValue("@IDUsuario", iIdUsuario)
+                .AddWithValue("@IDUsuario ", iIdUsuario)
             End If
         End With
 
@@ -194,21 +194,21 @@
         Dim dsDados As New DataSet
 
 
-        sSql = "  SELECT  "
-        sSql &= "   Usuario.IDUsuario "
-        sSql &= " FROM "
-        sSql &= "   Usuario "
-        sSql &= "  WHERE "
-        sSql &= "      Login = @Login "
-        sSql &= "  AND Senha = @Senha "
+        sSql = "  SELECT   "
+        sSql &= "   Usuario.IDUsuario  "
+        sSql &= " FROM  "
+        sSql &= "   Usuario  "
+        sSql &= "  WHERE  "
+        sSql &= "      Login = @Login  "
+        sSql &= "  AND Senha = @Senha  "
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@Login", sLogin)
-            .AddWithValue("@Senha", sSenha)
+            .AddWithValue("@Login ", sLogin)
+            .AddWithValue("@Senha ", sSenha)
         End With
 
-        dsDados = MyBase.executarConsulta(sSql, "Usuario")
+        dsDados = MyBase.executarConsulta(sSql, "Usuario ")
 
         If dsDados.Tables(0).Rows.Count > 0 Then
             Return Conversao.ToInt32(dsDados.Tables(0).Rows(0).Item("IDUsuario"))
@@ -224,14 +224,14 @@
         Dim sSql As String
 
 
-        sSql = "  SELECT " & sCampo & " FROM "
-        sSql &= "   Usuario "
-        sSql &= " WHERE  "
-        sSql &= "  IDUsuario = @IDUsuario "
+        sSql = "  SELECT  " & sCampo & " FROM  "
+        sSql &= "   Usuario  "
+        sSql &= " WHERE   "
+        sSql &= "  IDUsuario = @IDUsuario  "
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@IDUsuario", iIdUsuario)
+            .AddWithValue("@IDUsuario ", iIdUsuario)
         End With
 
         Return MyBase.executarConsultaCampo(sSql)
@@ -244,19 +244,19 @@
         Dim dsDados As New DataSet
 
         Try
-            sSql = "  SELECT "
-            sSql &= "   Usuario.IDGrupoAcesso "
-            sSql &= " FROM "
-            sSql &= "   Usuario "
-            sSql &= " WHERE "
-            sSql &= "   IDGrupoAcesso = @IDGrupoAcesso "
+            sSql = "  SELECT  "
+            sSql &= "   Usuario.IDGrupoAcesso  "
+            sSql &= " FROM  "
+            sSql &= "   Usuario  "
+            sSql &= " WHERE  "
+            sSql &= "   IDGrupoAcesso = @IDGrupoAcesso  "
 
             With MyBase.SQLCmd.Parameters
                 .Clear()
-                .AddWithValue("@IDGrupoAcesso", iIdGrupoAcesso)
+                .AddWithValue("@IDGrupoAcesso ", iIdGrupoAcesso)
             End With
 
-            dsDados = MyBase.executarConsulta(sSql, "Usuario")
+            dsDados = MyBase.executarConsulta(sSql, "Usuario ")
 
             If dsDados.Tables(0).Rows.Count > 0 Then
                 Return True
@@ -265,7 +265,7 @@
             End If
 
         Catch ex As Exception
-            Throw New Exception("Ocorreu um erro ao tentar selecionar os dados de usuários." & Environment.NewLine & ex.Message)
+            Throw New Exception("Ocorreu um erro ao tentar selecionar os dados de usuários. " & Environment.NewLine & ex.Message)
         End Try
 
     End Function

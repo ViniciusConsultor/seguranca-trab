@@ -1,11 +1,11 @@
 ﻿Public Class perParticipantesTreinamento
     Inherits AcessoBd
 
-#Region "Variáveis"
+#Region "Variáveis "
     Private objProximoID As New ProximoID
 #End Region
 
-#Region "Métodos públicos"
+#Region "Métodos públicos "
 
     Public Sub inserirParticipantesTreinamento(ByVal iIdAgendamento As Integer, _
                                                ByVal iIdFuncionario As Integer)
@@ -14,27 +14,27 @@
 
         Try
 
-            sSql = " INSERT INTO Participantes "
-            sSql &= "  ( "
-            sSql &= "       IDAgendamento, "
-            sSql &= "       IDFuncionario "
-            sSql &= "  ) "
-            sSql &= " VALUES "
-            sSql &= "  ( "
-            sSql &= "       @IDAgendamento, "
-            sSql &= "       @IDFuncionario "
-            sSql &= "  ) "
+            sSql = " INSERT INTO Participantes  "
+            sSql &= "  (  "
+            sSql &= "       IDAgendamento,  "
+            sSql &= "       IDFuncionario  "
+            sSql &= "  )  "
+            sSql &= " VALUES  "
+            sSql &= "  (  "
+            sSql &= "       @IDAgendamento,  "
+            sSql &= "       @IDFuncionario  "
+            sSql &= "  )  "
 
             With MyBase.SQLCmd.Parameters
                 .Clear()
-                .AddWithValue("@IDAgendamento", iIdAgendamento)
-                .AddWithValue("@IDFuncionario", iIdFuncionario)
+                .AddWithValue("@IDAgendamento ", iIdAgendamento)
+                .AddWithValue("@IDFuncionario ", iIdFuncionario)
             End With
 
             MyBase.executarAcao(sSql)
 
         Catch ex As Exception
-            Throw New Exception("Ocorreu um erro ao tentar inserir os dados dos Participantes do Treinamento." & Environment.NewLine & ex.Message)
+            Throw New Exception("Ocorreu um erro ao tentar inserir os dados dos Participantes do Treinamento. " & Environment.NewLine & ex.Message)
         End Try
 
     End Sub
@@ -46,24 +46,24 @@
 
         Try
 
-            sSql = "  DELETE FROM "
-            sSql &= "   Participantes "
-            sSql &= " WHERE "
-            sSql &= "   IDAgendamento = @IDAgendamento "
+            sSql = "  DELETE FROM  "
+            sSql &= "   Participantes  "
+            sSql &= " WHERE  "
+            sSql &= "   IDAgendamento = @IDAgendamento  "
             If iIdFuncionario > 0 Then
-                sSql &= "AND IDFuncionario = @IDFuncionario "
+                sSql &= "AND IDFuncionario = @IDFuncionario  "
             End If
 
             With MyBase.SQLCmd.Parameters
                 .Clear()
-                .AddWithValue("@IDAgendamento", iIdAgendamento)
-                .AddWithValue("@IDFuncionario", iIdFuncionario)
+                .AddWithValue("@IDAgendamento ", iIdAgendamento)
+                .AddWithValue("@IDFuncionario ", iIdFuncionario)
             End With
 
             MyBase.executarAcao(sSql)
 
         Catch ex As Exception
-            Throw New Exception("Ocorreu um erro ao tentar excluir os dados dos Participantes do Treinamento." & Environment.NewLine & ex.Message)
+            Throw New Exception("Ocorreu um erro ao tentar excluir os dados dos Participantes do Treinamento. " & Environment.NewLine & ex.Message)
         End Try
 
     End Sub
@@ -75,26 +75,26 @@
 
         Try
 
-            sSql = "  SELECT  "
-            sSql &= "   Participantes.IDFuncionario, "
-            sSql &= "   Funcionario.Nome "
-            sSql &= " FROM "
-            sSql &= "   Participantes "
-            sSql &= " INNER JOIN Funcionario ON Participantes.IDFuncionario = Funcionario.IDFuncionario "
-            sSql &= " WHERE  "
-            sSql &= "   Participantes.IDAgendamento = @IdAgendamento "
+            sSql = "  SELECT   "
+            sSql &= "   Participantes.IDFuncionario,  "
+            sSql &= "   Funcionario.Nome  "
+            sSql &= " FROM  "
+            sSql &= "   Participantes  "
+            sSql &= " INNER JOIN Funcionario ON Participantes.IDFuncionario = Funcionario.IDFuncionario  "
+            sSql &= " WHERE   "
+            sSql &= "   Participantes.IDAgendamento = @IdAgendamento  "
 
             With MyBase.SQLCmd.Parameters
                 .Clear()
-                .AddWithValue("@IdAgendamento", iIdAgendamento)
+                .AddWithValue("@IdAgendamento ", iIdAgendamento)
             End With
 
-            dsDados = MyBase.executarConsulta(sSql, "Participantes")
+            dsDados = MyBase.executarConsulta(sSql, "Participantes ")
 
             Return dsDados
 
         Catch ex As Exception
-            Throw New Exception("Ocorreu um erro ao tentar selecionar os dados dos Participantes do Treinamento." & Environment.NewLine & ex.Message)
+            Throw New Exception("Ocorreu um erro ao tentar selecionar os dados dos Participantes do Treinamento. " & Environment.NewLine & ex.Message)
         End Try
 
     End Function

@@ -44,6 +44,11 @@
 
 #Region "Métodos públicos"
 
+    Public Function selecionarCampo(ByVal iIdEPI As Integer,
+                                    ByVal sCampo As String) As Object
+        Return Me.objEPI.selecionarCampo(iIdEPI, sCampo)
+    End Function
+
     Public Function Retornar_Descricao_EPI(ByVal iIDEpi As Integer) As String
 
         Try
@@ -279,7 +284,7 @@
     End Sub
 
     Public Function selecionarEPIsFuncionario(ByVal iIdFuncionario As Integer) As DataSet
-        Return Me.objEPI.selecionarEPIsFuncionario(iIdFuncionario)
+        Return Me.objEPI.selecionarEPIsFuncionario(iIdFuncionario, 0, String.Empty)
     End Function
 
     Public Function Retornar_EPI_Atrasados()

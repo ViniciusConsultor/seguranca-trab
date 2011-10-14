@@ -7,27 +7,27 @@
 
         Try
 
-            sSql = " INSERT INTO Arquivo "
-            sSql &= "  ( "
-            sSql &= "       IDDocumento, "
-            sSql &= "       Arquivo "
-            sSql &= "  ) "
-            sSql &= " VALUES "
-            sSql &= "  ( "
-            sSql &= "       @IDDocumento, "
-            sSql &= "       @Arquivo "
-            sSql &= "  ) "
+            sSql = " INSERT INTO Arquivo  "
+            sSql &= "  (  "
+            sSql &= "       IDDocumento,  "
+            sSql &= "       Arquivo  "
+            sSql &= "  )  "
+            sSql &= " VALUES  "
+            sSql &= "  (  "
+            sSql &= "       @IDDocumento,  "
+            sSql &= "       @Arquivo  "
+            sSql &= "  )  "
 
             With MyBase.SQLCmd.Parameters
                 .Clear()
-                .AddWithValue("@IDDocumento", iIdDocumento)
-                .AddWithValue("@Arquivo", byArquivo)
+                .AddWithValue("@IDDocumento ", iIdDocumento)
+                .AddWithValue("@Arquivo ", byArquivo)
             End With
 
             MyBase.executarAcao(sSql)
 
         Catch ex As Exception
-            Throw New Exception("Ocorreu um erro ao tentar inserir os dados do Arquivo." & Environment.NewLine & ex.Message)
+            Throw New Exception("Ocorreu um erro ao tentar inserir os dados do Arquivo. " & Environment.NewLine & ex.Message)
         End Try
 
     End Sub
@@ -39,21 +39,21 @@
 
         Try
 
-            sSql = "  UPDATE Arquivo SET " & vbCrLf
-            sSql &= "   Arquivo = @Arquivo " & vbCrLf
-            sSql &= " WHERE " & vbCrLf
-            sSql &= "   IDDocumento = @IDDocumento " & vbCrLf
+            sSql = "  UPDATE Arquivo SET  "
+            sSql &= "   Arquivo = @Arquivo  "
+            sSql &= " WHERE  "
+            sSql &= "   IDDocumento = @IDDocumento  "
 
             With MyBase.SQLCmd.Parameters
                 .Clear()
-                .AddWithValue("@Arquivo", byArquivo)
-                .AddWithValue("@IDDocumento", iIdDocumento)
+                .AddWithValue("@Arquivo ", byArquivo)
+                .AddWithValue("@IDDocumento ", iIdDocumento)
             End With
 
             MyBase.executarAcao(sSql)
 
         Catch ex As Exception
-            Throw New Exception("Ocorreu um erro ao tentar atualizar os dados do Arquivo." & Environment.NewLine & ex.Message)
+            Throw New Exception("Ocorreu um erro ao tentar atualizar os dados do Arquivo. " & Environment.NewLine & ex.Message)
         End Try
 
     End Sub
@@ -64,20 +64,20 @@
 
         Try
 
-            sSql = "  DELETE FROM "
-            sSql &= "   Arquivo "
-            sSql &= " WHERE "
-            sSql &= "   IDDocumento = @IDDocumento "
+            sSql = "  DELETE FROM  "
+            sSql &= "   Arquivo  "
+            sSql &= " WHERE  "
+            sSql &= "   IDDocumento = @IDDocumento  "
 
             With MyBase.SQLCmd.Parameters
                 .Clear()
-                .AddWithValue("@IDDocumento", iIdDocumento)
+                .AddWithValue("@IDDocumento ", iIdDocumento)
             End With
 
             MyBase.executarAcao(sSql)
 
         Catch ex As Exception
-            Throw New Exception("Ocorreu um erro ao tentar excluir os dados do Documento." & Environment.NewLine & ex.Message)
+            Throw New Exception("Ocorreu um erro ao tentar excluir os dados do Documento. " & Environment.NewLine & ex.Message)
         End Try
 
     End Sub

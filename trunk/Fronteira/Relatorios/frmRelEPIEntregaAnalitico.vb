@@ -1,14 +1,13 @@
 ﻿Imports Persistencia
-Public Class frmRelFuncionario
-
+Public Class frmRelEPIEntregaAnalitico
 #Region "Variáveis"
 
-    Private WithEvents objRelFuncionario As New Relatorio.relFuncionario
+    Private WithEvents objRelEPIAnalitico As New Relatorio.relEntregaEPIAnalitico
     Private objEmpresa As New Controle.ctrEmpresa
     Private objEmpresaUsuario As New Controle.ctrUsuarioEmpresa
-    Private objFuncionario As New Controle.ctrFuncionario
+    Private objEPI As New Controle.ctrEPI
     Private iIdEmpresa As Integer = 0
-    Private iIdFuncionario As Integer = 0
+    Private iIdEPI As Integer = 0
     Private sIdsEmpresaAcesso As String = String.Empty
 
 #End Region
@@ -24,12 +23,12 @@ Public Class frmRelFuncionario
         End Set
     End Property
 
-    Public Property IDFuncionario() As Integer
+    Public Property IDEPI() As Integer
         Get
-            Return Me.iIdFuncionario
+            Return Me.iIdEPI
         End Get
         Set(ByVal value As Integer)
-            Me.iIdFuncionario = value
+            Me.iIdEPI = value
         End Set
     End Property
 
@@ -43,17 +42,17 @@ Public Class frmRelFuncionario
         Dim sMensagemValidacao As String = ""
 
         If Not Me.chkTodasEmpresas.Checked AndAlso Me.iIdEmpresa = 0 Then
-            Me.epPadrao.SetError(Me.chkTodasEmpresas, "Informe a empresa")
+            Me.epRelatorio.SetError(Me.chkTodasEmpresas, "Informe a empresa")
             bRetorno = False
         Else
-            Me.epPadrao.SetError(Me.chkTodasEmpresas, "")
+            Me.epRelatorio.SetError(Me.chkTodasEmpresas, "")
         End If
 
-        If Not Me.chkTodosFuncionarios.Checked AndAlso Me.iIdFuncionario = 0 Then
-            Me.epPadrao.SetError(Me.chkTodosFuncionarios, "Informe o funcionário")
+        If Not Me.chkTodosEPI.Checked AndAlso Me.iIdEmpresa = 0 Then
+            Me.epRelatorio.SetError(Me.chkTodosEPI, "Informe o EPI")
             bRetorno = False
         Else
-            Me.epPadrao.SetError(Me.chkTodosFuncionarios, "")
+            Me.epRelatorio.SetError(Me.chkTodosEPI, "")
         End If
 
         Return bRetorno
@@ -68,7 +67,7 @@ Public Class frmRelFuncionario
 
             If Me.validaFormulario Then
 
-                With Me.objRelFuncionario
+                With Me.objRelEPIAnalitico
 
                     If iIdEmpresa = 0 Then
                         .IdsEmpresaAcesso = Me.sIdsEmpresaAcesso
@@ -78,7 +77,9 @@ Public Class frmRelFuncionario
                         .IdsEmpresaAcesso = String.Empty
                     End If
 
-                    .IDFuncionario = Me.iIdFuncionario
+                    .IDEPI = Me.iIdEmpresa
+
+                    .MostrarFuncionarios = Me.chkMostrarFuncionarios.Checked
 
                     bRetorno = .imprime(Globais.eDispositivoSaida.tela)
 
@@ -100,7 +101,7 @@ Public Class frmRelFuncionario
         Me.imprimirRelatorio()
     End Sub
 
-    Private Sub frmRelTreinamento_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Private Sub frmRelTreinamento_Load(ByVal sender As Object, ByVal e As System.EventArgs)
 
         Me.sIdsEmpresaAcesso = Conversao.ToString(Me.objEmpresaUsuario.selecionarEmpresasAcesso(Globais.iIDUsuario))
         Me.chkTodasEmpresas.Checked = False
@@ -112,9 +113,9 @@ Public Class frmRelFuncionario
             Me.txtEmpresa.Text = Conversao.ToString(Me.objEmpresa.selecionarCampo(Me.iIdEmpresa, "NomeFantasia"))
         End If
 
-        If Me.IDFuncionario > 0 Then
-            Me.chkTodosFuncionarios.Checked = False
-            Me.preencheDescricaoFuncionario()
+        If Me.IDEPI > 0 Then
+            Me.chkTodosEPI.Checked = False
+            Me.preencheDescricaoEPI()
         End If
 
     End Sub
@@ -123,7 +124,7 @@ Public Class frmRelFuncionario
         Me.imprimirRelatorio()
     End Sub
 
-    Private Sub cmdEmpresa_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdEmpresa.Click
+    Private Sub cmdEmpresa_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
         Dim sSql As String
         Dim frmDialogo As New frmPesquisa
@@ -159,22 +160,22 @@ Public Class frmRelFuncionario
 
     End Sub
 
-    Private Sub cmdFuncionario_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdFuncionario.Click
+    Private Sub cmdEPI_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
         Dim sSql As String
         Dim frmDialogo As New frmPesquisa
 
-        sSql = Me.objFuncionario.sqlConsulta(0, Me.iIdEmpresa)
+        sSql = Me.objEPI.sqlConsulta(0)
 
         With frmDialogo
             .Sql = sSql
-            .Titulo = "Pesquisa Funcionários"
+            .Titulo = "Pesquisa EPI"
             .CarregaTela()
             If .DS.Tables(0).Rows.Count > 0 Then
                 .ShowDialog()
                 If (.DialogResult = Windows.Forms.DialogResult.OK) Then
-                    Me.iIdFuncionario = .ID
-                    Me.preencheDescricaoFuncionario()
+                    Me.iIdEPI = .ID
+                    Me.preencheDescricaoEPI()
                 End If
             Else
                 MsgBox("Registro não encontrado", MsgBoxStyle.Exclamation, Me.Text)
@@ -184,20 +185,34 @@ Public Class frmRelFuncionario
 
     End Sub
 
-    Private Sub preencheDescricaoFuncionario()
+    Private Sub preencheDescricaoEPI()
 
-        If Me.iIdFuncionario > 0 Then
-            Me.txtFuncionario.Text = Conversao.ToString(Me.objFuncionario.selecionarCampo(Me.iIdFuncionario, "Nome"))
+        If Me.iIdEPI > 0 Then
+            Me.txtEPI.Text = Conversao.ToString(Me.objEPI.selecionarCampo(Me.iIdEPI, "Descricao"))
         Else
-            Me.txtFuncionario.Text = String.Empty
+            Me.txtEPI.Text = String.Empty
         End If
 
     End Sub
 
-    Private Sub chkTodasEmpresas_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkTodasEmpresas.CheckedChanged
+    Private Sub chkTodosEPI_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
         If sender.checked Then
-            Me.txtEmpresa.Enabled = False
+            Me.txtEPI.Enabled = False
+            Me.cmdEPI.Enabled = False
+            Me.iIdEPI = 0
+            Me.txtEPI.Text = String.Empty
+        Else
+            Me.txtEPI.Enabled = True
+            Me.cmdEPI.Enabled = True
+        End If
+
+    End Sub
+
+    Private Sub chkTodasEmpresas_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+        If sender.checked Then
+            Me.txtEPI.Enabled = False
             Me.cmdEmpresa.Enabled = False
             Me.iIdEmpresa = 0
             Me.txtEmpresa.Text = String.Empty
@@ -208,23 +223,11 @@ Public Class frmRelFuncionario
 
     End Sub
 
-    Private Sub chkTodosFuncionarios_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkTodosFuncionarios.CheckedChanged
-
-        If sender.checked Then
-            Me.txtFuncionario.Enabled = False
-            Me.cmdFuncionario.Enabled = False
-            Me.iIdFuncionario = 0
-            Me.txtFuncionario.Text = String.Empty
-        Else
-            Me.txtFuncionario.Enabled = True
-            Me.cmdFuncionario.Enabled = True
-        End If
-
+    Private Sub cmdSair_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSair.Click
+        Me.Close()
     End Sub
 
 #End Region
 
-    Private Sub cmdSair_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSair.Click
-        Me.Close()
-    End Sub
+
 End Class

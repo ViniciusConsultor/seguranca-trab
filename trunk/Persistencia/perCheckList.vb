@@ -12,19 +12,19 @@
         NaoOk = 2
     End Enum
 
-#Region "Variáveis"
+#Region "Variáveis "
     Private objProximoID As New ProximoID
 #End Region
 
-#Region "Propriedades"
+#Region "Propriedades "
     ReadOnly Property sqlConsulta()
         Get
             Dim sSql As String
-            sSql = "SELECT CL.IDCheckList as ID, CL.IDNR as NR, " & vbCrLf
-            sSql &= "       CASE WHEN CL.StatusCheckList = 0 THEN 'Cadastrado' ELSE 'Concluído' END AS Status," & vbCrLf
-            sSql &= "       CL.Data AS Data" & vbCrLf
-            sSql &= "  FROM CheckList CL" & vbCrLf
-            sSql &= " WHERE CL.IDEmpresa = " & Persistencia.Globais.iIDEmpresa
+            sSql = "SELECT CL.IDCheckList as ID, CL.IDNR as NR,  "
+            sSql &= "       CASE WHEN CL.StatusCheckList = 0 THEN 'Cadastrado' ELSE 'Concluído' END AS Status, "
+            sSql &= "       CL.Data AS Data "
+            sSql &= "  FROM CheckList CL "
+            sSql &= " WHERE CL.IDEmpresa =  " & Persistencia.Globais.iIDEmpresa
 
             Return sSql
         End Get
@@ -33,11 +33,11 @@
     ReadOnly Property sqlConsulta_Concluidos()
         Get
             Dim sSql As String
-            sSql = "SELECT CL.IDCheckList as ID, CL.IDNR as NR, " & vbCrLf
-            sSql &= "       CL.Data AS Data" & vbCrLf
-            sSql &= "  FROM CheckList CL" & vbCrLf
-            sSql &= " WHERE CL.IDEmpresa = " & Persistencia.Globais.iIDEmpresa
-            sSql &= "   AND CL.StatusCheckList = " & perCheckList.eStatusCheckList.Concluido
+            sSql = "SELECT CL.IDCheckList as ID, CL.IDNR as NR,  "
+            sSql &= "       CL.Data AS Data "
+            sSql &= "  FROM CheckList CL "
+            sSql &= " WHERE CL.IDEmpresa =  " & Persistencia.Globais.iIDEmpresa
+            sSql &= "   AND CL.StatusCheckList =  " & perCheckList.eStatusCheckList.Concluido
 
             Return sSql
         End Get
@@ -47,14 +47,14 @@
     Public Sub Alterar_Status_CheckList(ByVal iIDCheckList As Integer, ByVal iStatus As Integer)
         Dim sSql As String
 
-        sSql = "UPDATE CheckList" & vbCrLf
-        sSql &= "  SET StatusCheckList = @Status" & vbCrLf
-        sSql &= "WHERE IDCheckList = @IDCheckList" & vbCrLf
+        sSql = "UPDATE CheckList "
+        sSql &= "  SET StatusCheckList = @Status "
+        sSql &= "WHERE IDCheckList = @IDCheckList "
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@Status", iStatus)
-            .AddWithValue("@IDCheckList", iIDCheckList)
+            .AddWithValue("@Status ", iStatus)
+            .AddWithValue("@IDCheckList ", iIDCheckList)
         End With
 
         MyBase.executarAcao(sSql)
@@ -63,12 +63,12 @@
     Public Sub Excluir_CheckList(ByVal iIDCheckList As Integer)
         Dim sSql As String
 
-        sSql = "DELETE CheckList" & vbCrLf
-        sSql &= "WHERE IDCheckList = @IDCheckList" & vbCrLf
+        sSql = "DELETE CheckList "
+        sSql &= "WHERE IDCheckList = @IDCheckList "
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@IDCheckList", iIDCheckList)
+            .AddWithValue("@IDCheckList ", iIDCheckList)
         End With
 
         MyBase.executarAcao(sSql)
@@ -78,12 +78,12 @@
     Public Sub Excluir_Item_CheckList(ByVal iIDCheckList As Integer)
         Dim sSql As String
 
-        sSql = "DELETE CheckList_Itens" & vbCrLf
-        sSql &= "WHERE IDCheckList = @IDCheckList" & vbCrLf
+        sSql = "DELETE CheckList_Itens "
+        sSql &= "WHERE IDCheckList = @IDCheckList "
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@IDCheckList", iIDCheckList)
+            .AddWithValue("@IDCheckList ", iIDCheckList)
         End With
 
         MyBase.executarAcao(sSql)
@@ -95,30 +95,30 @@
         Dim sSql As String
         Dim iIDCheckList As Integer
 
-        sSql = "INSERT INTO CheckList(" & vbCrLf
-        sSql &= "           IDCheckList, " & vbCrLf
-        sSql &= "           IDEmpresa, " & vbCrLf
-        sSql &= "           IDNR," & vbCrLf
-        sSql &= "           Data," & vbCrLf
-        sSql &= "           StatusCheckList" & vbCrLf
-        sSql &= ") " & vbCrLf
-        sSql &= "           VALUES(" & vbCrLf
-        sSql &= "           @IDCheckList," & vbCrLf
-        sSql &= "           @IDEmpresa," & vbCrLf
-        sSql &= "           @IDNR, " & vbCrLf
-        sSql &= "           @Data," & vbCrLf
-        sSql &= "           @Status" & vbCrLf
-        sSql &= ")"
+        sSql = "INSERT INTO CheckList( "
+        sSql &= "           IDCheckList,  "
+        sSql &= "           IDEmpresa,  "
+        sSql &= "           IDNR, "
+        sSql &= "           Data, "
+        sSql &= "           StatusCheckList "
+        sSql &= ")  "
+        sSql &= "           VALUES( "
+        sSql &= "           @IDCheckList, "
+        sSql &= "           @IDEmpresa, "
+        sSql &= "           @IDNR,  "
+        sSql &= "           @Data, "
+        sSql &= "           @Status "
+        sSql &= ") "
 
-        iIDCheckList = objProximoID.BuscaID("IDCheckList", "CheckList")
+        iIDCheckList = objProximoID.BuscaID("IDCheckList ", "CheckList ")
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@IDCheckList", iIDCheckList)
-            .AddWithValue("@IDEmpresa", iIDEmpresa)
-            .AddWithValue("@IDNR", iIDNR)
-            .AddWithValue("@Data", dtData.ToString("dd/MM/yyyy"))
-            .AddWithValue("@Status", iStatus)
+            .AddWithValue("@IDCheckList ", iIDCheckList)
+            .AddWithValue("@IDEmpresa ", iIDEmpresa)
+            .AddWithValue("@IDNR ", iIDNR)
+            .AddWithValue("@Data ", dtData.ToString("dd/MM/yyyy "))
+            .AddWithValue("@Status ", iStatus)
         End With
 
         MyBase.executarAcao(sSql)
@@ -132,30 +132,30 @@
         Dim sSql As String
         Dim iIDItem As Integer
 
-        sSql = "INSERT INTO CheckList_Itens(" & vbCrLf
-        sSql &= "           IDItem, " & vbCrLf
-        sSql &= "           IDCheckList, " & vbCrLf
-        sSql &= "           IDQuestao," & vbCrLf
-        sSql &= "           StatusItem," & vbCrLf
-        sSql &= "           Justificativa" & vbCrLf
-        sSql &= ") " & vbCrLf
-        sSql &= "           VALUES(" & vbCrLf
-        sSql &= "           @IDItem," & vbCrLf
-        sSql &= "           @IDCheckList," & vbCrLf
-        sSql &= "           @IDQuestao, " & vbCrLf
-        sSql &= "           @StatusItem," & vbCrLf
-        sSql &= "           @Justificativa" & vbCrLf
-        sSql &= ")"
+        sSql = "INSERT INTO CheckList_Itens( "
+        sSql &= "           IDItem,  "
+        sSql &= "           IDCheckList,  "
+        sSql &= "           IDQuestao, "
+        sSql &= "           StatusItem, "
+        sSql &= "           Justificativa "
+        sSql &= ")  "
+        sSql &= "           VALUES( "
+        sSql &= "           @IDItem, "
+        sSql &= "           @IDCheckList, "
+        sSql &= "           @IDQuestao,  "
+        sSql &= "           @StatusItem, "
+        sSql &= "           @Justificativa "
+        sSql &= ") "
 
-        iIDItem = objProximoID.BuscaID("IDItem", "CheckList_Itens")
+        iIDItem = objProximoID.BuscaID("IDItem ", "CheckList_Itens ")
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@IDItem", iIDItem)
-            .AddWithValue("@IDCheckList", iIDCheckList)
-            .AddWithValue("@IDQuestao", Conversao.zeroParaNulo(iIDQuestao))
-            .AddWithValue("@StatusItem", iSituacao)
-            .AddWithValue("@Justificativa", sJustificativa)
+            .AddWithValue("@IDItem ", iIDItem)
+            .AddWithValue("@IDCheckList ", iIDCheckList)
+            .AddWithValue("@IDQuestao ", Conversao.zeroParaNulo(iIDQuestao))
+            .AddWithValue("@StatusItem ", iSituacao)
+            .AddWithValue("@Justificativa ", sJustificativa)
         End With
 
         MyBase.executarAcao(sSql)
@@ -165,16 +165,16 @@
     End Function
 
     Public Function Retornar_Dados_CheckList(ByVal iIDCheckList As Integer) As DataTable
-        Dim sSql As String = ""
+        Dim sSql As String = " "
 
-        sSql = "SELECT CL.IDNr,NR.Descricao as DescricaoNR, CL.Data, CL.StatusCheckList" & vbCrLf
-        sSql &= " FROM CheckList CL " & vbCrLf
-        sSql &= "      INNER JOIN NR ON CL.IDNr = NR.IDNR" & vbCrLf
-        sSql &= "WHERE CL.IDCheckList = @IDCheckList"
+        sSql = "SELECT CL.IDNr,NR.Descricao as DescricaoNR, CL.Data, CL.StatusCheckList "
+        sSql &= " FROM CheckList CL  "
+        sSql &= "      INNER JOIN NR ON CL.IDNr = NR.IDNR "
+        sSql &= "WHERE CL.IDCheckList = @IDCheckList "
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@IDCheckList", iIDCheckList)
+            .AddWithValue("@IDCheckList ", iIDCheckList)
         End With
 
         Return MyBase.executarConsulta(sSql)
@@ -184,34 +184,34 @@
     Public Function Retornar_CheckList_Atrasados(ByVal iIDEmpresa As Integer, ByVal dtData As Date) As DataTable
         Dim sSql As String
 
-        sSql = "SELECT NRE.IDNR, CAST(NR.Descricao AS NVARCHAR(MAX)) AS DescricaoNR," & vbCrLf
-        sSql &= "      CONVERT(DATETIME, @Data,103) AS Validade," & vbCrLf
-        sSql &= "      CL.IDCheckList, NULL as DataCheckList " & vbCrLf
-        sSql &= " FROM NR_EMPRESA NRE " & vbCrLf
-        sSql &= "      INNER JOIN NR ON NRE.IDNR = NR.IDNR" & vbCrLf
-        sSql &= "      LEFT JOIN CHECKLIST CL ON CL.IDNR = NRE.IDNR" & vbCrLf
-        sSql &= " WHERE(NRE.IDEMPRESA = @Empresa)" & vbCrLf
-        sSql &= "   AND NRE.IDNR NOT IN (SELECT IDNR FROM CHECKLIST WHERE IDEMPRESA = @Empresa AND STATUSCHECKLIST = @StatusCheckList)"
+        sSql = "SELECT NRE.IDNR, CAST(NR.Descricao AS NVARCHAR(MAX)) AS DescricaoNR,  "
+        sSql &= "      CONVERT(DATETIME, @Data,103) AS Validade,  "
+        sSql &= "      CL.IDCheckList, NULL as DataCheckList  "
+        sSql &= " FROM NR_EMPRESA NRE  "
+        sSql &= "      INNER JOIN NR ON NRE.IDNR = NR.IDNR  "
+        sSql &= "      LEFT JOIN CHECKLIST CL ON CL.IDNR = NRE.IDNR  "
+        sSql &= " WHERE(NRE.IDEMPRESA = @Empresa)  "
+        sSql &= "   AND NRE.IDNR NOT IN (SELECT IDNR FROM CHECKLIST WHERE IDEMPRESA = @Empresa AND STATUSCHECKLIST = @StatusCheckList)  "
 
-        sSql &= " UNION ALL" & vbCrLf
+        sSql &= " UNION ALL  "
 
-        sSql &= " SELECT NRE.IDNR, CAST(NR.Descricao AS NVARCHAR(MAX)) AS DescricaoNR," & vbCrLf
-        sSql &= "        CONVERT(DATETIME, DATEADD(MM, NRE.VALIDADE,MAX(DATA)),103) AS Validade," & vbCrLf
-        sSql &= "        CL.IDChecklist, CL.Data as DataCheckList"
-        sSql &= "   FROM CHECKLIST CL" & vbCrLf
-        sSql &= "        INNER JOIN NR_EMPRESA NRE ON CL.IDNR = NRE.IDNR" & vbCrLf
-        sSql &= "        INNER JOIN NR ON NRE.IDNR = NR.IDNR" & vbCrLf
-        sSql &= "  WHERE STATUSCHECKLIST = @StatusCheckList" & vbCrLf
-        sSql &= "    AND NRE.IDEMPRESA = " & Globais.iIDEmpresa & vbCrLf
-        sSql &= "GROUP BY NRE.IDNR, NRE.VALIDADE,CAST(NR.Descricao AS NVARCHAR(MAX)), CL.IDCheckList, CL.Data" & vbCrLf
-        sSql &= "  HAVING CONVERT(DATETIME, DATEADD(MM, NRE.VALIDADE,MAX(DATA)),103) < @Data" & vbCrLf
-        sSql &= "ORDER BY Validade"
+        sSql &= " SELECT NRE.IDNR, CAST(NR.Descricao AS NVARCHAR(MAX)) AS DescricaoNR,  "
+        sSql &= "        CONVERT(DATETIME, DATEADD(MM, NRE.VALIDADE,MAX(DATA)),103) AS Validade,  "
+        sSql &= "        CL.IDChecklist, CL.Data as DataCheckList  "
+        sSql &= "   FROM CHECKLIST CL  "
+        sSql &= "        INNER JOIN NR_EMPRESA NRE ON CL.IDNR = NRE.IDNR  "
+        sSql &= "        INNER JOIN NR ON NRE.IDNR = NR.IDNR  "
+        sSql &= "  WHERE STATUSCHECKLIST = @StatusCheckList  "
+        sSql &= "    AND NRE.IDEMPRESA =  " & Globais.iIDEmpresa
+        sSql &= " GROUP BY NRE.IDNR, NRE.VALIDADE,CAST(NR.Descricao AS NVARCHAR(MAX)), CL.IDCheckList, CL.Data  "
+        sSql &= "  HAVING CONVERT(DATETIME, DATEADD(MM, NRE.VALIDADE,MAX(DATA)),103) < @Data  "
+        sSql &= " ORDER BY Validade  "
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@Data", dtData.ToString("dd/MM/yyyy"))
-            .AddWithValue("@Empresa", iIDEmpresa)
-            .AddWithValue("@StatusCheckList", eStatusCheckList.Concluido)
+            .AddWithValue("@Data ", dtData.ToString("dd/MM/yyyy "))
+            .AddWithValue("@Empresa ", iIDEmpresa)
+            .AddWithValue("@StatusCheckList ", eStatusCheckList.Concluido)
         End With
 
         Return MyBase.executarConsulta(sSql)
@@ -221,24 +221,24 @@
     Public Function Retornar_NR_CheckList(ByVal iIDEmpresa As Integer, ByVal DtData As Date) As String
         Dim sSql As String
 
-        sSql = "SELECT NRE.IDNR, CAST(NR.Descricao AS NVARCHAR(MAX)) AS Descrição," & vbCrLf
-        sSql &= "      CONVERT(DATETIME, GETDATE(),103) AS Vencimento" & vbCrLf
-        sSql &= " FROM NR_EMPRESA NRE " & vbCrLf
-        sSql &= "      INNER JOIN NR ON NRE.IDNR = NR.IDNR" & vbCrLf
-        sSql &= "      LEFT JOIN CHECKLIST CL ON CL.IDNR = NRE.IDNR" & vbCrLf
-        sSql &= " WHERE(NRE.IDEMPRESA = " & Globais.iIDEmpresa & " AND CL.STATUSCHECKLIST Is NULL)" & vbCrLf
+        sSql = "SELECT NRE.IDNR, CAST(NR.Descricao AS NVARCHAR(MAX)) AS Descrição, "
+        sSql &= "      CONVERT(DATETIME, GETDATE(),103) AS Vencimento "
+        sSql &= " FROM NR_EMPRESA NRE  "
+        sSql &= "      INNER JOIN NR ON NRE.IDNR = NR.IDNR "
+        sSql &= "      LEFT JOIN CHECKLIST CL ON CL.IDNR = NRE.IDNR "
+        sSql &= " WHERE(NRE.IDEMPRESA =  " & Globais.iIDEmpresa & " AND CL.STATUSCHECKLIST Is NULL) "
 
-        sSql &= " UNION ALL" & vbCrLf
+        sSql &= " UNION ALL "
 
-        sSql &= " SELECT NRE.IDNR, CAST(NR.Descricao AS NVARCHAR(MAX)) AS Descrição," & vbCrLf
-        sSql &= "        CONVERT(DATETIME, DATEADD(MM, NRE.VALIDADE,MAX(DATA)),103) AS Vencimento" & vbCrLf
-        sSql &= "   FROM CHECKLIST CL" & vbCrLf
-        sSql &= "        INNER JOIN NR_EMPRESA NRE ON CL.IDNR = NRE.IDNR" & vbCrLf
-        sSql &= "        INNER JOIN NR ON NRE.IDNR = NR.IDNR" & vbCrLf
-        sSql &= "  WHERE STATUSCHECKLIST = 1" & vbCrLf
-        sSql &= "    AND NRE.IDEMPRESA = " & Globais.iIDEmpresa & vbCrLf
-        sSql &= "GROUP BY NRE.IDNR, NRE.VALIDADE,CAST(NR.Descricao AS NVARCHAR(MAX))" & vbCrLf
-        sSql &= "ORDER BY Vencimento"
+        sSql &= " SELECT NRE.IDNR, CAST(NR.Descricao AS NVARCHAR(MAX)) AS Descrição, "
+        sSql &= "        CONVERT(DATETIME, DATEADD(MM, NRE.VALIDADE,MAX(DATA)),103) AS Vencimento "
+        sSql &= "   FROM CHECKLIST CL "
+        sSql &= "        INNER JOIN NR_EMPRESA NRE ON CL.IDNR = NRE.IDNR "
+        sSql &= "        INNER JOIN NR ON NRE.IDNR = NR.IDNR "
+        sSql &= "  WHERE STATUSCHECKLIST = 1 "
+        sSql &= "    AND NRE.IDEMPRESA =  " & Globais.iIDEmpresa
+        sSql &= "GROUP BY NRE.IDNR, NRE.VALIDADE,CAST(NR.Descricao AS NVARCHAR(MAX)) "
+        sSql &= "ORDER BY Vencimento "
 
         Return sSql
 
@@ -251,17 +251,17 @@
         Dim sSql As String
         Dim dtbDados As New DataTable
 
-        sSql = "SELECT IDCheckList" & vbCrLf
-        sSql &= " FROM CheckList" & vbCrLf
-        sSql &= "WHERE @DtInicio BETWEEN DtInicio AND DtFim" & vbCrLf
-        sSql &= "  AND IDNR = @IDNR" & vbCrLf
-        sSql &= "  AND IDEmpresa = @IDEmpresa" & vbCrLf
+        sSql = "SELECT IDCheckList "
+        sSql &= " FROM CheckList "
+        sSql &= "WHERE @DtInicio BETWEEN DtInicio AND DtFim "
+        sSql &= "  AND IDNR = @IDNR "
+        sSql &= "  AND IDEmpresa = @IDEmpresa "
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@DtInicio", dtDatainicio)
-            .AddWithValue("@IDNR", iIDNR)
-            .AddWithValue("@IDEmpresa", iIDEmpresa)
+            .AddWithValue("@DtInicio ", dtDatainicio)
+            .AddWithValue("@IDNR ", iIDNR)
+            .AddWithValue("@IDEmpresa ", iIDEmpresa)
         End With
 
         dtbDados = MyBase.executarConsulta(sSql)
@@ -276,14 +276,14 @@
         Dim sSql As String
         Dim dtbDados As New DataTable
 
-        sSql = "SELECT IDCheckList" & vbCrLf
-        sSql &= " FROM Auditoria" & vbCrLf
-        sSql &= "WHERE " & vbCrLf
-        sSql &= "  IDCheckList = @IDCheckList" & vbCrLf
+        sSql = "SELECT IDCheckList "
+        sSql &= " FROM Auditoria "
+        sSql &= "WHERE  "
+        sSql &= "  IDCheckList = @IDCheckList "
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@IDCheckList", iIDCheckList)
+            .AddWithValue("@IDCheckList ", iIDCheckList)
         End With
 
         dtbDados = MyBase.executarConsulta(sSql)

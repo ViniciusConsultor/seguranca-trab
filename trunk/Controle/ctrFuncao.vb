@@ -216,7 +216,7 @@
 
         Try
 
-            Return objFuncao.selecionarFuncoesFuncionario(iIdFuncionario)
+            Return objFuncao.selecionarFuncoesFuncionario(iIdFuncionario, 0, String.Empty)
 
         Catch ex As Exception
             Throw New Exception("Ocorreu um erro ao selecionar as funções do funcionário." & Environment.NewLine & ex.Message)

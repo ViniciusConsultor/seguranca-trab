@@ -1,7 +1,7 @@
 ﻿Public Class perQuestao
     Inherits AcessoBd
 
-#Region "Variáveis"
+#Region "Variáveis "
     Private objProximoID As New ProximoID
 #End Region
 
@@ -12,29 +12,29 @@
         Dim sSql As String
         Dim iIDQuestao As Integer
 
-        sSql = " INSERT INTO Questao " & vbCrLf
-        sSql &= "  ( " & vbCrLf
-        sSql &= "       IDQuestao, " & vbCrLf
-        sSql &= "       IDArtigo, " & vbCrLf
-        sSql &= "       Questao, " & vbCrLf
-        sSql &= "       Acao"
-        sSql &= "  ) " & vbCrLf
-        sSql &= " VALUES " & vbCrLf
-        sSql &= "  ( " & vbCrLf
-        sSql &= "       @IDQuestao, " & vbCrLf
-        sSql &= "       @IDArtigo, " & vbCrLf
-        sSql &= "       @Questao," & vbCrLf
-        sSql &= "       @Acao"
-        sSql &= "  ) "
+        sSql = " INSERT INTO Questao  "
+        sSql &= "  (  "
+        sSql &= "       IDQuestao,  "
+        sSql &= "       IDArtigo,  "
+        sSql &= "       Questao,  "
+        sSql &= "       Acao "
+        sSql &= "  )  "
+        sSql &= " VALUES  "
+        sSql &= "  (  "
+        sSql &= "       @IDQuestao,  "
+        sSql &= "       @IDArtigo,  "
+        sSql &= "       @Questao, "
+        sSql &= "       @Acao "
+        sSql &= "  )  "
 
-        iIDQuestao = objProximoID.BuscaID("IDQuestao", "Questao")
+        iIDQuestao = objProximoID.BuscaID("IDQuestao ", "Questao ")
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@IDQuestao", iIDQuestao)
-            .AddWithValue("@IDArtigo", iIDArtigo)
-            .AddWithValue("@Questao", sQuestao)
-            .AddWithValue("@Acao", sAcao)
+            .AddWithValue("@IDQuestao ", iIDQuestao)
+            .AddWithValue("@IDArtigo ", iIDArtigo)
+            .AddWithValue("@Questao ", sQuestao)
+            .AddWithValue("@Acao ", sAcao)
         End With
 
         MyBase.executarAcao(sSql)
@@ -47,16 +47,16 @@
 
         Dim sSql As String
 
-        sSql = "  DELETE FROM " & vbCrLf
-        sSql &= "   Questao " & vbCrLf
-        sSql &= " WHERE IDArtigo IN ( " & vbCrLf
-        sSql &= "                  SELECT IDArtigo" & vbCrLf
-        sSql &= "                    FROM Artigo" & vbCrLf
-        sSql &= "                   WHERE IDNR = @IDNR)" & vbCrLf
+        sSql = "  DELETE FROM  "
+        sSql &= "   Questao  "
+        sSql &= " WHERE IDArtigo IN (  "
+        sSql &= "                  SELECT IDArtigo "
+        sSql &= "                    FROM Artigo "
+        sSql &= "                   WHERE IDNR = @IDNR) "
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@IDNR", iIDNR)
+            .AddWithValue("@IDNR ", iIDNR)
         End With
 
         MyBase.executarAcao(sSql)
@@ -66,21 +66,21 @@
     Public Function Selecionar_Questoes_NR(ByVal iIDNR As Integer) As DataTable
         Dim sSql As String
 
-        sSql = "  SELECT "
-        sSql &= "	A.CodArtigo, Q.Questao, Q.Acao,"
-        sSql &= "	D.NomeArquivo, D.IDTipo as IDArquivo, "
-        sSql &= "    D.Descricao as DescricaoArquivo, Ar.Arquivo, D.IDDocumento "
-        sSql &= " FROM Questao Q"
-        sSql &= "    INNER JOIN Artigo A ON Q.IDArtigo = A.IDArtigo"
-        sSql &= "	LEFT JOIN Documento D On D.IDTipo = Q.IDQuestao AND D.Tipo = @Tipo"
-        sSql &= "	LEFT JOIN Arquivo Ar On D.IDDocumento = Ar.IDDocumento "
-        sSql &= " WHERE A.IDNR = @IDNR "
-        sSql &= " ORDER BY Q.IDQuestao"
+        sSql = "  SELECT  "
+        sSql &= "	A.CodArtigo, Q.Questao, Q.Acao, "
+        sSql &= "	D.NomeArquivo, D.IDTipo as IDArquivo,  "
+        sSql &= "    D.Descricao as DescricaoArquivo, Ar.Arquivo, D.IDDocumento  "
+        sSql &= " FROM Questao Q "
+        sSql &= "    INNER JOIN Artigo A ON Q.IDArtigo = A.IDArtigo "
+        sSql &= "	LEFT JOIN Documento D On D.IDTipo = Q.IDQuestao AND D.Tipo = @Tipo "
+        sSql &= "	LEFT JOIN Arquivo Ar On D.IDDocumento = Ar.IDDocumento  "
+        sSql &= " WHERE A.IDNR = @IDNR  "
+        sSql &= " ORDER BY Q.IDQuestao "
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@Tipo", Globais.eTipoArquivo.NRQuestao.GetHashCode)
-            .AddWithValue("@IDNR", iIDNR)
+            .AddWithValue("@Tipo ", Globais.eTipoArquivo.NRQuestao.GetHashCode)
+            .AddWithValue("@IDNR ", iIDNR)
         End With
 
         Return MyBase.executarConsulta(sSql)

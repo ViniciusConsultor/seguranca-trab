@@ -1,19 +1,19 @@
 ﻿Public Class perCBO
     Inherits AcessoBd
 
-#Region "Variáveis"
+#Region "Variáveis "
     Private objproximoID As New ProximoID
 #End Region
 
-#Region "Propriedades"
+#Region "Propriedades "
 
     ReadOnly Property sqlConsulta() As String
         Get
             Dim sSql As String
 
-            sSql = "SELECT IDCbo as Código, CodCBO as CBO, Descricao"
-            sSql &= " FROM CBO"
-            sSql &= " ORDER BY CodCbo"
+            sSql = "SELECT IDCbo as Código, CodCBO as CBO, Descricao "
+            sSql &= " FROM CBO "
+            sSql &= " ORDER BY CodCbo "
 
             Return sSql
         End Get
@@ -21,7 +21,7 @@
 
 #End Region
 
-#Region "Métodos Públicos"
+#Region "Métodos Públicos "
 
     Public Function Inserir_CBO(ByVal sCodCbo As String, _
                                   ByVal sDescricao As String) As Integer
@@ -31,26 +31,26 @@
 
         Try
 
-            sSql = "INSERT INTO CBO" & vbCrLf
-            sSql &= "(" & vbCrLf
-            sSql &= "      IDCbo," & vbCrLf
-            sSql &= "      CodCbo," & vbCrLf
-            sSql &= "      Descricao" & vbCrLf
-            sSql &= ")" & vbCrLf
-            sSql &= "      VALUES" & vbCrLf
-            sSql &= "(" & vbCrLf
-            sSql &= "      @IDCbo," & vbCrLf
-            sSql &= "      @CodCbo," & vbCrLf
-            sSql &= "      @Descricao" & vbCrLf
-            sSql &= ")"
+            sSql = "INSERT INTO CBO "
+            sSql &= "( "
+            sSql &= "      IDCbo, "
+            sSql &= "      CodCbo, "
+            sSql &= "      Descricao "
+            sSql &= ") "
+            sSql &= "      VALUES "
+            sSql &= "( "
+            sSql &= "      @IDCbo, "
+            sSql &= "      @CodCbo, "
+            sSql &= "      @Descricao "
+            sSql &= ") "
 
-            iIDCbo = objproximoID.BuscaID("IDCbo", "CBO")
+            iIDCbo = objproximoID.BuscaID("IDCbo ", "CBO ")
 
             With MyBase.SQLCmd.Parameters
                 .Clear()
-                .AddWithValue("@IDCbo", iIDCbo)
-                .AddWithValue("@CodCbo", sCodCbo)
-                .AddWithValue("@Descricao", sDescricao)
+                .AddWithValue("@IDCbo ", iIDCbo)
+                .AddWithValue("@CodCbo ", sCodCbo)
+                .AddWithValue("@Descricao ", sDescricao)
             End With
 
             MyBase.executarAcao(sSql)
@@ -58,7 +58,7 @@
             Return iIDCbo
 
         Catch ex As Exception
-            Throw New Exception("Ocorreu um erro ao tentar inserir os dados de CBO." & Environment.NewLine & ex.Message)
+            Throw New Exception("Ocorreu um erro ao tentar inserir os dados de CBO. " & Environment.NewLine & ex.Message)
         End Try
 
     End Function
@@ -70,22 +70,22 @@
         Dim sSql As String
 
         Try
-            sSql = "UPDATE CBO" & vbCrLf
-            sSql &= "  SET Descricao = @Descricao," & vbCrLf
-            sSql &= "      CodCbo = @CodCBO "
-            sSql &= "WHERE IDCbo = @IDCbo"
+            sSql = "UPDATE CBO "
+            sSql &= "  SET Descricao = @Descricao, "
+            sSql &= "      CodCbo = @CodCBO  "
+            sSql &= "WHERE IDCbo = @IDCbo "
 
             With MyBase.SQLCmd.Parameters
                 .Clear()
-                .AddWithValue("@IDCbo", iIDCbo)
-                .AddWithValue("@Descricao", sDescricao)
-                .AddWithValue("@CodCbo", sCodCbo)
+                .AddWithValue("@IDCbo ", iIDCbo)
+                .AddWithValue("@Descricao ", sDescricao)
+                .AddWithValue("@CodCbo ", sCodCbo)
             End With
 
             MyBase.executarAcao(sSql)
 
         Catch ex As Exception
-            Throw New Exception("Ocorreu um erro ao tentar atualizar os dados da função. " & Environment.NewLine & ex.Message)
+            Throw New Exception("Ocorreu um erro ao tentar atualizar os dados da função.  " & Environment.NewLine & ex.Message)
         End Try
 
     End Sub
@@ -94,18 +94,18 @@
         Dim sSql As String
 
         Try
-            sSql = "DELETE CBO " & vbCrLf
-            sSql &= "WHERE IDCbo = @IDCbo" & vbCrLf
+            sSql = "DELETE CBO  "
+            sSql &= "WHERE IDCbo = @IDCbo "
 
             With MyBase.SQLCmd.Parameters
                 .Clear()
-                .AddWithValue("@IDCbo", iIDCbo)
+                .AddWithValue("@IDCbo ", iIDCbo)
             End With
 
             MyBase.executarAcao(sSql)
 
         Catch ex As Exception
-            Throw New Exception(" Ocorreu um erro ao tentar excluir a Função. " & Environment.NewLine & ex.Message)
+            Throw New Exception(" Ocorreu um erro ao tentar excluir a Função.  " & Environment.NewLine & ex.Message)
         End Try
 
     End Sub
@@ -117,18 +117,18 @@
 
         Try
 
-            sSql = "  SELECT *  " & vbCrLf
-            sSql &= "   FROM CBO " & vbCrLf
+            sSql = "  SELECT *   "
+            sSql &= "   FROM CBO  "
 
             If (iIDCbo > 0) Then
-                sSql &= " WHERE (CBO.IDCbo = @IDCbo)"
+                sSql &= " WHERE (CBO.IDCbo = @IDCbo) "
             End If
 
             With MyBase.SQLCmd.Parameters
                 .Clear()
 
                 If (iIDCbo > 0) Then
-                    .AddWithValue("@IDCbo", iIDCbo)
+                    .AddWithValue("@IDCbo ", iIDCbo)
                 End If
             End With
 
@@ -137,7 +137,7 @@
             Return dsDados
 
         Catch ex As Exception
-            Throw New Exception("Ocorreu um erro ao tentar selecionar os dados de CBO." & Environment.NewLine & ex.Message)
+            Throw New Exception("Ocorreu um erro ao tentar selecionar os dados de CBO. " & Environment.NewLine & ex.Message)
         End Try
 
     End Function
@@ -148,13 +148,13 @@
         Dim bRetorno As Boolean = False
 
         Try
-            sSql = "SELECT COUNT(*) as NRegistros" & vbCrLf
-            sSql &= " FROM Funcionario " & vbCrLf
-            sSql &= "WHERE IDCbo = @IDCbo"
+            sSql = "SELECT COUNT(*) as NRegistros "
+            sSql &= " FROM Funcionario  "
+            sSql &= "WHERE IDCbo = @IDCbo "
 
             With MyBase.SQLCmd.Parameters
                 .Clear()
-                .AddWithValue("@IDCbo", iIDCbo)
+                .AddWithValue("@IDCbo ", iIDCbo)
             End With
 
             dtRegistros = MyBase.executarConsulta(sSql)
@@ -166,8 +166,8 @@
             End With
 
         Catch ex As Exception
-            Throw New Exception("Ocorreu um erro ao tentar " & _
-                                "selecionar os dados do Funcionário." & _
+            Throw New Exception("Ocorreu um erro ao tentar  " & _
+                                 "selecionar os dados do Funcionário. " & _
                                 Environment.NewLine & ex.Message)
         End Try
 

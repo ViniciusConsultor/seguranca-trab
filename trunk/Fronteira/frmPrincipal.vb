@@ -569,7 +569,7 @@ Public Class frmPrincipal
     End Sub
 
     Private Sub EntregaEPIAnalíticoToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EntregaEPIAnalíticoToolStripMenuItem.Click
-        Dim frm As New frmRelEntregaEPIAnalitico
+        Dim frm As New frmRelEPIEntregaAnalitico
         frm.MdiParent = Me
         frm.Show()
     End Sub

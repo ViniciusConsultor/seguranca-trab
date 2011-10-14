@@ -21,7 +21,7 @@
             Return oRetorno
 
         Catch ex As Exception
-            Throw New Exception("Ocorreu um erro ao executar o comando." & Environment.NewLine & ex.Message)
+            Throw New Exception("Ocorreu um erro ao executar o comando. " & Environment.NewLine & ex.Message)
         End Try
 
     End Function
