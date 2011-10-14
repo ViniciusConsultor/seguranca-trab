@@ -8,7 +8,7 @@
         Dim iNovoId As Long
 
         Try
-            sSql = "SELECT Max(" & sCampoChave & ") + 1 AS MaxReg FROM " & sTabelaOrigem
+            sSql = "SELECT Max( " & sCampoChave & ") + 1 AS MaxReg FROM  " & sTabelaOrigem
 
             iNovoId = MyBase.executarConsultaCampo(sSql)
             If iNovoId = 0 Then
@@ -18,7 +18,7 @@
             Return iNovoId
 
         Catch ex As Exception
-            Throw New Exception(ex.Message("Ocorreu um erro ao tentar executar a consulta SQL para obter o próximo ID"))
+            Throw New Exception(ex.Message("Ocorreu um erro ao tentar executar a consulta SQL para obter o próximo ID "))
         End Try
 
     End Function

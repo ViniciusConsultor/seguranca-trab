@@ -1,7 +1,7 @@
 ﻿Public Class perArtigo
     Inherits AcessoBd
 
-#Region "Variáveis"
+#Region "Variáveis "
     Private objProximoID As New ProximoID
 #End Region
 
@@ -15,35 +15,35 @@
         Dim iIDArtigo As Integer
 
 
-        sSql = " INSERT INTO Artigo " & vbCrLf
-        sSql &= "  ( " & vbCrLf
-        sSql &= "       IDArtigo, " & vbCrLf
-        sSql &= "       IDNR, " & vbCrLf
-        sSql &= "       CodArtigo, " & vbCrLf
-        sSql &= "       Texto, " & vbCrLf
-        sSql &= "       Letra, " & vbCrLf
-        sSql &= "       Penalidade " & vbCrLf
-        sSql &= "  ) " & vbCrLf
-        sSql &= " VALUES " & vbCrLf
-        sSql &= "  ( " & vbCrLf
-        sSql &= "       @IDArtigo, " & vbCrLf
-        sSql &= "       @IDNR, " & vbCrLf
-        sSql &= "       @CodArtigo, " & vbCrLf
-        sSql &= "       @Texto, " & vbCrLf
-        sSql &= "       @Letra, " & vbCrLf
-        sSql &= "       @Penalidade " & vbCrLf
-        sSql &= "  ) "
+        sSql = " INSERT INTO Artigo  "
+        sSql &= "  (  "
+        sSql &= "       IDArtigo,  "
+        sSql &= "       IDNR,  "
+        sSql &= "       CodArtigo,  "
+        sSql &= "       Texto,  "
+        sSql &= "       Letra,  "
+        sSql &= "       Penalidade  "
+        sSql &= "  )  "
+        sSql &= " VALUES  "
+        sSql &= "  (  "
+        sSql &= "       @IDArtigo,  "
+        sSql &= "       @IDNR,  "
+        sSql &= "       @CodArtigo,  "
+        sSql &= "       @Texto,  "
+        sSql &= "       @Letra,  "
+        sSql &= "       @Penalidade  "
+        sSql &= "  )  "
 
-        iIDArtigo = objProximoID.BuscaID("IDArtigo", "Artigo")
+        iIDArtigo = objProximoID.BuscaID("IDArtigo ", "Artigo ")
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@IDArtigo", iIDArtigo)
-            .AddWithValue("@IDNR", iIDNR)
-            .AddWithValue("@CodArtigo", sCodArtigo)
-            .AddWithValue("@Texto", sTexto)
-            .AddWithValue("@Letra", sLetra)
-            .AddWithValue("@Penalidade", sPenalidade)
+            .AddWithValue("@IDArtigo ", iIDArtigo)
+            .AddWithValue("@IDNR ", iIDNR)
+            .AddWithValue("@CodArtigo ", sCodArtigo)
+            .AddWithValue("@Texto ", sTexto)
+            .AddWithValue("@Letra ", sLetra)
+            .AddWithValue("@Penalidade ", sPenalidade)
         End With
 
         MyBase.executarAcao(sSql)
@@ -55,12 +55,12 @@
     Public Sub Excluir_Artigos_NR(ByVal iIDNR As Integer)
         Dim sSql As String
 
-        sSql = " DELETE Artigo " & vbCrLf
-        sSql &= " WHERE IDNR = @IDNR"
+        sSql = " DELETE Artigo  "
+        sSql &= " WHERE IDNR = @IDNR "
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@IDNR", iIDNR)
+            .AddWithValue("@IDNR ", iIDNR)
         End With
 
         MyBase.executarAcao(sSql)
@@ -70,12 +70,12 @@
     Public Sub Excluir_Artigos(ByVal iIdArtigo As Integer)
         Dim sSql As String
 
-        sSql = " DELETE Artigo " & vbCrLf
-        sSql &= " WHERE IDArtigo = @IDArtigo"
+        sSql = " DELETE Artigo  "
+        sSql &= " WHERE IDArtigo = @IDArtigo "
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@IDArtigo", iIdArtigo)
+            .AddWithValue("@IDArtigo ", iIdArtigo)
         End With
 
         MyBase.executarAcao(sSql)
@@ -83,20 +83,20 @@
     End Sub
 
     Public Function Selecionar_Artigos_NR(ByVal iIDNR As Integer) As DataTable
-        Dim sSql As String = ""
+        Dim sSql As String = " "
 
-        sSql = "   SELECT CodArtigo, " & vbCrLf
-        sSql &= "         Letra, " & vbCrLf
-        sSql &= "         Texto, " & vbCrLf
-        sSql &= "         Penalidade, " & vbCrLf
-        sSql &= "         IDArtigo " & vbCrLf
-        sSql &= "    FROM Artigo" & vbCrLf
-        sSql &= "   WHERE IDNR = @IDNR " & vbCrLf
-        sSql &= "ORDER BY CodArtigo, Letra"
+        sSql = "   SELECT CodArtigo,  "
+        sSql &= "         Letra,  "
+        sSql &= "         Texto,  "
+        sSql &= "         Penalidade,  "
+        sSql &= "         IDArtigo  "
+        sSql &= "    FROM Artigo "
+        sSql &= "   WHERE IDNR = @IDNR  "
+        sSql &= "ORDER BY CodArtigo, Letra "
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@IDNR", iIDNR)
+            .AddWithValue("@IDNR ", iIDNR)
         End With
 
         Return MyBase.executarConsulta(sSql)
@@ -112,23 +112,23 @@
 
         Dim sSql As String = String.Empty
 
-        sSql = " UPDATE  Artigo SET " & vbCrLf
-        sSql &= "   IDNR = @IDNR, " & vbCrLf
-        sSql &= "   CodArtigo = @CodArtigo, " & vbCrLf
-        sSql &= "   Texto = @Texto, " & vbCrLf
-        sSql &= "   Letra = @Letra, " & vbCrLf
-        sSql &= "   Penalidade = @Penalidade " & vbCrLf
-        sSql &= " WHERE " & vbCrLf
-        sSql &= "   IDArtigo =  @IDArtigo " & vbCrLf
+        sSql = " UPDATE  Artigo SET  "
+        sSql &= "   IDNR = @IDNR,  "
+        sSql &= "   CodArtigo = @CodArtigo,  "
+        sSql &= "   Texto = @Texto,  "
+        sSql &= "   Letra = @Letra,  "
+        sSql &= "   Penalidade = @Penalidade  "
+        sSql &= " WHERE  "
+        sSql &= "   IDArtigo =  @IDArtigo  "
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@IDNR", iIDNR)
-            .AddWithValue("@CodArtigo", sCodArtigo)
-            .AddWithValue("@Texto", sTexto)
-            .AddWithValue("@Letra", sLetra)
-            .AddWithValue("@Penalidade", sPenalidade)
-            .AddWithValue("@IDArtigo", iIdArtigo)
+            .AddWithValue("@IDNR ", iIDNR)
+            .AddWithValue("@CodArtigo ", sCodArtigo)
+            .AddWithValue("@Texto ", sTexto)
+            .AddWithValue("@Letra ", sLetra)
+            .AddWithValue("@Penalidade ", sPenalidade)
+            .AddWithValue("@IDArtigo ", iIdArtigo)
         End With
 
         MyBase.executarAcao(sSql)

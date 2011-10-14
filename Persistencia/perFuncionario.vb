@@ -1,24 +1,24 @@
 ﻿Public Class perFuncionario
     Inherits AcessoBd
 
-#Region "Variáveis"
+#Region "Variáveis "
     Private objProximoID As New ProximoID
 #End Region
 
-#Region "Propriedades"
+#Region "Propriedades "
 
     ReadOnly Property sqlConsulta(ByVal iIDFuncionario As Long, ByVal iIDEmpresa As Long) As String
         Get
             Dim sSql As String
-            sSql = "SELECT IDFuncionario as Código, Nome "
-            sSql &= " FROM Funcionario"
+            sSql = "SELECT IDFuncionario as Código, Nome  "
+            sSql &= " FROM Funcionario "
 
-            sSql &= " WHERE IDEmpresa = " & iIDEmpresa
+            sSql &= " WHERE IDEmpresa =  " & iIDEmpresa
 
             If iIDFuncionario > 0 Then
-                sSql &= " AND IDFuncionario = " & iIDFuncionario
+                sSql &= " AND IDFuncionario =  " & iIDFuncionario
             End If
-            sSql &= " ORDER BY Nome"
+            sSql &= " ORDER BY Nome "
 
             Return sSql
         End Get
@@ -26,7 +26,7 @@
 
 #End Region
 
-#Region "Métodos públicos"
+#Region "Métodos públicos "
 
     Public Function inserirFuncionario(ByVal iIDEmpresa As Long, _
                                        ByVal sNomeFuncionario As String, _
@@ -56,92 +56,92 @@
         Dim sSql As String
         Dim iIDFuncionario As Long
 
-        sSql = " INSERT INTO Funcionario"
-        sSql &= "  ( "
-        sSql &= "       IDFuncionario, "
-        sSql &= "       IDEmpresa, "
-        sSql &= "       Nome, "
-        sSql &= "       CPF, "
-        sSql &= "       RG, "
-        sSql &= "       dtNascimento, "
-        sSql &= "       Sexo, "
-        sSql &= "       Rua, "
-        sSql &= "       Numero, "
-        sSql &= "       Complemento, "
-        sSql &= "       Bairro, "
-        sSql &= "       Cidade, "
-        sSql &= "       Estado, "
-        sSql &= "       CEP, "
-        sSql &= "       Telefone, "
-        sSql &= "       Celular, "
-        sSql &= "       Email, "
-        sSql &= "       IDCBO, "
-        sSql &= "       Registro, "
-        sSql &= "       Admissao, "
-        sSql &= "       Rescisao, "
-        sSql &= "       OrgaoEmissor, "
-        sSql &= "       DataEmissao, "
-        sSql &= "       CTPS, "
-        sSql &= "       DataImportacao"
-        sSql &= "  ) "
-        sSql &= " VALUES "
-        sSql &= "  ( "
-        sSql &= "       @IDFuncionario, "
-        sSql &= "       @IDEmpresa, "
-        sSql &= "       @Nome, "
-        sSql &= "       @CPF, "
-        sSql &= "       @RG, "
-        sSql &= "       @DtNascimento, "
-        sSql &= "       @Sexo, "
-        sSql &= "       @Rua, "
-        sSql &= "       @Numero, "
-        sSql &= "       @Complemento, "
-        sSql &= "       @Bairro, "
-        sSql &= "       @Cidade, "
-        sSql &= "       @Estado, "
-        sSql &= "       @CEP, "
-        sSql &= "       @Telefone, "
-        sSql &= "       @Celular, "
-        sSql &= "       @Email, "
-        sSql &= "       @CodCBO, "
-        sSql &= "       @Registro,"
-        sSql &= "       @Admissao,"
-        sSql &= "       @Rescisao,"
-        sSql &= "       @Orgao,"
-        sSql &= "       @DataEmissao, "
-        sSql &= "       @CTPS,"
-        sSql &= "       GetDate()"
-        sSql &= "  ) "
+        sSql = " INSERT INTO Funcionario "
+        sSql &= "  (  "
+        sSql &= "       IDFuncionario,  "
+        sSql &= "       IDEmpresa,  "
+        sSql &= "       Nome,  "
+        sSql &= "       CPF,  "
+        sSql &= "       RG,  "
+        sSql &= "       dtNascimento,  "
+        sSql &= "       Sexo,  "
+        sSql &= "       Rua,  "
+        sSql &= "       Numero,  "
+        sSql &= "       Complemento,  "
+        sSql &= "       Bairro,  "
+        sSql &= "       Cidade,  "
+        sSql &= "       Estado,  "
+        sSql &= "       CEP,  "
+        sSql &= "       Telefone,  "
+        sSql &= "       Celular,  "
+        sSql &= "       Email,  "
+        sSql &= "       IDCBO,  "
+        sSql &= "       Registro,  "
+        sSql &= "       Admissao,  "
+        sSql &= "       Rescisao,  "
+        sSql &= "       OrgaoEmissor,  "
+        sSql &= "       DataEmissao,  "
+        sSql &= "       CTPS,  "
+        sSql &= "       DataImportacao "
+        sSql &= "  )  "
+        sSql &= " VALUES  "
+        sSql &= "  (  "
+        sSql &= "       @IDFuncionario,  "
+        sSql &= "       @IDEmpresa,  "
+        sSql &= "       @Nome,  "
+        sSql &= "       @CPF,  "
+        sSql &= "       @RG,  "
+        sSql &= "       @DtNascimento,  "
+        sSql &= "       @Sexo,  "
+        sSql &= "       @Rua,  "
+        sSql &= "       @Numero,  "
+        sSql &= "       @Complemento,  "
+        sSql &= "       @Bairro,  "
+        sSql &= "       @Cidade,  "
+        sSql &= "       @Estado,  "
+        sSql &= "       @CEP,  "
+        sSql &= "       @Telefone,  "
+        sSql &= "       @Celular,  "
+        sSql &= "       @Email,  "
+        sSql &= "       @CodCBO,  "
+        sSql &= "       @Registro, "
+        sSql &= "       @Admissao, "
+        sSql &= "       @Rescisao, "
+        sSql &= "       @Orgao, "
+        sSql &= "       @DataEmissao,  "
+        sSql &= "       @CTPS, "
+        sSql &= "       GetDate() "
+        sSql &= "  )  "
 
-        iIDFuncionario = objProximoID.BuscaID("IDFuncionario", "Funcionario")
+        iIDFuncionario = objProximoID.BuscaID("IDFuncionario ", "Funcionario ")
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@IDFuncionario", iIDFuncionario)
-            .AddWithValue("@IDEmpresa", iIDEmpresa)
-            .AddWithValue("@Nome", sNomeFuncionario)
-            .AddWithValue("@Sexo", iSexo)
-            .AddWithValue("@CPF", sCPF)
-            .AddWithValue("@RG", sRG)
-            .AddWithValue("@DtNascimento", dtDataNascimento)
-            .AddWithValue("@Rua", sRua)
-            .AddWithValue("@Numero", Conversao.zeroParaNulo(iNumero))
-            .AddWithValue("@Complemento", sComplemento)
-            .AddWithValue("@Bairro", sBairro)
-            .AddWithValue("@Cidade", sCidade)
-            .AddWithValue("@Estado", IIf(iEstado < 0, System.DBNull.Value, iEstado))
-            .AddWithValue("@CEP", sCEP)
-            .AddWithValue("@Telefone", sTelefone)
-            .AddWithValue("@Celular", sCelular)
-            .AddWithValue("@Email", sEmail)
-            .AddWithValue("@CodCbo", Conversao.zeroParaNulo(iCodCBO))
-            .AddWithValue("@Registro", sRegistro)
-            .AddWithValue("@Admissao", IIf(dtAdmissao = Date.MinValue, System.DBNull.Value, dtAdmissao))
-            .AddWithValue("@Rescisao", IIf(dtRescisao = Date.MinValue, System.DBNull.Value, dtRescisao))
-            .AddWithValue("@Orgao", sOrgao)
-            .AddWithValue("@DataEmissao", IIf(dtEmissao = Date.MinValue, System.DBNull.Value, dtEmissao))
-            .AddWithValue("@CTPS", sCTPS)
-            '.AddWithValue("@Importacao", IIf(dtImportacao = Date.MinValue, System.DBNull.Value, dtImportacao))
+            .AddWithValue("@IDFuncionario ", iIDFuncionario)
+            .AddWithValue("@IDEmpresa ", iIDEmpresa)
+            .AddWithValue("@Nome ", sNomeFuncionario)
+            .AddWithValue("@Sexo ", iSexo)
+            .AddWithValue("@CPF ", sCPF)
+            .AddWithValue("@RG ", sRG)
+            .AddWithValue("@DtNascimento ", dtDataNascimento)
+            .AddWithValue("@Rua ", sRua)
+            .AddWithValue("@Numero ", Conversao.zeroParaNulo(iNumero))
+            .AddWithValue("@Complemento ", sComplemento)
+            .AddWithValue("@Bairro ", sBairro)
+            .AddWithValue("@Cidade ", sCidade)
+            .AddWithValue("@Estado ", IIf(iEstado < 0, System.DBNull.Value, iEstado))
+            .AddWithValue("@CEP ", sCEP)
+            .AddWithValue("@Telefone ", sTelefone)
+            .AddWithValue("@Celular ", sCelular)
+            .AddWithValue("@Email ", sEmail)
+            .AddWithValue("@CodCbo ", Conversao.zeroParaNulo(iCodCBO))
+            .AddWithValue("@Registro ", sRegistro)
+            .AddWithValue("@Admissao ", IIf(dtAdmissao = Date.MinValue, System.DBNull.Value, dtAdmissao))
+            .AddWithValue("@Rescisao ", IIf(dtRescisao = Date.MinValue, System.DBNull.Value, dtRescisao))
+            .AddWithValue("@Orgao ", sOrgao)
+            .AddWithValue("@DataEmissao ", IIf(dtEmissao = Date.MinValue, System.DBNull.Value, dtEmissao))
+            .AddWithValue("@CTPS ", sCTPS)
+            '.AddWithValue( "@Importacao ", IIf(dtImportacao = Date.MinValue, System.DBNull.Value, dtImportacao))
         End With
 
         MyBase.executarAcao(sSql)
@@ -179,63 +179,63 @@
 
         Try
 
-            sSql = "  UPDATE Funcionario SET "
-            sSql &= "   Nome = @Nome, "
-            sSql &= "   CPF = @CPF, "
-            sSql &= "   RG = @RG, "
-            sSql &= "   dtNascimento = @dtNascimento,"
-            sSql &= "   Sexo = @Sexo,"
-            sSql &= "   Rua = @Rua, "
-            sSql &= "   Numero = @Numero, "
-            sSql &= "   Complemento = @Complemento, "
-            sSql &= "   Bairro = @Bairro, "
-            sSql &= "   Cidade = @Cidade, "
-            sSql &= "   Estado = @Estado, "
-            sSql &= "   CEP = @CEP, "
-            sSql &= "   Email = @Email, "
-            sSql &= "   Telefone = @Telefone, "
-            sSql &= "   Celular = @Celular, "
-            sSql &= "   IDCBO = @CodCBO,"
-            sSql &= "   Registro = @Registro,"
-            sSql &= "   Admissao = @Admissao,"
-            sSql &= "   Rescisao = @Rescisao, "
-            sSql &= "   OrgaoEmissor = @Orgao, "
-            sSql &= "   DataEmissao = @DataEmissao, "
-            sSql &= "   CTPS = @CTPS"
-            sSql &= " WHERE "
-            sSql &= "   IDFuncionario = @IDFuncionario "
+            sSql = "  UPDATE Funcionario SET  "
+            sSql &= "   Nome = @Nome,  "
+            sSql &= "   CPF = @CPF,  "
+            sSql &= "   RG = @RG,  "
+            sSql &= "   dtNascimento = @dtNascimento, "
+            sSql &= "   Sexo = @Sexo, "
+            sSql &= "   Rua = @Rua,  "
+            sSql &= "   Numero = @Numero,  "
+            sSql &= "   Complemento = @Complemento,  "
+            sSql &= "   Bairro = @Bairro,  "
+            sSql &= "   Cidade = @Cidade,  "
+            sSql &= "   Estado = @Estado,  "
+            sSql &= "   CEP = @CEP,  "
+            sSql &= "   Email = @Email,  "
+            sSql &= "   Telefone = @Telefone,  "
+            sSql &= "   Celular = @Celular,  "
+            sSql &= "   IDCBO = @CodCBO, "
+            sSql &= "   Registro = @Registro, "
+            sSql &= "   Admissao = @Admissao, "
+            sSql &= "   Rescisao = @Rescisao,  "
+            sSql &= "   OrgaoEmissor = @Orgao,  "
+            sSql &= "   DataEmissao = @DataEmissao,  "
+            sSql &= "   CTPS = @CTPS "
+            sSql &= " WHERE  "
+            sSql &= "   IDFuncionario = @IDFuncionario  "
 
             With MyBase.SQLCmd.Parameters
                 .Clear()
-                .AddWithValue("@Nome", sNomeFuncionario)
-                .AddWithValue("@CPF", sCPF)
-                .AddWithValue("@RG", sRG)
-                .AddWithValue("@DtNascimento", dtDataNascimento)
-                .AddWithValue("@Sexo", iSexo)
-                .AddWithValue("@Rua", sRua)
-                .AddWithValue("@Numero", Conversao.zeroParaNulo(iNumero))
-                .AddWithValue("@Complemento", sComplemento)
-                .AddWithValue("@Bairro", sBairro)
-                .AddWithValue("@Cidade", sCidade)
-                .AddWithValue("@Estado", IIf(iEstado < 0, System.DBNull.Value, iEstado))
-                .AddWithValue("@CEP", sCEP)
-                .AddWithValue("@Email", sEmail)
-                .AddWithValue("@Telefone", sTelefone)
-                .AddWithValue("@Celular", sCelular)
-                .AddWithValue("@CodCBO", IIf(iCodCBO = 0, System.DBNull.Value, iCodCBO))
-                .AddWithValue("@Registro", sRegistro)
-                .AddWithValue("@Admissao", IIf(dtAdmissao = Date.MinValue, System.DBNull.Value, dtAdmissao))
-                .AddWithValue("@Rescisao", IIf(dtRescisao = Date.MinValue, System.DBNull.Value, dtRescisao))
-                .AddWithValue("@Orgao", sOrgao)
-                .AddWithValue("@DataEmissao", IIf(dtEmissao = Date.MinValue, System.DBNull.Value, dtEmissao))
-                .AddWithValue("@CTPS", sCTPS)
-                .AddWithValue("@IDFuncionario", iIDFuncionario)
+                .AddWithValue("@Nome ", sNomeFuncionario)
+                .AddWithValue("@CPF ", sCPF)
+                .AddWithValue("@RG ", sRG)
+                .AddWithValue("@DtNascimento ", dtDataNascimento)
+                .AddWithValue("@Sexo ", iSexo)
+                .AddWithValue("@Rua ", sRua)
+                .AddWithValue("@Numero ", Conversao.zeroParaNulo(iNumero))
+                .AddWithValue("@Complemento ", sComplemento)
+                .AddWithValue("@Bairro ", sBairro)
+                .AddWithValue("@Cidade ", sCidade)
+                .AddWithValue("@Estado ", IIf(iEstado < 0, System.DBNull.Value, iEstado))
+                .AddWithValue("@CEP ", sCEP)
+                .AddWithValue("@Email ", sEmail)
+                .AddWithValue("@Telefone ", sTelefone)
+                .AddWithValue("@Celular ", sCelular)
+                .AddWithValue("@CodCBO ", IIf(iCodCBO = 0, System.DBNull.Value, iCodCBO))
+                .AddWithValue("@Registro ", sRegistro)
+                .AddWithValue("@Admissao ", IIf(dtAdmissao = Date.MinValue, System.DBNull.Value, dtAdmissao))
+                .AddWithValue("@Rescisao ", IIf(dtRescisao = Date.MinValue, System.DBNull.Value, dtRescisao))
+                .AddWithValue("@Orgao ", sOrgao)
+                .AddWithValue("@DataEmissao ", IIf(dtEmissao = Date.MinValue, System.DBNull.Value, dtEmissao))
+                .AddWithValue("@CTPS ", sCTPS)
+                .AddWithValue("@IDFuncionario ", iIDFuncionario)
             End With
 
             MyBase.executarAcao(sSql)
 
         Catch ex As Exception
-            Throw New Exception("Ocorreu um erro ao tentar atualizar os dados do Funcionário." & Environment.NewLine & ex.Message)
+            Throw New Exception("Ocorreu um erro ao tentar atualizar os dados do Funcionário. " & Environment.NewLine & ex.Message)
         End Try
 
     End Sub
@@ -246,20 +246,20 @@
 
         Try
 
-            sSql = "  DELETE FROM "
-            sSql &= "   Funcionario "
-            sSql &= " WHERE "
-            sSql &= "   IDFuncionario = @IDFuncionario "
+            sSql = "  DELETE FROM  "
+            sSql &= "   Funcionario  "
+            sSql &= " WHERE  "
+            sSql &= "   IDFuncionario = @IDFuncionario  "
 
             With MyBase.SQLCmd.Parameters
                 .Clear()
-                .AddWithValue("@IDFuncionario", iIDFuncionario)
+                .AddWithValue("@IDFuncionario ", iIDFuncionario)
             End With
 
             MyBase.executarAcao(sSql)
 
         Catch ex As Exception
-            Throw New Exception("Ocorreu um erro ao tentar excluir os dados do Funcionário." & Environment.NewLine & ex.Message)
+            Throw New Exception("Ocorreu um erro ao tentar excluir os dados do Funcionário. " & Environment.NewLine & ex.Message)
         End Try
 
     End Sub
@@ -271,29 +271,29 @@
 
         Try
 
-            sSql = "  SELECT * FROM "
-            sSql &= "   Funcionario "
+            sSql = "  SELECT * FROM  "
+            sSql &= "   Funcionario  "
 
             If (iIDFuncionario > 0) Then
-                sSql &= " WHERE  "
-                sSql &= "   Funcionario.IDFuncionario = @IDFuncionario"
+                sSql &= " WHERE   "
+                sSql &= "   Funcionario.IDFuncionario = @IDFuncionario "
             ElseIf (iIDEmpresa > 0) Then
-                sSql &= " WHERE  "
-                sSql &= "   Funcionario.IDEmpresa = @IDEmpresa"
+                sSql &= " WHERE   "
+                sSql &= "   Funcionario.IDEmpresa = @IDEmpresa "
             End If
 
             With MyBase.SQLCmd.Parameters
                 .Clear()
-                .AddWithValue("@IDFuncionario", iIDFuncionario)
-                .AddWithValue("@IDEmpresa", iIDEmpresa)
+                .AddWithValue("@IDFuncionario ", iIDFuncionario)
+                .AddWithValue("@IDEmpresa ", iIDEmpresa)
             End With
 
-            dsDados = MyBase.executarConsulta(sSql, "Empresa")
+            dsDados = MyBase.executarConsulta(sSql, "Empresa ")
 
             Return dsDados
 
         Catch ex As Exception
-            Throw New Exception("Ocorreu um erro ao tentar selecionar os dados do Funcionário." & Environment.NewLine & ex.Message)
+            Throw New Exception("Ocorreu um erro ao tentar selecionar os dados do Funcionário. " & Environment.NewLine & ex.Message)
         End Try
 
     End Function
@@ -303,69 +303,69 @@
                                                       ByVal sListaFuncionarios As String, _
                                                       ByVal eFiltro As Byte) As System.Data.DataSet
 
-        Dim sSql As String = ""
+        Dim sSql As String = " "
         Dim dsDados As New DataSet
         Dim sData As String
 
         'Isso é para pegar os funcionários que foram contratados no dia do treinamento
-        sData = datDataTreinamento.ToString("dd/MM/yyyy")
+        sData = datDataTreinamento.ToString("dd/MM/yyyy ")
         sData = sData & " 23:59"
 
         datDataTreinamento = CDate(sData)
         Try
             'Todos os funcionários ou que nunca tiveram treinamento
             If (eFiltro = 0 Or eFiltro = 1) Then
-                sSql = " SELECT F.IDFuncionario," & vbCrLf
-                sSql &= "       F.Nome, NULL AS ExpiraEm," & vbCrLf
-                sSql &= "       '' As [em_dia]" & vbCrLf
-                sSql &= "  FROM Funcionario F" & vbCrLf
-                sSql &= "       INNER JOIN Funcao_Funcionario FF ON F.IDFuncionario = FF.IDFuncionario" & vbCrLf
-                sSql &= "       INNER JOIN Funcao_Treinamento FT ON FF.IDFuncao = FT.IDFuncao" & vbCrLf
-                sSql &= " WHERE FT.IDTreinamento = @IDTreinamento" & vbCrLf
-                sSql &= "   AND (FF.DataInicio < @DataTreinamento AND FF.DataFim IS NULL) " & vbCrLf
-                sSql &= "   AND F.IDFuncionario Not in (" & vbCrLf
-                sSql &= "                  				SELECT P.IDFuncionario" & vbCrLf
-                sSql &= "   							  FROM Participantes P" & vbCrLf
-                sSql &= "                					   INNER JOIN Agenda AG ON P.IDAgendamento = AG.IDAgendamento" & vbCrLf
-                sSql &= "                                WHERE AG.IDTreinamento = " & iIDTreinamento & ")" & vbCrLf
+                sSql = " SELECT F.IDFuncionario, "
+                sSql &= "       F.Nome, NULL AS ExpiraEm, "
+                sSql &= "       '' As [em_dia] "
+                sSql &= "  FROM Funcionario F "
+                sSql &= "       INNER JOIN Funcao_Funcionario FF ON F.IDFuncionario = FF.IDFuncionario "
+                sSql &= "       INNER JOIN Funcao_Treinamento FT ON FF.IDFuncao = FT.IDFuncao "
+                sSql &= " WHERE FT.IDTreinamento = @IDTreinamento "
+                sSql &= "   AND (FF.DataInicio < @DataTreinamento AND FF.DataFim IS NULL)  "
+                sSql &= "   AND F.IDFuncionario Not in ( "
+                sSql &= "                  				SELECT P.IDFuncionario "
+                sSql &= "   							  FROM Participantes P "
+                sSql &= "                					   INNER JOIN Agenda AG ON P.IDAgendamento = AG.IDAgendamento "
+                sSql &= "                                WHERE AG.IDTreinamento =  " & iIDTreinamento & ") "
                 If (eFiltro = 0) Then
-                    sSql &= " UNION ALL" & vbCrLf
+                    sSql &= " UNION ALL "
                 End If
             End If
             'Todos os funcionários ou que já tiveram treinamento
             If (eFiltro = 0 Or eFiltro = 2 Or eFiltro = 3) Then
-                sSql &= " SELECT F.IDFuncionario," & vbCrLf
-                sSql &= "        F.Nome,DATEADD(mm,t.VALIDADE,Max(AG.Data)) as ExpiraEm," & vbCrLf
-                sSql &= "        Case When DATEADD(mm,t.VALIDADE,Max(AG.Data)) >= Convert(datetime,@DataTreinamento) " & vbCrLf
-                sSql &= "             Then 'x' Else '' End As [em_dia]" & vbCrLf
-                sSql &= "   FROM Funcionario F" & vbCrLf
-                sSql &= "        INNER JOIN Funcao_Funcionario FF ON F.IDFuncionario = FF.IDFuncionario" & vbCrLf
-                sSql &= "        INNER JOIN Funcao_Treinamento FT ON FF.IDFuncao = FT.IDFuncao" & vbCrLf
-                sSql &= "        INNER JOIN Participantes P ON F.IDFuncionario = P.IDFuncionario " & vbCrLf
-                sSql &= "        INNER JOIN Agenda AG ON P.IDAgendamento = AG.IDAgendamento and AG.IDTreinamento = FT.IDTreinamento" & vbCrLf
-                sSql &= "        INNER JOIN Treinamento_Empresa T ON AG.IDtreinamento = T.IDTreinamento" & vbCrLf
-                sSql &= "   WHERE(FT.IDTreinamento = @IDTreinamento)" & vbCrLf
-                sSql &= "     AND(FF.DataInicio < @DataTreinamento)" & vbCrLf
-                sSql &= "     AND(F.Rescisao <@DataTreinamento OR F.Rescisao IS NULL)" & vbCrLf
-                sSql &= "GROUP BY F.IDFuncionario, F.Nome, T.Validade" & vbCrLf
+                sSql &= " SELECT F.IDFuncionario, "
+                sSql &= "        F.Nome,DATEADD(mm,t.VALIDADE,Max(AG.Data)) as ExpiraEm, "
+                sSql &= "        Case When DATEADD(mm,t.VALIDADE,Max(AG.Data)) >= Convert(datetime,@DataTreinamento)  "
+                sSql &= "             Then 'x' Else '' End As [em_dia] "
+                sSql &= "   FROM Funcionario F "
+                sSql &= "        INNER JOIN Funcao_Funcionario FF ON F.IDFuncionario = FF.IDFuncionario "
+                sSql &= "        INNER JOIN Funcao_Treinamento FT ON FF.IDFuncao = FT.IDFuncao "
+                sSql &= "        INNER JOIN Participantes P ON F.IDFuncionario = P.IDFuncionario  "
+                sSql &= "        INNER JOIN Agenda AG ON P.IDAgendamento = AG.IDAgendamento and AG.IDTreinamento = FT.IDTreinamento "
+                sSql &= "        INNER JOIN Treinamento_Empresa T ON AG.IDtreinamento = T.IDTreinamento "
+                sSql &= "   WHERE(FT.IDTreinamento = @IDTreinamento) "
+                sSql &= "     AND(FF.DataInicio < @DataTreinamento) "
+                sSql &= "     AND(F.Rescisao <@DataTreinamento OR F.Rescisao IS NULL) "
+                sSql &= "GROUP BY F.IDFuncionario, F.Nome, T.Validade "
                 If (eFiltro = 2) Then
-                    sSql &= "HAVING DATEADD(mm,t.VALIDADE,Max(AG.Data)) < Convert(datetime,@DataTreinamento) "
+                    sSql &= "HAVING DATEADD(mm,t.VALIDADE,Max(AG.Data)) < Convert(datetime,@DataTreinamento)  "
                 ElseIf (eFiltro = 3) Then
-                    sSql &= "HAVING DATEADD(mm,t.VALIDADE,Max(AG.Data)) >= Convert(datetime,@DataTreinamento) "
+                    sSql &= "HAVING DATEADD(mm,t.VALIDADE,Max(AG.Data)) >= Convert(datetime,@DataTreinamento)  "
                 End If
 
             End If
 
-            If (sListaFuncionarios <> "") Then
-                sSql &= "  UNION ALL" & vbCrLf
-                sSql &= "SELECT F.IDFuncionario," & vbCrLf
-                sSql &= "       F.Nome, NULL as ExpiraEm" & vbCrLf
-                sSql &= "       '' As [em_dia]" & vbCrLf
-                sSql &= "  FROM Funcionario F" & vbCrLf
+            If (sListaFuncionarios <> String.Empty) Then
+                sSql &= "  UNION ALL "
+                sSql &= "SELECT F.IDFuncionario, "
+                sSql &= "       F.Nome, NULL as ExpiraEm, "
+                sSql &= "       '' As [em_dia] "
+                sSql &= "  FROM Funcionario F "
 
-                sSql &= "  WHERE F.IDFuncionario in(" & sListaFuncionarios & ")" & vbCrLf
+                sSql &= "  WHERE F.IDFuncionario in( " & sListaFuncionarios & ") "
             End If
-            sSql &= "ORDER BY ExpiraEm " & vbCrLf
+            sSql &= "ORDER BY ExpiraEm  "
 
             With MyBase.SQLCmd.Parameters
                 .Clear()
@@ -378,23 +378,23 @@
             Return dsDados
 
         Catch ex As Exception
-            Throw New Exception("Ocorreu um erro ao tentar selecionar os dados do Funcionário." & Environment.NewLine & ex.Message)
+            Throw New Exception("Ocorreu um erro ao tentar selecionar os dados do Funcionário. " & Environment.NewLine & ex.Message)
         End Try
 
     End Function
 
     Public Function Retornar_Nome_Funcionario(ByVal iIDFuncionario As Integer) As String
-        Dim sSql As String = ""
+        Dim sSql As String = " "
         Dim dsRegistros As New DataTable
-        Dim bRetorno As String = ""
+        Dim bRetorno As String = " "
         Try
-            sSql = "SELECT Nome " & vbCrLf
-            sSql &= " FROM Funcionario" & vbCrLf
-            sSql &= "WHERE IDFuncionario = @IDFuncionario" & vbCrLf
+            sSql = " SELECT Nome  "
+            sSql &= " FROM Funcionario  "
+            sSql &= "WHERE IDFuncionario = @IDFuncionario  "
 
             With MyBase.SQLCmd.Parameters
                 .Clear()
-                .AddWithValue("@IDFuncionario", iIDFuncionario)
+                .AddWithValue("@IDFuncionario ", iIDFuncionario)
             End With
 
             dsRegistros = MyBase.executarConsulta(sSql)
@@ -406,24 +406,24 @@
             Return bRetorno
 
         Catch ex As Exception
-            Throw New Exception("Ocorreu um erro ao selecionar o nome do funcionário." & Environment.NewLine & ex.Message)
+            Throw New Exception("Ocorreu um erro ao selecionar o nome do funcionário. " & Environment.NewLine & ex.Message)
         End Try
 
     End Function
 
     Public Function Validar_Exclusao_Funcionario(ByVal iIDFuncionario As Integer) As Boolean
-        Dim sSql As String = ""
+        Dim sSql As String = " "
         Dim dsRegistros As New DataTable
         Dim bRetorno As Boolean = False
 
         Try
-            sSql = "SELECT * " & vbCrLf
-            sSql &= " FROM Participantes" & vbCrLf
-            sSql &= "WHERE IDFuncionario = @IDFuncionario" & vbCrLf
+            sSql = "SELECT *  "
+            sSql &= " FROM Participantes "
+            sSql &= "WHERE IDFuncionario = @IDFuncionario "
 
             With MyBase.SQLCmd.Parameters
                 .Clear()
-                .AddWithValue("@IDFuncionario", iIDFuncionario)
+                .AddWithValue("@IDFuncionario ", iIDFuncionario)
             End With
 
             dsRegistros = MyBase.executarConsulta(sSql)
@@ -432,7 +432,7 @@
             Return bRetorno
 
         Catch ex As Exception
-            Throw New Exception("Ocorreu um erro ao tentar selecionar os dados do Funcionário." & Environment.NewLine & ex.Message)
+            Throw New Exception("Ocorreu um erro ao tentar selecionar os dados do Funcionário. " & Environment.NewLine & ex.Message)
         End Try
 
     End Function
@@ -444,20 +444,20 @@
 
         Try
 
-            sSql = "  SELECT " & sCampo
-            sSql &= "   FROM Funcionario "
-            sSql &= " WHERE  "
-            sSql &= "   IDFuncionario = @IDFuncionario "
+            sSql = "  SELECT  " & sCampo
+            sSql &= "   FROM Funcionario  "
+            sSql &= " WHERE   "
+            sSql &= "   IDFuncionario = @IDFuncionario  "
 
             With MyBase.SQLCmd.Parameters
                 .Clear()
-                .AddWithValue("@IDFuncionario", iIdFuncionario)
+                .AddWithValue("@IDFuncionario ", iIdFuncionario)
             End With
 
             Return MyBase.executarConsultaCampo(sSql)
 
         Catch ex As Exception
-            Throw New Exception("Ocorreu um erro ao tentar selecionar os dados do Funcionário." & Environment.NewLine & ex.Message)
+            Throw New Exception("Ocorreu um erro ao tentar selecionar os dados do Funcionário. " & Environment.NewLine & ex.Message)
         End Try
 
     End Function
@@ -466,32 +466,84 @@
         Dim sSql As String
         Dim dtbDados As New DataTable
 
-        sSql = "SELECT IDFuncionario" & vbCrLf
-        sSql &= " FROM Funcionario " & vbCrLf
-        sSql &= "WHERE IDEmpresa = @IDEmpresa AND ("
+        sSql = "SELECT IDFuncionario "
+        sSql &= " FROM Funcionario  "
+        sSql &= "WHERE IDEmpresa = @IDEmpresa AND ( "
 
-        If (sNome <> "") Then
-            sSql &= "Nome = @Nome OR"
+        If (sNome <> " ") Then
+            sSql &= "Nome = @Nome OR "
         End If
-        If (sCpf <> "") Then
-            sSql &= " Cpf = @Cpf"
+        If (sCpf <> " ") Then
+            sSql &= " Cpf = @Cpf "
         Else
-            sSql &= " 1 > 2"
+            sSql &= " 1 > 2 "
         End If
-        sSql &= ")"
+        sSql &= ") "
 
         With MyBase.SQLCmd.Parameters
             .Clear()
-            .AddWithValue("@IDEmpresa", Globais.iIDEmpresa)
-            .AddWithValue("@Nome", sNome.Trim)
-            If (sCpf <> "") Then
-                .AddWithValue("@Cpf", sCpf.Trim)
+            .AddWithValue("@IDEmpresa ", Globais.iIDEmpresa)
+            .AddWithValue("@Nome ", sNome.Trim)
+            If (sCpf <> " ") Then
+                .AddWithValue("@Cpf ", sCpf.Trim)
             End If
         End With
 
         dtbDados = MyBase.executarConsulta(sSql)
 
         Return (dtbDados.Rows.Count > 0)
+
+    End Function
+
+    Public Function selecionarFuncionariosRelatorio(ByVal iIdEmpresa As Integer,
+                                                    ByVal sIdsEmpresasAcesso As String,
+                                                    ByVal iIdFuncionario As Integer) As DataTable
+
+        Dim sSql As String
+
+        Try
+
+            sSql = "  SELECT  "
+            sSql &= "   F.Nome,  "
+            sSql &= "   F.IDFuncionario, "
+            sSql &= "   EM.IDEmpresa, "
+            sSql &= "   EM.NomeFantasia, "
+            sSql &= "   EM.Logomarca "
+            sSql &= " FROM   "
+            sSql &= "   Funcionario F  "
+            sSql &= " INNER JOIN EMPRESA EM ON EM.IDEmpresa = F.IDEmpresa  "
+            sSql &= " WHERE   "
+            sSql &= "   1 = 1  "
+
+            If iIdEmpresa > 0 Then
+                sSql &= " AND EM.IDEmpresa = @IDEmpresa  "
+            ElseIf sIdsEmpresasAcesso <> String.Empty Then
+                sSql &= " AND EM.IDEmpresa IN (  " & sIdsEmpresasAcesso & " )  "
+            End If
+
+            If iIdFuncionario > 0 Then
+                sSql &= " AND  F.IDFuncionario = @IDFuncionario  "
+            End If
+
+            With MyBase.SQLCmd.Parameters
+
+                .Clear()
+
+                If iIdEmpresa > 0 Then
+                    .AddWithValue("@IDEmpresa ", iIdEmpresa)
+                End If
+
+                If iIdFuncionario > 0 Then
+                    .AddWithValue("@IDFuncionario ", iIdFuncionario)
+                End If
+
+            End With
+
+            Return MyBase.executarConsulta(sSql, "Funcionario").Tables(0)
+
+        Catch ex As Exception
+            Throw New Exception("Ocorreu um erro ao tentar selecionar os dados do Relatório de Funcionários. " & Environment.NewLine & ex.Message)
+        End Try
 
     End Function
 

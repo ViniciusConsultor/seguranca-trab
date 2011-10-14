@@ -1,11 +1,11 @@
 ﻿Public Class perPesquisa
     Inherits AcessoBd
 
-#Region "Funções"
+#Region "Funções "
 
     Public Function Pesquisa(ByVal sSql As String) As DataSet
 
-        Return MyBase.executarConsulta(sSql, "Tabela")
+        Return MyBase.executarConsulta(sSql, "Tabela ")
 
     End Function
 

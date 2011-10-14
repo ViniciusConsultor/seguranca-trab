@@ -137,11 +137,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dsTreinamentoAnalitico.xsd</DependentUpon>
     </Compile>
-    <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
     </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -152,11 +152,17 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Rpt\rptEntregaEPIAnalitico.vb">
+    <Compile Include="Rpt\rptTreinamentoAnalitico.vb">
+      <DependentUpon>rptTreinamentoAnalitico.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>rptEntregaEPIAnalitico.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Rpt\rptEntregaEPIAnalitico.vb">
+      <DependentUpon>rptEntregaEPIAnalitico.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Rpt\rptFuncionario.vb">
       <AutoGen>True</AutoGen>
@@ -188,19 +194,17 @@
       <DependentUpon>rptTreinamento.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Rpt\rptTreinamentoAnalitico.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>rptTreinamentoAnalitico.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Rpt\rptTreinamentoAnalitico.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptTreinamentoAnalitico.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Rpt\rptEntregaEPIAnalitico.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -225,10 +229,6 @@
     <EmbeddedResource Include="Rpt\rptTreinamento.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptTreinamento.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Rpt\rptTreinamentoAnalitico.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>rptTreinamentoAnalitico.vb</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

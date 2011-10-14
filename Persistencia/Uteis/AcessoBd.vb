@@ -1,6 +1,6 @@
 ﻿Public Class AcessoBd
 
-#Region "Enumerações"
+#Region "Enumerações  "
 
     Public Enum eFinalizacaoTransacao As Byte
         Commit = 1
@@ -9,7 +9,7 @@
 
 #End Region
 
-#Region "Campos de Instância "
+#Region "Campos de Instância   "
 
     Private SQLCnn As New System.Data.SqlClient.SqlConnection
     Public SQLCmd As New System.Data.SqlClient.SqlCommand
@@ -18,7 +18,7 @@
 
 #End Region
 
-#Region "Propriedades"
+#Region "Propriedades  "
 
     Public Property TransacaoOrigem() As Object
         Get
@@ -31,7 +31,7 @@
 
 #End Region
 
-#Region "Métodos privados"
+#Region "Métodos privados  "
 
     Public Sub New()
         Me.SQLCnn.ConnectionString = Globais.sStringConexaoBD
@@ -66,7 +66,7 @@
 
 #End Region
 
-#Region " Métodos Protegidos "
+#Region " Métodos Protegidos   "
 
     Protected Sub iniciarControleTransacional()
         If Me.SQLTr Is Nothing Then
@@ -89,7 +89,7 @@
 
 #End Region
 
-#Region "Métodos públicos"
+#Region "Métodos públicos  "
 
     Protected Function executarAcao(ByRef sSql As String) As Int32
         Dim iRetorno As Int32
@@ -100,7 +100,7 @@
             iRetorno = Me.SQLCmd.ExecuteNonQuery()
             Return iRetorno
         Catch ex As Exception
-            Throw New Exception("Ocorreu um erro ao tentar executar a sentença SQL de ação no Banco de Dados." & Environment.NewLine & Environment.NewLine & ex.Message)
+            Throw New Exception("Ocorreu um erro ao tentar executar a sentença SQL de ação no Banco de Dados.  " & Environment.NewLine & Environment.NewLine & ex.Message)
         Finally
             Me.fecharConexao()
         End Try
@@ -119,7 +119,7 @@
             Me.SQLDa.Fill(dsRetorno, sNomeTabela)
             Return dsRetorno
         Catch ex As Exception
-            Throw New Exception("Ocorreu um erro ao tentar executar a sentença SQL de consulta no Banco de Dados." & Environment.NewLine & Environment.NewLine & ex.Message)
+            Throw New Exception("Ocorreu um erro ao tentar executar a sentença SQL de consulta no Banco de Dados.  " & Environment.NewLine & Environment.NewLine & ex.Message)
         Finally
             Me.fecharConexao()
         End Try
@@ -134,10 +134,10 @@
             Me.SQLCmd.CommandType = CommandType.Text
             Me.SQLCmd.CommandText = sSql
             Me.SQLDa.SelectCommand = Me.SQLCmd
-            Me.SQLDa.Fill(dsRetorno, "Tabela")
+            Me.SQLDa.Fill(dsRetorno, "Tabela  ")
             Return dsRetorno.Tables(0)
         Catch ex As Exception
-            Throw New Exception("Ocorreu um erro ao tentar executar a sentença SQL de consulta no Banco de Dados." & Environment.NewLine & Environment.NewLine & ex.Message)
+            Throw New Exception("Ocorreu um erro ao tentar executar a sentença SQL de consulta no Banco de Dados.  " & Environment.NewLine & Environment.NewLine & ex.Message)
         Finally
             Me.fecharConexao()
         End Try
@@ -157,7 +157,7 @@
             End If
             Return objRetorno
         Catch ex As Exception
-            Throw New Exception("Ocorreu um erro ao tentar executar a sentença SQL de consulta de campo no Banco de Dados." & Environment.NewLine & Environment.NewLine & ex.Message)
+            Throw New Exception("Ocorreu um erro ao tentar executar a sentença SQL de consulta de campo no Banco de Dados.  " & Environment.NewLine & Environment.NewLine & ex.Message)
         Finally
             Me.fecharConexao()
         End Try
@@ -168,7 +168,7 @@
         Dim Data As String
 
         Try
-            sSql = "SELECT GETDATE() as Data_Servidor"
+            sSql = "SELECT GETDATE() as Data_Servidor  "
 
             Data = executarConsultaCampo(sSql)
 
@@ -179,7 +179,7 @@
             End If
 
         Catch ex As Exception
-            Throw New Exception("Ocorreu um erro ao realizar a consulta de dada no banco de dados." & Environment.NewLine & ex.Message)
+            Throw New Exception("Ocorreu um erro ao realizar a consulta de dada no banco de dados.  " & Environment.NewLine & ex.Message)
         End Try
 
     End Function

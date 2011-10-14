@@ -1,6 +1,6 @@
 ﻿Public Class Conversao
 
-#Region " Métodos "
+#Region " Métodos  "
 
     Public Shared Function nuloParaData(ByVal objValor As Object) As Date
         If (objValor Is DBNull.Value) Then
@@ -30,14 +30,14 @@
 
     Public Shared Function nuloParaVazio(ByVal objValor As Object) As Object
         If objValor Is DBNull.Value Then
-            Return ""
+            Return " "
         Else
             Return objValor
         End If
     End Function
 
     Public Shared Function vazioParaNulo(ByVal objValor As Object) As Object
-        If objValor = "" Then
+        If objValor = " " Then
             Return DBNull.Value
         Else
             Return objValor
@@ -119,14 +119,14 @@
     Public Shared Shadows Function ToString(ByVal value As Object) As String
         Try
             If value Is Nothing Then
-                Return ""
-            ElseIf value.GetType.ToString = "System.DateTime" AndAlso value = Date.MinValue Then
+                Return " "
+            ElseIf value.GetType.ToString = "System.DateTime " AndAlso value = Date.MinValue Then
                 Return Nothing
             Else
                 Return Convert.ToString(value)
             End If
         Catch ex As Exception
-            Return ""
+            Return " "
         End Try
     End Function
 
@@ -188,10 +188,10 @@
         Dim i As Byte
         Dim Temp As String
 
-        Remover = "()*/-+,."
+        Remover = "()*/-+,. "
         Temp = Valor
         For i = 1 To Len(Valor)
-            Temp = Replace(Temp, Mid(Remover, i, 1), "")
+            Temp = Replace(Temp, Mid(Remover, i, 1), " ")
         Next
         RemoverCaracter = Temp
 

@@ -334,7 +334,7 @@ Partial Class frmRelTreinamento
         'GroupBox3
         '
         Me.GroupBox3.BackColor = System.Drawing.Color.Transparent
-        Me.GroupBox3.Location = New System.Drawing.Point(4, 5)
+        Me.GroupBox3.Location = New System.Drawing.Point(4, 4)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(490, 151)
         Me.GroupBox3.TabIndex = 84

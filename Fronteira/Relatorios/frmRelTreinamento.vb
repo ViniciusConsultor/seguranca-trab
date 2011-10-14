@@ -177,7 +177,7 @@ Public Class frmRelTreinamento
             Me.dtpDataInicial.Value = Me.DataInicial
             Me.dtpDataFinal.Value = Me.DataFinal
         End If
-        
+
 
     End Sub
 

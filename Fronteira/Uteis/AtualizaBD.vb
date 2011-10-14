@@ -51,9 +51,9 @@ Public Class AtualizaBD
         Dim sSql As String
 
         Try
-            sSql = "Select Versao, Codigo " & vbCrLf
-            sSql &= " From Versoes" & vbCrLf
-            sSql &= "Where Versao > @Versao" & vbCrLf
+            sSql = "Select Versao, Codigo "
+            sSql &= " From Versoes"
+            sSql &= "Where Versao > @Versao"
             sSql &= "Order By Versao"
 
             With atlCmd.Parameters

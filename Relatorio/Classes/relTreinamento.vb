@@ -139,7 +139,7 @@ Public Class relTreinamento
                         .IDAgendamento = Conversao.ToInt32(drDadosTreinamento.Item("IDAgendamento"))
                         .Data = Conversao.ToDateTime(drDadosTreinamento.Item("Data"))
                         .Empresa = Conversao.ToString(drDadosTreinamento.Item("NomeFantasia"))
-                        .Funcionario = Conversao.ToString(drDadosTreinamento.Item("Nome"))
+                        .Funcionario = Conversao.ToString(drDadosTreinamento.Item("Funcionario"))
                         .Ministrante = Conversao.ToString(drDadosTreinamento.Item("Ministrante"))
                         .TipoTreinamento = Conversao.ToString(drDadosTreinamento.Item("TipoTreinamento"))
                         .Treinamento = Conversao.ToString(drDadosTreinamento.Item("Treinamento"))

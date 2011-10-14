@@ -4,8 +4,8 @@
         Dim sSql As String
         Dim dtConfig As New DataTable
 
-        sSql = "Select " & sCampo & vbCrLf
-        sSql &= "From Configuracoes" & vbCrLf
+        sSql = "Select  " & sCampo
+        sSql &= "From Configuracoes "
 
         Return MyBase.executarConsulta(sSql)
 
@@ -14,8 +14,8 @@
         Dim sSql As String
         Dim dtConfig As New DataTable
 
-        sSql = "Select Versao" & vbCrLf
-        sSql &= "From Configuracoes" & vbCrLf
+        sSql = "Select Versao "
+        sSql &= "From Configuracoes "
         Try
             dtConfig = MyBase.executarConsulta(sSql)
             If (dtConfig.Rows.Count > 0) Then
@@ -25,7 +25,7 @@
             End If
 
         Catch ex As Exception
-            Throw New Exception("Ocorreu um erro ao retornar a versão do banco de dados. " & _
+            Throw New Exception("Ocorreu um erro ao retornar a versão do banco de dados.  " & _
                                  Environment.NewLine & ex.Message)
         End Try
 
@@ -34,11 +34,11 @@
         Dim sSql As String
 
         Try
-            sSql = "Update Configuracoes Set Versao = @Versao"
+            sSql = "Update Configuracoes Set Versao = @Versao "
 
             With MyBase.SQLCmd.Parameters
                 .Clear()
-                .AddWithValue("Versao", iVersao)
+                .AddWithValue("Versao ", iVersao)
             End With
 
             MyBase.executarAcao(sSql)
