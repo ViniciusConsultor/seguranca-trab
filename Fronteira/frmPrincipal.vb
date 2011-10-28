@@ -143,6 +143,7 @@ Public Class frmPrincipal
 
         Catch ex As Exception
             MsgBox("Ocorreu um erro ao iniciar o sistema. " & ex.Message, MsgBoxStyle.Critical, Me.Text)
+            Me.Close()
         End Try
 
     End Sub
