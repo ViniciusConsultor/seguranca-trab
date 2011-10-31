@@ -13,6 +13,11 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "DSPersistenciaPadrao", "DSP
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "DSControlePadrao", "DSControlePadrao\DSControlePadrao.vbproj", "{5FE0FD78-6A67-4F47-B43C-65FC2C6B7B8C}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Exclusao_Registro", "Exclusao_Registro\Exclusao_Registro.vbproj", "{A10392DA-640B-4B8B-A2C6-ECCD2A275519}"
+	ProjectSection(ProjectDependencies) = postProject
+		{20FEF7C5-4D08-487E-9576-D2A870ADFCF7} = {20FEF7C5-4D08-487E-9576-D2A870ADFCF7}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +88,16 @@ Global
 		{5FE0FD78-6A67-4F47-B43C-65FC2C6B7B8C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{5FE0FD78-6A67-4F47-B43C-65FC2C6B7B8C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{5FE0FD78-6A67-4F47-B43C-65FC2C6B7B8C}.Release|x86.ActiveCfg = Release|Any CPU
+		{A10392DA-640B-4B8B-A2C6-ECCD2A275519}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{A10392DA-640B-4B8B-A2C6-ECCD2A275519}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{A10392DA-640B-4B8B-A2C6-ECCD2A275519}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{A10392DA-640B-4B8B-A2C6-ECCD2A275519}.Debug|x86.ActiveCfg = Debug|x86
+		{A10392DA-640B-4B8B-A2C6-ECCD2A275519}.Debug|x86.Build.0 = Debug|x86
+		{A10392DA-640B-4B8B-A2C6-ECCD2A275519}.Release|Any CPU.ActiveCfg = Release|x86
+		{A10392DA-640B-4B8B-A2C6-ECCD2A275519}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{A10392DA-640B-4B8B-A2C6-ECCD2A275519}.Release|Mixed Platforms.Build.0 = Release|x86
+		{A10392DA-640B-4B8B-A2C6-ECCD2A275519}.Release|x86.ActiveCfg = Release|x86
+		{A10392DA-640B-4B8B-A2C6-ECCD2A275519}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
