@@ -38,8 +38,10 @@ Public Class Registro
         Try
             'Exclui um valor de uma sub key
             Dim delKey As RegistryKey = Registry.CurrentUser.OpenSubKey("Software\\DevelopmentSolutions", True)
-            delKey.DeleteValue("Key")
-            delKey.Close()
+            If delKey.ValueCount > 0 Then
+                delKey.DeleteValue("Key")
+                delKey.Close()
+            End If
         Catch ex As Exception
             Throw New Exception(ex.Message)
         End Try
