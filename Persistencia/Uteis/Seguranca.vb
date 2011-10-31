@@ -67,13 +67,13 @@ Public Class Seguranca
 
 #Region " Variáveis "
 
-    Public Shared sLogin As String = "ds_login "
-    Public Shared sSenha As String = "ds_senha "
-    Public Shared sBancoDados As String = "Segtrab "
-    Public Shared sUsuarioInterno As String = "admin "
-    Public Shared sSenhaInterna As String = "admin_senha "
-    Public Shared sUsuarioPadrao As String = "geral "
-    Public Shared sSenhaGeral As String = "geral "
+    Public Shared sLogin As String = "ds_login"
+    Public Shared sSenha As String = "ds_senha"
+    Public Shared sBancoDados As String = "Segtrab"
+    Public Shared sUsuarioInterno As String = "admin"
+    Public Shared sSenhaInterna As String = "admin_senha"
+    Public Shared sUsuarioPadrao As String = "geral"
+    Public Shared sSenhaGeral As String = "geral"
 
 #End Region
 
